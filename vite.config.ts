@@ -13,11 +13,11 @@ export default defineConfig({
         }),
         tailwindcss(),
         wayfinder({
-            command: "php artisan wayfinder:generate",
-            routes: true,
+            patterns: ["routes/**/*.php", "app/**/Http/**/*.php"],
             actions: true,
+            routes: true,
             formVariants: false,
-            patterns: ["routes/**/*.php", "app/**/Http/**/*.php"]
+            command: "php artisan wayfinder:generate",
         }),
         vue({
             template: {
