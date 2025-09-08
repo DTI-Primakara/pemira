@@ -4,7 +4,7 @@ import vue from '@vitejs/plugin-vue';
 import laravel from 'laravel-vite-plugin';
 import { defineConfig } from 'vite';
 
-export default defineConfig(({command})  => ({
+export default defineConfig({
     plugins: [
         laravel({
             input: ['resources/js/app.ts'],
@@ -12,13 +12,13 @@ export default defineConfig(({command})  => ({
             refresh: true,
         }),
         tailwindcss(),
-        // only run wayfinder on dev
-        ...(command === 'serve'
-            ?[
-            wayfinder({
-                formVariants: true,
-            }),
-            ] : []),
+        wayfinder({
+            command: "php artisan wayfinder:generate",
+            routes: false,
+            actions: true,
+            formVariants: false,
+            patterns: ["routes/**/*.php"]
+        }),
         vue({
             template: {
                 transformAssetUrls: {
@@ -28,4 +28,4 @@ export default defineConfig(({command})  => ({
             },
         }),
     ],
-}));
+});
