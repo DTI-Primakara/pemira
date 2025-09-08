@@ -15,6 +15,18 @@ Route::get('history', function () {
     return Inertia::render('History');
 })->middleware(['auth', 'verified'])->name('history');
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
+    Route::get('history', function () {{
+        return Inertia::render('History');
+    }})->name('history');
+    Route::get('kandidat', function () {
+        return Inertia::render('Kandidat');
+    })->name('kandidat');
+});
+
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
