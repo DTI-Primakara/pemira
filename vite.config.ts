@@ -12,9 +12,7 @@ export default defineConfig({
             refresh: true,
         }),
         tailwindcss(),
-        wayfinder({
-            formVariants: false,
-        }),
+        wayfinder(),
         vue({
             template: {
                 transformAssetUrls: {
