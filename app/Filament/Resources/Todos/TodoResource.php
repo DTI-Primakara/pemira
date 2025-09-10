@@ -18,7 +18,7 @@ class TodoResource extends Resource
 {
     protected static ?string $model = Todo::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::InformationCircle;
 
     public static function form(Schema $schema): Schema
     {
