@@ -3,7 +3,7 @@ import { Link } from '@inertiajs/vue3';
 </script>
 
 <template>
-    <nav class="fixed top-0 left-0 flex w-full items-center justify-center bg-white px-10 py-4">
+    <nav class="fixed top-0 left-0 z-50 flex w-full items-center justify-center bg-white px-10 py-4">
         <div class="container flex w-full max-w-7xl items-center justify-between gap-4">
             <Link href="/" class="flex items-start justify-start">
                 <img src="/images/logo-color.svg" alt="logo color pemira" class="h-12" />
