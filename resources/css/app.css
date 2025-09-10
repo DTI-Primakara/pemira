@@ -172,3 +172,65 @@ body {
         @apply bg-background text-foreground;
     }
 }
+
+.rotate-clock {
+    animation-name: rotate-clock;
+    animation-duration: 60s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.rotate-counter-clock {
+    animation-name: rotate-counter-clock;
+    animation-duration: 60s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.linear-move-left {
+    animation-name: linear-move-left;
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.linear-move-right {
+    animation-name: linear-move-right;
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes rotate-clock {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotate-counter-clock {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(-360deg);
+    }
+}
+@keyframes linear-move-right {
+    0% {
+        transform: translateX(0px);
+    }
+    100% {
+        transform: translateX(-300px);
+    }
+}
+@keyframes linear-move-left {
+    0% {
+        transform: translateX(0px);
+    }
+    100% {
+        transform: translateX(300px);
+    }
+}
