@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-import { dashboard, guide } from '@/routes';
+import { dashboard} from '@/routes';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head} from '@inertiajs/vue3';
 import VotingCta from '@/components/sections/dashboard/VotingCta.vue';
 import ConfirmVoting from '@/components/sections/dashboard/ConfirmVoting.vue';
 

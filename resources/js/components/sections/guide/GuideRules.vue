@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { Button } from '@/components/ui/button';
 import { ref } from 'vue';
+import { Link } from '@inertiajs/vue3';
 import GuideCard from './GuideCard.vue';
-import {Button} from '@/components/ui/button';
+import { voting } from '@/routes';
 
 const guideItems = ref([
     {
@@ -33,15 +35,19 @@ const guideItems = ref([
         desc: 'Setiap suara mahasiswa menentukan arah kepemimpinan kampus ke depan. Gunakan kesempatan ini untuk berkontribusi dalam membangun masa depan yang lebih baik.',
         iconUrl: '/icon/guide-5.svg',
         iconAlt: 'guide-5',
-    }
+    },
 ]);
 </script>
 
 <template>
-    <div class="max-w-3xl mx-auto">
+    <div class="mx-auto max-w-3xl">
         <div class="text-center">
-            <h1 class="font-unbounded text-3xl md:text-5xl font-bold text-slate-900 dark:text-white">MINI TOUR <span class="text-primary">GUIDE</span></h1>
-            <p class="mt-3 text-sm md:text-base text-slate-600 dark:text-slate-400">Berikut merupakan panduan tata cara melakukan e-voting pada PEMIRA 2025</p>
+            <h1 class="font-unbounded text-3xl font-bold text-slate-900 md:text-5xl dark:text-white">
+                MINI TOUR <span class="text-primary">GUIDE</span>
+            </h1>
+            <p class="mt-3 text-sm text-slate-600 md:text-base dark:text-slate-400">
+                Berikut merupakan panduan tata cara melakukan e-voting pada PEMIRA 2025
+            </p>
         </div>
 
         <div class="mt-10 space-y-4">
@@ -53,12 +59,13 @@ const guideItems = ref([
                 variant="default"
                 :icon-url="item.iconUrl"
                 :icon-alt="item.iconAlt"
-
             />
         </div>
 
-        <div class="mt-12 text-center flex justify-center md:justify-end mb-12">
-            <Button font="unbounded" class="uppercase">Mulai sekarang</Button>
+        <div class="mt-12 mb-12 flex justify-center text-center md:justify-end">
+            <Link :href="voting().url">
+                <Button font="unbounded" class="uppercase">Mulai sekarang</Button>
+            </Link>
         </div>
     </div>
 </template>
