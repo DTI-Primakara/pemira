@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-import { dashboard } from '@/routes';
+import { dashboard} from '@/routes';
 import { type BreadcrumbItem } from '@/types';
-import { Head } from '@inertiajs/vue3';
+import { Head} from '@inertiajs/vue3';
 import VotingCta from '@/components/sections/dashboard/VotingCta.vue';
+import ConfirmVoting from '@/components/sections/dashboard/ConfirmVoting.vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -20,7 +21,7 @@ interface StatusVoting {
 }
 
 const statusVoting: StatusVoting = {
-    open: false,
+    open: true,
     doneVote: false,
     ended: false,
 };
@@ -42,9 +43,9 @@ const statusVoting: StatusVoting = {
                     class="relative col-span-3 flex max-h-[22rem] items-center overflow-hidden rounded-lg border border-slate-200/70 bg-[#0047FF] p-8 md:p-12 dark:border-slate-800/70"
                 >
                     <div class="absolute -top-15 -right-25 z-0">
-                        <img src="/images/star.svg" class="h-full" alt="star"/>
+                        <img src="/images/star.svg" class="h-full" alt="star" />
                     </div>
-                    <div class="absolute right-72 bottom-0  md:-bottom-15 md:right-72 z-0">
+                    <div class="absolute right-72 bottom-0 z-0 md:right-72 md:-bottom-15">
                         <img src="/images/star.svg" class="h-full" alt="star" />
                     </div>
                     <div class="grid w-full items-center md:grid-cols-3">
@@ -68,7 +69,7 @@ const statusVoting: StatusVoting = {
                                 <img
                                     src="https://i.pinimg.com/736x/ac/ad/1d/acad1d464d090831b64890cae952e91e.jpg"
                                     alt="Placeholder Pemira 2025"
-                                    class="rounded-2xl aspect-3/2 object-cover"
+                                    class="aspect-3/2 rounded-2xl object-cover"
                                 />
                             </div>
                         </div>
@@ -79,13 +80,18 @@ const statusVoting: StatusVoting = {
             <h1 class="scroll-m-20 font-unbounded text-xl font-semibold tracking-tight">Dashboard</h1>
 
             <template v-if="statusVoting.open">
-                <VotingCta
-                    variant="default"
-                    title="Start Vote Now"
-                    desc="Voting masih berlangsung"
-                    icon="/images/join-vote.svg"
-                    icon-alt="join-vote"
-                />
+                <ConfirmVoting>
+                    <template #trigger>
+                            <VotingCta
+                                variant="default"
+                                title="Start Vote Now"
+                                desc="Voting masih berlangsung"
+                                icon="/images/join-vote.svg"
+                                icon-alt="join-vote"
+                            />
+
+                    </template>
+                </ConfirmVoting>
             </template>
 
             <template v-else-if="statusVoting.doneVote">

@@ -25,6 +25,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('kandidat', function () {
         return Inertia::render('Kandidat');
     })->name('kandidat');
+    Route::get('guide', function () {
+        return Inertia::render('TourGuide');
+    })->name('guide');
+    Route::get('voting', function () {
+        return Inertia::render('Voting');
+    })->name('voting');
 });
 
 
