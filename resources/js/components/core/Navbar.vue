@@ -1,5 +1,14 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
+import { defineProps } from 'vue';
+
+interface Props {
+    ssoUri: string;
+    clientId: string;
+    redirectUri: string;
+}
+
+const props = defineProps<Props>();
 </script>
 
 <template>
@@ -16,7 +25,16 @@ import { Link } from '@inertiajs/vue3';
                     <Link href="" class="font-dmsans text-base opacity-80 hover:opacity-100">Timeline</Link>
                     <Link href="" class="font-dmsans text-base opacity-80 hover:opacity-100">Contact</Link>
                 </div>
-                <a href="login">
+                <a
+                    :href="
+                        props.ssoUri +
+                        '/sso/oauth/authorize?client_id=' +
+                        props.clientId +
+                        '&redirect_uri=' +
+                        props.redirectUri +
+                        '&response_type=code&scope=*'
+                    "
+                >
                     <button class="cursor-pointer bg-[#4342FF] px-5 py-3 font-unbounded text-sm text-white hover:bg-[#1c1cad]">VOTE NOW</button>
                 </a>
             </div>

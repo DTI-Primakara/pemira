@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { Button } from '@/components/ui/button';
-import { ref } from 'vue';
-import { Link } from '@inertiajs/vue3';
-import GuideCard from './GuideCard.vue';
 import { voting } from '@/routes';
+import { Link } from '@inertiajs/vue3';
+import { ref } from 'vue';
+import GuideCard from './GuideCard.vue';
 
 const guideItems = ref([
     {
@@ -42,9 +42,7 @@ const guideItems = ref([
 <template>
     <div class="mx-auto max-w-3xl">
         <div class="text-center">
-            <h1 class="font-unbounded text-3xl font-bold text-slate-900 md:text-5xl dark:text-white">
-                MINI TOUR <span class="text-primary">GUIDE</span>
-            </h1>
+            <h1 class="font-unbounded text-3xl font-bold text-slate-900 md:text-5xl">MINI TOUR <span class="text-primary">GUIDE</span></h1>
             <p class="mt-3 text-sm text-slate-600 md:text-base dark:text-slate-400">
                 Berikut merupakan panduan tata cara melakukan e-voting pada PEMIRA 2025
             </p>

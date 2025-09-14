@@ -1,7 +1,17 @@
 <script setup lang="ts">
 import Navbar from '@/components/core/Navbar.vue';
 import { initLenis } from '@/lib/lenis';
-import { onMounted } from 'vue';
+import { defineProps, onMounted } from 'vue';
+
+interface Props {
+    ssoUri: string;
+    clientId: string;
+    redirectUri: string;
+}
+
+const props = defineProps<Props>();
+
+console.log(props.clientId);
 
 onMounted(() => {
     initLenis();
@@ -10,7 +20,7 @@ onMounted(() => {
 
 <template>
     <div class="flex min-h-screen w-full flex-col items-center justify-start bg-white">
-        <Navbar />
+        <Navbar :sso-uri="props.ssoUri" :client-id="props.clientId" :redirect-uri="props.redirectUri" />
 
         <!-- START HERO -->
         <section class="relative flex w-full items-center justify-start overflow-hidden bg-white pt-36">
