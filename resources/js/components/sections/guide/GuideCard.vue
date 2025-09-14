@@ -2,15 +2,18 @@
 import { computed } from 'vue';
 
 // Mendefinisikan props yang diterima oleh komponen
-const props = withDefaults(defineProps<{
-    title: string,
-    desc: string,
-    iconUrl: string,
-    iconAlt: string,
-    variant?: 'default' | 'success' | 'error' | 'disabled',
-}>(), {
-    variant: 'disabled',
-});
+const props = withDefaults(
+    defineProps<{
+        title: string;
+        desc: string;
+        iconUrl: string;
+        iconAlt: string;
+        variant?: 'default' | 'success' | 'error' | 'disabled';
+    }>(),
+    {
+        variant: 'disabled',
+    },
+);
 
 // Logika untuk mengubah warna berdasarkan prop 'variant'
 const variantColors = computed(() => {
@@ -18,7 +21,7 @@ const variantColors = computed(() => {
         case 'success':
             return {
                 border: 'stroke-green-400 dark:stroke-green-400',
-                background: 'bg-green-400/5 dark:bg-green-400/5'
+                background: 'bg-green-400/5 dark:bg-green-400/5',
             };
         case 'error':
             return {
@@ -41,21 +44,35 @@ const variantColors = computed(() => {
 </script>
 
 <template>
-    <div :class="variantColors.background" class="relative w-full rounded-xl flex flex-col sm:flex-row justify-start items-start space-y-4 md:items-center p-6 text-left">
+    <div
+        :class="variantColors.background"
+        class="relative flex w-full flex-col items-start justify-start space-y-4 rounded-xl p-6 text-left sm:flex-row md:items-center"
+    >
         <!-- border -->
-        <svg class="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="1" y="1" width="calc(100% - 2px)" height="calc(100% - 2px)" rx="11" ry="11" fill="none" :class="variantColors.border" stroke-width="2" stroke-dasharray="12 8" />
+        <svg class="pointer-events-none absolute inset-0 h-full w-full" xmlns="http://www.w3.org/2000/svg">
+            <rect
+                x="1"
+                y="1"
+                width="calc(100% - 2px)"
+                height="calc(100% - 2px)"
+                rx="11"
+                ry="11"
+                fill="none"
+                :class="variantColors.border"
+                stroke-width="2"
+                stroke-dasharray="12 8"
+            />
         </svg>
 
         <!-- icon -->
-        <div class="flex-shrink-0  w-10 h-10 rounded-md bg-slate-200 dark:bg-slate-700 mr-5">
-            <img :src="iconUrl" :alt="iconAlt">
+        <div class="mr-5 h-10 w-10 flex-shrink-0 rounded-md bg-slate-200 dark:bg-slate-700">
+            <img :src="iconUrl" :alt="iconAlt" />
         </div>
 
         <!-- teks -->
         <div>
-            <h3 class="font-unbounded text-lg font-bold text-slate-800 dark:text-white">{{ title }}</h3>
-            <p class="font-dmsans text-slate-500 dark:text-slate-400 mt-1 text-sm leading-relaxed">{{ desc }}</p>
+            <h3 class="font-unbounded text-lg font-bold text-slate-800">{{ title }}</h3>
+            <p class="mt-1 font-dmsans text-sm leading-relaxed text-slate-500 dark:text-slate-400">{{ desc }}</p>
         </div>
     </div>
 </template>

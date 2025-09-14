@@ -2,11 +2,11 @@
 import { computed } from 'vue';
 
 const props = defineProps<{
-    title: string,
-    desc: string,
-    icon: string,
-    iconAlt: string,
-    variant: 'default' | 'success' | 'error' | 'disabled',
+    title: string;
+    desc: string;
+    icon: string;
+    iconAlt: string;
+    variant: 'default' | 'success' | 'error' | 'disabled';
 }>();
 
 const variantColors = computed(() => {
@@ -14,7 +14,7 @@ const variantColors = computed(() => {
         case 'success':
             return {
                 border: 'stroke-green-400 dark:stroke-green-400',
-                background: 'bg-green-400/5 dark:bg-green/5'
+                background: 'bg-green-400/5 dark:bg-green/5',
             };
         case 'error':
             return {
@@ -37,19 +37,33 @@ const variantColors = computed(() => {
 </script>
 
 <template>
-    <div :class="variantColors.background" class="relative cursor-pointer max-h-[22rem]  flex-1 rounded-xl flex flex-col items-center justify-center p-8 text-center">
+    <div
+        :class="variantColors.background"
+        class="relative flex max-h-[22rem] flex-1 cursor-pointer flex-col items-center justify-center rounded-xl p-8 text-center"
+    >
         <!-- dashed border -->
-        <svg class="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="1" y="1" width="calc(100% - 2px)" height="calc(100% - 2px)" rx="11" ry="11" fill="none" :class="variantColors.border" stroke-width="2" stroke-dasharray="20 15" />
+        <svg class="pointer-events-none absolute inset-0 h-full w-full" xmlns="http://www.w3.org/2000/svg">
+            <rect
+                x="1"
+                y="1"
+                width="calc(100% - 2px)"
+                height="calc(100% - 2px)"
+                rx="11"
+                ry="11"
+                fill="none"
+                :class="variantColors.border"
+                stroke-width="2"
+                stroke-dasharray="20 15"
+            />
         </svg>
 
         <!-- icon -->
         <div class="relative mb-6">
-            <img :src="icon" :alt="iconAlt">
+            <img :src="icon" :alt="iconAlt" />
         </div>
 
         <!-- teks -->
-        <h3 class="font-unbounded text-2xl font-bold text-slate-800 dark:text-white">{{title}}</h3>
-        <p class="font-dmsans text-slate-500 dark:text-slate-400 mt-2">{{desc}}</p>
+        <h3 class="font-unbounded text-2xl font-bold text-slate-800">{{ title }}</h3>
+        <p class="mt-2 font-dmsans text-slate-500 dark:text-slate-400">{{ desc }}</p>
     </div>
 </template>
