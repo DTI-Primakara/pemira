@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 Route::get('/', function () {
+    if (session('user')) {
+        return redirect()->route('dashboard');
+    }
     return Inertia::render('Homepage', [
         'ssoUri' => env('SSO_URI', null),
         'clientId' => env('SSO_CLIENT_ID', null),
@@ -36,7 +39,7 @@ Route::middleware(['sso'])->group(function () {
     })->name('voting');
 });
 
-Route::get('/logout-sso', function () {
+Route::get('/logout', function () {
     session()->flush('user');
     return redirect()->route('home');
 });
