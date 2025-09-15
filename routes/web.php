@@ -3,9 +3,6 @@
 use App\Http\Controllers\Auth\SSOController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 Route::get('/', function () {
     if (session('user')) {
