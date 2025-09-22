@@ -47,10 +47,10 @@ const user = JSON.parse(JSON.stringify(page.props.auth.user)).data;
                                   : 'Night'
                         }}, <span class="text-secondary">{{ user.name }}</span>
                     </h1>
-                    <p class="font-dmsans text-xl text-muted-foreground">Selamat datang kembali di website resmi PEMIRA 2025</p>
+                    <p class="mb-4 font-dmsans text-xl text-muted-foreground">Selamat datang kembali di website resmi PEMIRA 2025</p>
                 </div>
                 <div
-                    class="relative col-span-3 flex max-h-[22rem] items-center overflow-hidden rounded-lg border border-slate-200/70 bg-[#0047FF] p-8 md:p-12 dark:border-slate-800/70"
+                    class="relative col-span-3 mb-4 flex items-center overflow-hidden rounded-lg border border-slate-200/70 bg-[#0047FF] p-8 md:px-12 md:py-16 dark:border-slate-800/70"
                 >
                     <div class="absolute -top-15 -right-25 z-0">
                         <img src="/images/star.svg" class="h-full" alt="star" />
@@ -87,7 +87,7 @@ const user = JSON.parse(JSON.stringify(page.props.auth.user)).data;
                 </div>
             </div>
 
-            <h1 class="scroll-m-20 font-unbounded text-xl font-semibold tracking-tight">Dashboard</h1>
+            <h1 class="scroll-m-20 font-unbounded text-2xl font-semibold tracking-tight">Dashboard</h1>
 
             <template v-if="statusVoting.open">
                 <ConfirmVoting>
