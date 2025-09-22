@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import AppLayout from '@/layouts/AppLayout.vue';
-import { dashboard} from '@/routes';
-import { type BreadcrumbItem } from '@/types';
-import { Head} from '@inertiajs/vue3';
-import VotingCta from '@/components/sections/dashboard/VotingCta.vue';
 import ConfirmVoting from '@/components/sections/dashboard/ConfirmVoting.vue';
+import VotingCta from '@/components/sections/dashboard/VotingCta.vue';
+import AppLayout from '@/layouts/AppLayout.vue';
+import { dashboard } from '@/routes';
+import { type BreadcrumbItem } from '@/types';
+import { Head, usePage } from '@inertiajs/vue3';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -25,6 +25,9 @@ const statusVoting: StatusVoting = {
     doneVote: false,
     ended: false,
 };
+
+const page = usePage();
+const user = JSON.parse(JSON.stringify(page.props.auth.user)).data;
 </script>
 
 <template>
@@ -35,7 +38,14 @@ const statusVoting: StatusVoting = {
             <div class="grid auto-rows-min grid-cols-1 gap-4 md:grid-cols-3">
                 <div class="col-span-3 mt-4 space-y-4">
                     <h1 class="scroll-m-20 font-unbounded text-4xl font-extrabold tracking-tight lg:text-5xl">
-                        Good Morning, <span class="text-secondary">Wiradarma</span>
+                        Good
+                        {{
+                            Number(new Date().toTimeString().slice(0, 2)) >= 6 && Number(new Date().toTimeString().slice(0, 2)) < 12
+                                ? 'Morning'
+                                : Number(new Date().toTimeString().slice(0, 2)) >= 12 && Number(new Date().toTimeString().slice(0, 2)) < 18
+                                  ? 'Afternoon'
+                                  : 'Night'
+                        }}, <span class="text-secondary">{{ user.name }}</span>
                     </h1>
                     <p class="font-dmsans text-xl text-muted-foreground">Selamat datang kembali di website resmi PEMIRA 2025</p>
                 </div>
@@ -82,14 +92,13 @@ const statusVoting: StatusVoting = {
             <template v-if="statusVoting.open">
                 <ConfirmVoting>
                     <template #trigger>
-                            <VotingCta
-                                variant="default"
-                                title="Start Vote Now"
-                                desc="Voting masih berlangsung"
-                                icon="/images/join-vote.svg"
-                                icon-alt="join-vote"
-                            />
-
+                        <VotingCta
+                            variant="default"
+                            title="Start Vote Now"
+                            desc="Voting masih berlangsung"
+                            icon="/images/join-vote.svg"
+                            icon-alt="join-vote"
+                        />
                     </template>
                 </ConfirmVoting>
             </template>
