@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Navbar from '@/components/core/Navbar.vue';
+import Timeline from '@/components/sections/homepage/Timeline.vue';
 import { initLenis } from '@/lib/lenis';
 import { defineProps, onMounted } from 'vue';
 
@@ -151,7 +152,7 @@ onMounted(() => {
         <!-- END ABOUT -->
 
         <!-- START CANDIDATES -->
-        <section class="relative flex w-full flex-col items-center justify-center">
+        <section class="relative mb-30 flex w-full flex-col items-center justify-center">
             <div class="relative flex w-full max-w-7xl flex-col gap-10">
                 <!-- HEAD CONTENT -->
                 <div class="flex w-full flex-row items-center justify-between gap-12">
@@ -237,5 +238,9 @@ onMounted(() => {
             </div>
         </section>
         <!-- END CANDIDATES -->
+
+        <!-- START TIMELINES -->
+        <Timeline />
+        <!-- END TIMELINES -->
     </div>
 </template>
