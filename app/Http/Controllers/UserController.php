@@ -8,18 +8,26 @@ use Inertia\Inertia;
 
 class UserController extends Controller
 {
-    public function validateNIM(string $nim): bool
+    public function validateNIM(string $nim)
     {
         return EligibleUser::where('nim', $nim)->exists();
+    }
+
+    public function getEligibleUser(string $nim)
+    {
+        return EligibleUser::where('nim', $nim)->first();
     }
 
     public function dashboard()
     {
         $nim = session('user')['data']['nim'];
-        if ($nim == null) {
+
+        if (!$nim) {
             return Inertia::render('InvalidNIM');
         }
-        if (!$this->validateNIM($nim)) {
+
+        $user = $this->getEligibleUser($nim);
+        if (!$user) {
             return Inertia::render('InvalidNIM');
         }
 
