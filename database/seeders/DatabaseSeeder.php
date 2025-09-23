@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
         $this->call(RolesSeeder::class);
         $this->call(ProdiSeeder::class);
+        $this->call(EventSeeder::class);
 
         User::factory()->create([
             'name' => 'admin',
