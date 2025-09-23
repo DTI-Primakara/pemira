@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\SSOController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -18,9 +19,8 @@ Route::get('/', function () {
 Route::get('/auth/callback', [SSOController::class, 'callback'])->name('auth.callback');
 
 Route::middleware(['sso'])->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+    Route::get('dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+
     Route::get('history', function () { {
             return Inertia::render('History');
         }
