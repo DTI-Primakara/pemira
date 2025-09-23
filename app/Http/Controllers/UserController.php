@@ -8,11 +8,6 @@ use Inertia\Inertia;
 
 class UserController extends Controller
 {
-    public function validateNIM(string $nim)
-    {
-        return EligibleUser::where('nim', $nim)->exists();
-    }
-
     public function getEligibleUser(string $nim)
     {
         return EligibleUser::where('nim', $nim)->first();
@@ -33,6 +28,7 @@ class UserController extends Controller
 
         return Inertia::render('Dashboard', [
             'user' => Auth::user(),
+            'status' => $user->status
         ]);
     }
 }
