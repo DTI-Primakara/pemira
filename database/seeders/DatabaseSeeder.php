@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
         $this->call(RolesSeeder::class);
+        $this->call(ProdiSeeder::class);
 
         User::factory()->create([
             'name' => 'admin',
@@ -30,6 +31,5 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('test'),
             'roles' => null,
         ]);
-
     }
 }
