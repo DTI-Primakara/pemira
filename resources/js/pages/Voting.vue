@@ -9,14 +9,17 @@ import { computed, ref } from 'vue';
 interface Candidate {
     id: number;
     number: string;
-    name: string;
+    name_candidates: string;
     position: string;
-    imageUrl: string;
+    image: string;
+    vision: string;
+    mission: string;
 }
 
 interface ElectionStep {
     id: number;
     title: string;
+    type: string;
     subtitle: string;
     candidates: Candidate[];
 }
@@ -25,41 +28,17 @@ interface Selections {
     [key: string]: number;
 }
 
-const electionSteps = ref<ElectionStep[]>([
-    {
-        id: 1,
-        title: 'DPM',
-        subtitle: 'Dewan Perwakilan Mahasiswa',
-        candidates: [
-            { id: 101, number: '01', name: 'ARYA', position: 'Calon Ketua DPM', imageUrl: '/images/paslon3.png' },
-            { id: 102, number: '02', name: 'MEDDY', position: 'Calon Ketua DPM', imageUrl: '/images/paslon2.png' },
-        ],
-    },
-    {
-        id: 2,
-        title: 'BEM',
-        subtitle: 'Badan Eksekutif Mahasiswa',
-        candidates: [
-            { id: 201, number: '01', name: 'CANDRA', position: 'Calon Ketua BEM', imageUrl: '/images/paslon2.png' },
-            { id: 202, number: '02', name: 'DINA', position: 'Calon Ketua BEM', imageUrl: '/images/paslon4.png' },
-        ],
-    },
-    {
-        id: 3,
-        title: 'HIMA IF',
-        subtitle: 'Himpunan Mahasiswa Informatika',
-        candidates: [
-            { id: 301, number: '01', name: 'ERIK', position: 'Calon Ketua HIMA IF', imageUrl: '/images/paslon5.png' },
-            { id: 302, number: '02', name: 'FARA', position: 'Calon Ketua HIMA IF', imageUrl: '/images/paslon5.png' },
-        ],
-    },
-]);
+const props = defineProps({
+    events: Array,
+});
+
+const electionSteps = props.events as ElectionStep[];
 
 const currentStepIndex = ref<number>(0);
 const selections = ref<Selections>({});
 
-const currentStepData = computed<ElectionStep>(() => electionSteps.value[currentStepIndex.value]);
-const isLastStep = computed<boolean>(() => currentStepIndex.value === electionSteps.value.length - 1);
+const currentStepData = computed<ElectionStep>(() => electionSteps[currentStepIndex.value]);
+const isLastStep = computed<boolean>(() => currentStepIndex.value === electionSteps.length - 1);
 
 const nextStep = (): void => {
     if (!isLastStep.value) {
@@ -78,9 +57,25 @@ const handleVote = (candidateId: number): void => {
 
 //  menyelesaikan voting
 const finishVote = (): void => {
-    // nnti send data disini
-    router.get(dashboard().url);
-    alert('Terima kasih telah memberikan suara! Pilihan Anda: ' + JSON.stringify(selections.value));
+    const votesPayload = electionSteps.map((step) => ({
+        event_id: step.id,
+        candidate_id: selections.value[step.title],
+    }));
+
+    router.post(
+        '/vote/submit',
+        { votes: votesPayload },
+        {
+            onSuccess: () => {
+                alert('Terima kasih sudah voting!');
+                router.get(dashboard().url);
+            },
+            onError: (errors) => {
+                console.error(errors);
+                alert('Gagal mengirim vote, coba lagi.');
+            },
+        },
+    );
 };
 </script>
 
@@ -95,8 +90,8 @@ const finishVote = (): void => {
                 <h2 class="mt-1 font-unbounded text-4xl font-extrabold tracking-tight text-slate-800 sm:text-5xl">Pilih Kandidatmu <br /></h2>
             </div>
             <div class="mt-12 text-left md:text-right">
-                <h3 class="font-unbounded text-xl font-extrabold text-slate-800 sm:text-4xl">{{ currentStepData.title }}</h3>
-                <p class="mt-1 text-gray-500">{{ currentStepData.subtitle }}</p>
+                <h3 class="font-unbounded text-xl font-extrabold text-slate-800 sm:text-4xl">{{ currentStepData.type }}</h3>
+                <p class="mt-1 text-gray-500">{{ currentStepData.title }}</p>
             </div>
         </header>
 

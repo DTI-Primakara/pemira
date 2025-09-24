@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('number');
             $table->string('vision');
             $table->string('mission');
+            $table->string('position');
             $table->string('image');
             $table->timestamps();
         });

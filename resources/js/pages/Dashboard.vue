@@ -16,18 +16,18 @@ const breadcrumbs: BreadcrumbItem[] = [
 // untuk testing awal
 interface StatusVoting {
     open: boolean;
-    doneVote: boolean;
+    status: 'voted' | 'not voted' | 'passed';
     ended: boolean;
 }
 
-const statusVoting: StatusVoting = {
-    open: true,
-    doneVote: false,
-    ended: false,
-};
-
 const page = usePage();
 const user = JSON.parse(JSON.stringify(page.props.auth.user)).data;
+
+const statusVoting: StatusVoting = {
+    open: true,
+    status: page.props.status as 'voted' | 'not voted' | 'passed',
+    ended: false,
+};
 </script>
 
 <template>
@@ -89,7 +89,7 @@ const user = JSON.parse(JSON.stringify(page.props.auth.user)).data;
 
             <h1 class="scroll-m-20 font-unbounded text-2xl font-semibold tracking-tight">Dashboard</h1>
 
-            <template v-if="statusVoting.open">
+            <template v-if="statusVoting.open && statusVoting.status === 'not voted'">
                 <ConfirmVoting>
                     <template #trigger>
                         <VotingCta
@@ -103,7 +103,7 @@ const user = JSON.parse(JSON.stringify(page.props.auth.user)).data;
                 </ConfirmVoting>
             </template>
 
-            <template v-else-if="statusVoting.doneVote">
+            <template v-else-if="statusVoting.open && statusVoting.status === 'voted'">
                 <VotingCta
                     variant="success"
                     title="You Have Voted"
@@ -113,7 +113,7 @@ const user = JSON.parse(JSON.stringify(page.props.auth.user)).data;
                 />
             </template>
 
-            <template v-else-if="statusVoting.ended">
+            <template v-else-if="statusVoting.status == 'passed'">
                 <VotingCta
                     variant="error"
                     title="Voting Closed"
