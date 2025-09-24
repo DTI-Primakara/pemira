@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\SSOController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -25,15 +26,19 @@ Route::middleware(['sso'])->group(function () {
             return Inertia::render('History');
         }
     })->name('history');
+
     Route::get('kandidat', function () {
         return Inertia::render('Kandidat');
     })->name('kandidat');
+
     Route::get('guide', function () {
         return Inertia::render('TourGuide');
     })->name('guide');
-    Route::get('voting', function () {
-        return Inertia::render('Voting');
-    })->name('voting');
+
+    Route::get('voting', [VoteController::class, 'getCandidates'])->name('voting');
+
+    Route::post('/vote/submit', [VoteController::class, 'submitVote'])
+        ->name('vote.submit');
 });
 
 Route::get('/logout', function () {
