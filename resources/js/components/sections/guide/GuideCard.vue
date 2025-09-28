@@ -65,14 +65,14 @@ const variantColors = computed(() => {
         </svg>
 
         <!-- icon -->
-        <div class="mr-5 h-10 w-10 flex-shrink-0 rounded-md bg-slate-200 dark:bg-slate-700">
+        <div class="rounded-base mr-5 h-8 w-8 flex-shrink-0 overflow-hidden bg-slate-200 sm:h-8 sm:w-8 md:h-10 md:w-10 dark:bg-slate-700">
             <img :src="iconUrl" :alt="iconAlt" />
         </div>
 
         <!-- teks -->
         <div>
-            <h3 class="font-unbounded text-lg font-bold text-slate-800">{{ title }}</h3>
-            <p class="mt-1 font-dmsans text-sm leading-relaxed text-slate-500 dark:text-slate-400">{{ desc }}</p>
+            <h3 class="font-unbounded text-base font-bold text-slate-800 md:text-lg">{{ title }}</h3>
+            <p class="mt-1 font-dmsans text-xs leading-relaxed text-slate-500 sm:text-sm dark:text-slate-400">{{ desc }}</p>
         </div>
     </div>
 </template>

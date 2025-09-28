@@ -1,9 +1,8 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
-    <div class="container mx-auto px-4 h-full mt-4">
-        <slot/>
+    <div class="container mx-auto mt-4 h-full px-2 sm:px-4">
+        <slot />
     </div>
 </template>
 

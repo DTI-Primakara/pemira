@@ -103,7 +103,7 @@ const finishVote = (): void => {
             @vote="handleVote"
         />
 
-        <footer class="mt-12 flex justify-end">
+        <footer class="mt-12 flex justify-end pb-20">
             <Button @click="nextStep" size="lg" font="unbounded" class="rounded-none">
                 {{ isLastStep ? 'FINISH VOTE' : 'PEMILIHAN SELANJUTNYA' }}
             </Button>
