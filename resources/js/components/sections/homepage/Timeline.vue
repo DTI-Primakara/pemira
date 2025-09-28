@@ -59,10 +59,12 @@ const timelineDatas = [
 </script>
 
 <template>
-    <section class="relative mb-30 flex w-full items-center justify-center">
-        <div class="flex w-full max-w-3xl flex-col items-center justify-center gap-10">
+    <section class="relative mb-16 flex w-full items-center justify-center px-6 md:mb-30 md:px-10">
+        <div class="flex w-full max-w-3xl flex-col items-center justify-center gap-4 md:gap-10">
             <!-- HEAD CONTENT -->
-            <h2 class="relative w-full max-w-lg text-center font-unbounded text-5xl leading-[1.5em] font-bold text-black">
+            <h2
+                class="relative w-full max-w-lg text-center font-unbounded text-2xl leading-[1.5em] font-bold text-black sm:text-3xl md:text-4xl lg:text-5xl"
+            >
                 Our Event’s
                 <span class="text-blue">Timeline</span>
                 <img src="/images/snow-pink.svg" alt="snow pink illustration" class="rotate-counter-clock absolute -top-10 right-0 -rotate-12" />
