@@ -175,6 +175,10 @@ body {
     }
 }
 
+.text-xxs {
+    font-size: 0.525rem;
+}
+
 .text-blue {
     color: #4342ff;
 }
@@ -219,6 +223,12 @@ body {
     animation-iteration-count: infinite;
     animation-timing-function: linear;
 }
+.linear-move {
+    animation-name: linear-move;
+    animation-duration: 60s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
 
 @keyframes rotate-clock {
     0% {
@@ -251,5 +261,13 @@ body {
     }
     100% {
         transform: translateX(300px);
+    }
+}
+@keyframes linear-move {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-50%);
     }
 }
