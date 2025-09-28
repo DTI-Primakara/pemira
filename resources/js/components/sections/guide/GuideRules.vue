@@ -42,7 +42,9 @@ const guideItems = ref([
 <template>
     <div class="mx-auto max-w-3xl">
         <div class="text-center">
-            <h1 class="font-unbounded text-3xl font-bold text-slate-900 md:text-5xl">MINI TOUR <span class="text-primary">GUIDE</span></h1>
+            <h1 class="font-unbounded text-2xl font-bold text-slate-900 sm:text-3xl md:text-5xl">
+                MINI TOUR <span class="text-primary">GUIDE</span>
+            </h1>
             <p class="mt-3 text-sm text-slate-600 md:text-base dark:text-slate-400">
                 Berikut merupakan panduan tata cara melakukan e-voting pada PEMIRA 2025
             </p>
@@ -60,7 +62,7 @@ const guideItems = ref([
             />
         </div>
 
-        <div class="mt-12 mb-12 flex justify-center text-center md:justify-end">
+        <div class="mt-12 mb-12 flex justify-end text-center">
             <Link :href="voting().url">
                 <Button font="unbounded" class="uppercase">Mulai sekarang</Button>
             </Link>
