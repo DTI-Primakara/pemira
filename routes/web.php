@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\SSOController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoteController;
+use App\Http\Middleware\CheckVoterStatus;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -31,11 +32,13 @@ Route::middleware(['sso'])->group(function () {
         return Inertia::render('Kandidat');
     })->name('kandidat');
 
-    Route::get('guide', function () {
-        return Inertia::render('TourGuide');
-    })->name('guide');
+    Route::middleware(CheckVoterStatus::class)->group(function () {
+        Route::get('guide', function () {
+            return Inertia::render('TourGuide');
+        })->name('guide');
 
-    Route::get('voting', [VoteController::class, 'getCandidates'])->name('voting');
+        Route::get('voting', [VoteController::class, 'getCandidates'])->name('voting');
+    });
 
     Route::post('/vote/submit', [VoteController::class, 'submitVote'])
         ->name('vote.submit');

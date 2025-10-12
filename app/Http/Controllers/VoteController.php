@@ -14,24 +14,9 @@ class VoteController extends Controller
     {
         $nim = session('user')['data']['nim'];
 
-        if (!$nim) {
-            return Inertia::render('InvalidNIM');
-        }
-
-        $user = EligibleUser::where('nim', $nim)->first();
-
-        if (!$user) {
-            return Inertia::render('InvalidNIM');
-        }
-
-        if ($user->status != 'not voted') {
-            return redirect()->route('dashboard');
-        }
-
         $prodiCode = substr($nim, 2, 4);
 
         $events = Event::whereNull('id_prodi')->orWhere('id_prodi', $prodiCode)->with('candidates')->get();
-        // dd($events);
 
         return Inertia::render('Voting', [
             'events' => $events

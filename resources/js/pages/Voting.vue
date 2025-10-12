@@ -67,7 +67,7 @@ const finishVote = (): void => {
         { votes: votesPayload },
         {
             onSuccess: () => {
-                alert('Terima kasih sudah voting!');
+                // alert('Terima kasih sudah voting!');
                 router.get(dashboard().url);
             },
             onError: (errors) => {
