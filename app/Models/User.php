@@ -52,16 +52,18 @@ class User extends Authenticatable implements FilamentUser
         ];
     }
 
-    public function role(): BelongsTo{
+    public function role(): BelongsTo
+    {
         return $this->belongsTo(Role::class, 'roles', 'id_roles');
     }
 
 
     public function canAccessPanel(Panel $panel): bool
     {
-        if($this->role){
-            return $this->role->id_roles === 1 || $this->role->id_roles === 2;
+        if ($this->role) {
+            return in_array($this->role->id_roles, [1, 2]);
         }
+
         return false;
     }
 }
