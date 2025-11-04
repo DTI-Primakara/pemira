@@ -2,14 +2,12 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\EligibleUser;
-use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckVoterStatus
+class OauthLoginCheck
 {
     /**
      * Handle an incoming request.
@@ -18,10 +16,8 @@ class CheckVoterStatus
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $user = Auth::user()->userVote;
-
-        if ($user->status != 'not voted') {
-            return redirect()->route('dashboard');
+        if (!Auth::check()) {
+            return redirect()->route('home');
         }
 
         return $next($request);

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable implements FilamentUser
 {
@@ -24,6 +25,7 @@ class User extends Authenticatable implements FilamentUser
      */
     protected $fillable = [
         'name',
+        'nim',
         'email',
         'password',
         'id_roles',
@@ -57,6 +59,10 @@ class User extends Authenticatable implements FilamentUser
         return $this->belongsTo(Role::class, 'roles', 'id_roles');
     }
 
+    public function userVote(): HasOne
+    {
+        return $this->hasOne(UserVote::class);
+    }
 
     public function canAccessPanel(Panel $panel): bool
     {

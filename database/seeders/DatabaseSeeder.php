@@ -33,5 +33,13 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('test'),
             'roles' => null,
         ]);
+
+        User::factory()->create([
+            'name' => 'Wiradarma',
+            'nim' => '2401020049',
+            'email' => 'wiradarma002@gmail.com',
+            'password' => Hash::make('sapimandi'),
+            'roles' => null,
+        ]);
     }
 }

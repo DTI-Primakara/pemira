@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\EligibleUser;
 use App\Models\Event;
+use App\Models\User;
 use App\Models\Vote;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class VoteController extends Controller
 {
     public function getCandidates()
     {
-        $nim = session('user')['data']['nim'];
+        $nim = Auth::user()->nim;
 
         $prodiCode = substr($nim, 2, 4);
 
@@ -25,25 +27,15 @@ class VoteController extends Controller
 
     public function submitVote(Request $request)
     {
-        $nim = session('user')['data']['nim'];
-
-        if (!$nim) {
-            return Inertia::render('InvalidNIM');
-        }
-
         $request->validate([
             'votes' => 'required|array|min:1',
             'votes.*.event_id' => 'required|exists:events,id',
             'votes.*.candidate_id' => 'required|exists:candidates,id',
         ]);
 
-        $user = EligibleUser::where('nim', $nim)->first();
+        $status = Auth::user()->userVote->status;
 
-        if (!$user) {
-            return Inertia::render('InvalidNIM');
-        }
-
-        if ($user->status != 'not voted') {
+        if ($status != 'not voted') {
             return Inertia::render('InvalidNIM');
         }
 
@@ -55,7 +47,10 @@ class VoteController extends Controller
                     'voted_at' => now(),
                 ]);
             }
-            $user->update(['status' => 'voted']);
+            User::find(Auth::id())->userVote->update(
+                ['status' => 'voted']
+            );
+            return redirect()->route('dashboard')->with('success', 'Vote submitted successfully.');
         } catch (\Throwable $th) {
             return back()->withErrors(['msg' => $th]);
         }
