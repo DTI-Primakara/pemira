@@ -4,7 +4,8 @@ import VotingCta from '@/components/sections/dashboard/VotingCta.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { dashboard } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
-import { Head, usePage } from '@inertiajs/vue3';
+import { usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -20,8 +21,12 @@ interface StatusVoting {
     ended: boolean;
 }
 
+interface User {
+    name: string;
+}
+
 const page = usePage();
-const user = JSON.parse(JSON.stringify(page.props.auth.user)).data;
+const user = computed(() => page.props.user as User).value;
 
 const statusVoting: StatusVoting = {
     open: true,

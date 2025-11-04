@@ -1,25 +1,32 @@
 <?php
 
-use App\Http\Controllers\Auth\SSOController;
+use App\Http\Controllers\LogoutUserController;
+use App\Http\Controllers\SocialiteCallbackController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoteController;
+use App\Http\Middleware\CheckVoterStatus;
+use App\Http\Middleware\OauthLoginCheck;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Laravel\Socialite\Socialite;
 
 Route::get('/', function () {
-    if (session('user')) {
+    if (Auth::user()) {
         return redirect()->route('dashboard');
     }
-    return Inertia::render('Homepage', [
-        'ssoUri' => env('SSO_URI', null),
-        'clientId' => env('SSO_CLIENT_ID', null),
-        'redirectUri' => env('SSO_REDIRECT_URI', null)
-    ]);
+    return Inertia::render('Homepage');
 })->name('home');
 
-Route::get('/auth/callback', [SSOController::class, 'callback'])->name('auth.callback');
+Route::prefix('/auth')->group(function () {
+    Route::get('/redirect', function () {
+        return Socialite::driver('google')->redirect();
+    });
+    Route::get('/callback', [SocialiteCallbackController::class, 'handleCallback']);
+});
 
-Route::middleware(['sso'])->group(function () {
+
+Route::middleware(OauthLoginCheck::class)->group(function () {
     Route::get('dashboard', [UserController::class, 'dashboard'])->name('dashboard');
 
     Route::get('history', function () { {
@@ -31,20 +38,19 @@ Route::middleware(['sso'])->group(function () {
         return Inertia::render('Kandidat');
     })->name('kandidat');
 
-    Route::get('guide', function () {
-        return Inertia::render('TourGuide');
-    })->name('guide');
+    Route::middleware(CheckVoterStatus::class)->group(function () {
+        Route::get('guide', function () {
+            return Inertia::render('TourGuide');
+        })->name('guide');
 
-    Route::get('voting', [VoteController::class, 'getCandidates'])->name('voting');
+        Route::get('voting', [VoteController::class, 'getCandidates'])->name('voting');
+    });
 
     Route::post('/vote/submit', [VoteController::class, 'submitVote'])
         ->name('vote.submit');
 });
 
-Route::get('/logout', function () {
-    session()->flush('user');
-    return redirect()->route('home');
-});
+Route::get('/logout', [LogoutUserController::class, 'logout']);
 
 
 require __DIR__ . '/settings.php';

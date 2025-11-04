@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\EligibleUser;
+use App\Models\UserVote;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
@@ -15,20 +16,17 @@ class UserController extends Controller
 
     public function dashboard()
     {
-        $nim = session('user')['data']['nim'];
 
-        if (!$nim) {
-            return Inertia::render('InvalidNIM');
-        }
+        $user = Auth::user();
 
-        $user = $this->getEligibleUser($nim);
-        if (!$user) {
-            return Inertia::render('InvalidNIM');
-        }
+        $status = UserVote::firstOrCreate(
+            ['user_id' => $user->id],
+            ['status' => 'not voted']
+        )->status;
 
         return Inertia::render('Dashboard', [
-            'user' => Auth::user(),
-            'status' => $user->status
+            'user' => $user,
+            'status' => $status,
         ]);
     }
 }

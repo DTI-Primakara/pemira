@@ -10,8 +10,6 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/components/ui/dialog';
-import { guide } from '@/routes';
-import { Link } from '@inertiajs/vue3';
 </script>
 
 <template>
@@ -21,18 +19,18 @@ import { Link } from '@inertiajs/vue3';
         </DialogTrigger>
         <DialogContent class="space-y-2 sm:max-w-md">
             <DialogHeader>
-                <DialogTitle class="font-unbounded">Kamu Siap Memulai?</DialogTitle>
+                <DialogTitle class="font-unbounded">Login dengan Akun Siska</DialogTitle>
                 <DialogDescription class="mt-2">
-                    Pastikan kamu siap memilih. Pilihanmu bersifat final dan tidak dapat diubah lagi.
+                    Proses login akan menggunakan email google yang terhubung dengan akun Siska kamu.
                 </DialogDescription>
             </DialogHeader>
             <DialogFooter class="sm:justify-start">
                 <DialogClose as-child>
                     <Button type="button" variant="outline" font="dmsans" rounded="lg"> Kembali </Button>
                 </DialogClose>
-                <Link :href="guide().url">
+                <a href="/auth/redirect">
                     <Button type="button" class="w-full" variant="default" font="dmsans" rounded="lg"> Ya, lanjutkan </Button>
-                </Link>
+                </a>
             </DialogFooter>
         </DialogContent>
     </Dialog>

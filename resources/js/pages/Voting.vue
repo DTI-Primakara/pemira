@@ -48,6 +48,11 @@ const nextStep = (): void => {
     }
 };
 
+const isCandidateSelected = computed(() => {
+    const stepTitle = currentStepData.value.title;
+    return !!selections.value[stepTitle];
+});
+
 // nyimpen kandidat
 const handleVote = (candidateId: number): void => {
     const stepTitle = currentStepData.value.title;
@@ -67,7 +72,7 @@ const finishVote = (): void => {
         { votes: votesPayload },
         {
             onSuccess: () => {
-                alert('Terima kasih sudah voting!');
+                // alert('Terima kasih sudah voting!');
                 router.get(dashboard().url);
             },
             onError: (errors) => {
@@ -104,7 +109,7 @@ const finishVote = (): void => {
         />
 
         <footer class="mt-12 flex justify-end pb-20">
-            <Button @click="nextStep" size="lg" font="unbounded" class="rounded-none">
+            <Button @click="nextStep" :disabled="!isCandidateSelected" size="lg" font="unbounded" class="rounded-none">
                 {{ isLastStep ? 'FINISH VOTE' : 'PEMILIHAN SELANJUTNYA' }}
             </Button>
         </footer>

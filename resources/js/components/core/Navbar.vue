@@ -1,14 +1,6 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { defineProps } from 'vue';
-
-interface Props {
-    ssoUri: string;
-    clientId: string;
-    redirectUri: string;
-}
-
-const props = defineProps<Props>();
+import LoginModal from '../sections/homepage/LoginModal.vue';
 </script>
 
 <template>
@@ -25,22 +17,15 @@ const props = defineProps<Props>();
                     <Link href="" class="font-dmsans text-base opacity-80 hover:opacity-100">Timeline</Link>
                     <Link href="" class="font-dmsans text-base opacity-80 hover:opacity-100">Contact</Link>
                 </div>
-                <a
-                    :href="
-                        props.ssoUri +
-                        '/sso/oauth/authorize?client_id=' +
-                        props.clientId +
-                        '&redirect_uri=' +
-                        props.redirectUri +
-                        '&response_type=code&scope=*'
-                    "
-                >
-                    <button
-                        class="flex cursor-pointer items-center justify-center gap-2 bg-[#4342FF] px-5 py-3 font-unbounded text-xs text-white hover:bg-[#1c1cad] md:text-sm"
-                    >
-                        VOTE NOW <img src="/images/arrow-white.svg" alt="arrow white icon" class="hidden w-3 sm:flex" />
-                    </button>
-                </a>
+                <LoginModal>
+                    <template #trigger>
+                        <button
+                            class="flex cursor-pointer items-center justify-center gap-2 bg-[#4342FF] px-5 py-3 font-unbounded text-xs text-white hover:bg-[#1c1cad] md:text-sm"
+                        >
+                            VOTE NOW <img src="/images/arrow-white.svg" alt="arrow white icon" class="w-3" />
+                        </button>
+                    </template>
+                </LoginModal>
             </div>
         </div>
     </nav>

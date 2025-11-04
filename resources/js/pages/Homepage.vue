@@ -1,18 +1,9 @@
 <script setup lang="ts">
 import Navbar from '@/components/core/Navbar.vue';
+import LoginModal from '@/components/sections/homepage/LoginModal.vue';
 import Timeline from '@/components/sections/homepage/Timeline.vue';
 import { initLenis } from '@/lib/lenis';
-import { defineProps, onMounted } from 'vue';
-
-interface Props {
-    ssoUri: string;
-    clientId: string;
-    redirectUri: string;
-}
-
-const props = defineProps<Props>();
-
-console.log(props.clientId);
+import { onMounted } from 'vue';
 
 onMounted(() => {
     initLenis();
@@ -21,7 +12,7 @@ onMounted(() => {
 
 <template>
     <div class="flex min-h-screen w-full flex-col items-center justify-start bg-white">
-        <Navbar :sso-uri="props.ssoUri" :client-id="props.clientId" :redirect-uri="props.redirectUri" />
+        <Navbar />
 
         <!-- START HERO -->
         <section class="relative mb-16 flex w-full items-center justify-start overflow-hidden bg-white pt-36 md:mb-30">
@@ -47,11 +38,15 @@ onMounted(() => {
                         Pemira 2025 adalah saatnya mahasiswa Primakara menentukan pemimpin baru. Mari gunakan suara kita untuk membawa kampus menuju
                         masa depan yang lebih baik
                     </p>
-                    <button
-                        class="mt-6 flex cursor-pointer items-center justify-center gap-2 bg-[#4342FF] px-5 py-3 font-unbounded text-xs text-white hover:bg-[#1c1cad] md:text-sm"
-                    >
-                        VOTE NOW <img src="/images/arrow-white.svg" alt="arrow white icon" class="w-3" />
-                    </button>
+                    <LoginModal>
+                        <template #trigger>
+                            <button
+                                class="mt-6 flex cursor-pointer items-center justify-center gap-2 bg-[#4342FF] px-5 py-3 font-unbounded text-xs text-white hover:bg-[#1c1cad] md:text-sm"
+                            >
+                                VOTE NOW <img src="/images/arrow-white.svg" alt="arrow white icon" class="w-3" />
+                            </button>
+                        </template>
+                    </LoginModal>
                 </div>
                 <div class="relative mt-32 flex w-full flex-col items-center justify-center">
                     <div

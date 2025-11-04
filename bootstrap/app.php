@@ -21,10 +21,6 @@ return Application::configure(basePath: dirname(__DIR__))
             HandleInertiaRequests::class,
             AddLinkHeadersForPreloadedAssets::class,
         ]);
-
-        $middleware->alias([
-            'sso' => \App\Http\Middleware\CheckSSOSession::class,
-        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
