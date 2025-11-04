@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
+import LoginModal from '../sections/homepage/LoginModal.vue';
 </script>
 
 <template>
@@ -16,13 +17,15 @@ import { Link } from '@inertiajs/vue3';
                     <Link href="" class="font-dmsans text-base opacity-80 hover:opacity-100">Timeline</Link>
                     <Link href="" class="font-dmsans text-base opacity-80 hover:opacity-100">Contact</Link>
                 </div>
-                <a href="/auth/redirect">
-                    <button
-                        class="flex cursor-pointer items-center justify-center gap-2 bg-[#4342FF] px-5 py-3 font-unbounded text-xs text-white hover:bg-[#1c1cad] md:text-sm"
-                    >
-                        VOTE NOW <img src="/images/arrow-white.svg" alt="arrow white icon" class="hidden w-3 sm:flex" />
-                    </button>
-                </a>
+                <LoginModal>
+                    <template #trigger>
+                        <button
+                            class="flex cursor-pointer items-center justify-center gap-2 bg-[#4342FF] px-5 py-3 font-unbounded text-xs text-white hover:bg-[#1c1cad] md:text-sm"
+                        >
+                            VOTE NOW <img src="/images/arrow-white.svg" alt="arrow white icon" class="w-3" />
+                        </button>
+                    </template>
+                </LoginModal>
             </div>
         </div>
     </nav>

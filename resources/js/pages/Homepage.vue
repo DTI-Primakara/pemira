@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Navbar from '@/components/core/Navbar.vue';
+import LoginModal from '@/components/sections/homepage/LoginModal.vue';
 import Timeline from '@/components/sections/homepage/Timeline.vue';
 import { initLenis } from '@/lib/lenis';
 import { onMounted } from 'vue';
@@ -37,13 +38,15 @@ onMounted(() => {
                         Pemira 2025 adalah saatnya mahasiswa Primakara menentukan pemimpin baru. Mari gunakan suara kita untuk membawa kampus menuju
                         masa depan yang lebih baik
                     </p>
-                    <a href="/auth/redirect">
-                        <button
-                            class="mt-6 flex cursor-pointer items-center justify-center gap-2 bg-[#4342FF] px-5 py-3 font-unbounded text-xs text-white hover:bg-[#1c1cad] md:text-sm"
-                        >
-                            VOTE NOW <img src="/images/arrow-white.svg" alt="arrow white icon" class="w-3" />
-                        </button>
-                    </a>
+                    <LoginModal>
+                        <template #trigger>
+                            <button
+                                class="mt-6 flex cursor-pointer items-center justify-center gap-2 bg-[#4342FF] px-5 py-3 font-unbounded text-xs text-white hover:bg-[#1c1cad] md:text-sm"
+                            >
+                                VOTE NOW <img src="/images/arrow-white.svg" alt="arrow white icon" class="w-3" />
+                            </button>
+                        </template>
+                    </LoginModal>
                 </div>
                 <div class="relative mt-32 flex w-full flex-col items-center justify-center">
                     <div
