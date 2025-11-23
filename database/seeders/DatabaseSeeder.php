@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'test',
             'email' => 'test@pemira.com',
             'password' => Hash::make('test'),
-            'roles' => null,
+            'roles' => 1,
         ]);
 
         User::factory()->create([
@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
             'nim' => '2401020049',
             'email' => 'wiradarma002@gmail.com',
             'password' => Hash::make('sapimandi'),
-            'roles' => null,
+            'roles' => 1,
         ]);
     }
 }
