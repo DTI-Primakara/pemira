@@ -51,7 +51,26 @@ class PaslonResource extends Resource
                             ->label('Pemilihan')
                             ->relationship('event', 'title')
                             ->required()
-                            ->live(),
+                            ->live()
+                            ->reactive() // penting
+                            ->afterStateUpdated(function ($state, callable $set) {
+
+                                $event = \App\Models\Event::find($state);
+
+                                if (! $event) { 
+                                    $set('position', null);
+                                    return;
+                                }
+
+                                $title = strtolower($event->title);
+
+                                if (str_contains($title, 'presiden dan wakil presiden mahasiswa')) {
+                                    $set('position', 'Calon Presiden dan Wakil Presiden Mahasiswa');
+                                    return;
+                                }
+
+                                $set('position', 'Calon Ketua ' . $event->title);
+                            }),
                         Textarea::make('vision')
                             ->label('Visi')
                             ->rows(4)
@@ -67,6 +86,8 @@ class PaslonResource extends Resource
                             ->directory('paslon-images')
                             ->visibility('public')
                             ->required(),
+                        Hidden::make('position')
+                            ->required()
                     ])
             ]);
     }

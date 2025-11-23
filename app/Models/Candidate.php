@@ -15,7 +15,8 @@ class Candidate extends Model
         'number',
         'vision',
         'mission',
-        'image'
+        'image',
+        'position'
     ];
 
     public function event()
