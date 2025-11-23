@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\Todos\Pages;
+namespace App\Filament\Resources\Events\Pages;
 
-use App\Filament\Resources\Todos\TodoResource;
+use App\Filament\Resources\Events\EventResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
-class ListTodos extends ListRecords
+class ListEvents extends ListRecords
 {
-    protected static string $resource = TodoResource::class;
+    protected static string $resource = EventResource::class;
 
     protected function getHeaderActions(): array
     {
