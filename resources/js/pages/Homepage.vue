@@ -1,12 +1,21 @@
 <script setup lang="ts">
 import Navbar from '@/components/core/Navbar.vue';
+import ErrorModal from '@/components/sections/homepage/ErrorModal.vue';
 import LoginModal from '@/components/sections/homepage/LoginModal.vue';
 import Timeline from '@/components/sections/homepage/Timeline.vue';
 import { initLenis } from '@/lib/lenis';
-import { onMounted } from 'vue';
+import { usePage } from '@inertiajs/vue3';
+import { onMounted, ref } from 'vue';
+
+const page = usePage();
+const showModalError = ref(false);
 
 onMounted(() => {
     initLenis();
+
+    if (page.props.flash?.error) {
+        showModalError.value = true;
+    }
 });
 </script>
 
@@ -47,6 +56,8 @@ onMounted(() => {
                             </button>
                         </template>
                     </LoginModal>
+
+                    <ErrorModal v-model:open="showModalError" />
                 </div>
                 <div class="relative mt-32 flex w-full flex-col items-center justify-center">
                     <div

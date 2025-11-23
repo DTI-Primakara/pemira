@@ -6,7 +6,6 @@ use App\Filament\Resources\Candidates\Pages\CreateCandidate;
 use App\Filament\Resources\Candidates\Pages\EditCandidate;
 use App\Filament\Resources\Candidates\Pages\ListCandidates;
 use App\Filament\Resources\Candidates\Schemas\CandidateForm;
-use App\Filament\Resources\Candidates\Tables\CandidatesTable;
 use App\Models\Candidate;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -18,7 +17,6 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Grouping\Group;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class CandidateResource extends Resource
@@ -77,7 +75,7 @@ class CandidateResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            
         ];
     }
 
@@ -92,5 +90,5 @@ class CandidateResource extends Resource
 
     protected static ?string $modelLabel = 'Paslon';
 
-    protected static ?string $pluralModelLabel = 'Data Paslon & Hasil Suara';
+    protected static ?string $pluralModelLabel = 'Hasil Suara';
 }
