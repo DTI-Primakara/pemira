@@ -49,7 +49,7 @@ class PaslonResource extends Resource
                             ->relationship('event', 'title')
                             ->required()
                             ->live()
-                            ->reactive() // penting
+                            ->reactive()
                             ->afterStateUpdated(function ($state, callable $set) {
 
                                 $event = \App\Models\Event::find($state);
