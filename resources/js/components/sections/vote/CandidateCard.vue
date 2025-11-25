@@ -73,7 +73,7 @@ const isOverlayVisible = ref<boolean>(false);
 
             <div class="absolute right-0 bottom-0 h-full overflow-hidden rounded-lg pt-6">
                 <img
-                    :src="'/images/' + imageUrl"
+                    :src="'/storage/' + imageUrl"
                     :alt="name"
                     class="h-full w-full object-cover object-top grayscale transition-transform duration-500 group-hover:scale-105"
                 />

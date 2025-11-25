@@ -5,8 +5,6 @@ namespace App\Filament\Resources\Paslons;
 use App\Filament\Resources\Paslons\Pages\CreatePaslon;
 use App\Filament\Resources\Paslons\Pages\EditPaslon;
 use App\Filament\Resources\Paslons\Pages\ListPaslons;
-use App\Filament\Resources\Paslons\Schemas\PaslonForm;
-use App\Filament\Resources\Paslons\Tables\PaslonsTable;
 use App\Models\Candidate;
 use BackedEnum;
 use Filament\Forms\Components\FileUpload;
@@ -16,7 +14,6 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components\Grid;
-use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
@@ -52,7 +49,7 @@ class PaslonResource extends Resource
                             ->relationship('event', 'title')
                             ->required()
                             ->live()
-                            ->reactive() // penting
+                            ->reactive()
                             ->afterStateUpdated(function ($state, callable $set) {
 
                                 $event = \App\Models\Event::find($state);

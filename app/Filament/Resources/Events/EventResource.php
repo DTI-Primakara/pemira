@@ -39,7 +39,9 @@ class EventResource extends Resource
                         Select::make('type')
                             ->label('Jenis Pemilihan')
                             ->options([
-                                'HIMA' => 'HIMA'
+                                'HIMA' => 'HIMA',
+                                'BEM' => 'BEM',
+                                'DPM' => 'DPM'
                             ])
                             ->default('HIMA')
                             ->required(),
