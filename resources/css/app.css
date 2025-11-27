@@ -13,6 +13,15 @@ body {
     font-family: 'DM Sans', sans-serif;
 }
 
+@font-face {
+    font-family: 'Thunder';
+    src: url('/fonts/main/thunder/Web-TT/Thunder-BoldLC.ttf');
+}
+
+.font-thunder {
+    font-family: 'Thunder';
+}
+
 @theme inline {
     --font-sans: Instrument Sans, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     --font-dmsans: 'DM Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';

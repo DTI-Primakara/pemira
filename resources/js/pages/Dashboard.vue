@@ -42,7 +42,7 @@ const statusVoting: StatusVoting = {
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-2xl p-4 px-6 md:mx-8 md:p-4">
             <div class="grid auto-rows-min grid-cols-1 gap-4 md:grid-cols-3">
                 <div class="col-span-3 mt-4 space-y-2 sm:space-y-4">
-                    <h1 class="scroll-m-20 font-unbounded text-2xl font-extrabold tracking-tight md:text-3xl lg:text-4xl xl:text-5xl">
+                    <h1 class="scroll-m-20 font-unbounded text-2xl leading-snug font-extrabold tracking-tight md:text-3xl lg:text-4xl xl:text-5xl">
                         Good
                         {{
                             Number(new Date().toTimeString().slice(0, 2)) >= 6 && Number(new Date().toTimeString().slice(0, 2)) < 12
@@ -57,7 +57,7 @@ const statusVoting: StatusVoting = {
                     </p>
                 </div>
                 <div
-                    class="relative col-span-3 mb-4 flex items-center overflow-hidden rounded-lg border border-slate-200/70 bg-[#0047FF] p-5 py-8 sm:p-8 md:px-12 md:py-16 dark:border-slate-800/70"
+                    class="relative col-span-3 mb-4 flex items-center overflow-hidden rounded-lg border border-slate-200/70 bg-[#0047FF] dark:border-slate-800/70"
                 >
                     <div class="absolute -top-15 -right-25 z-0">
                         <img src="/images/star.svg" class="h-full" alt="star" />
@@ -65,9 +65,11 @@ const statusVoting: StatusVoting = {
                     <div class="absolute right-72 bottom-0 z-0 md:right-72 md:-bottom-15">
                         <img src="/images/star.svg" class="h-full" alt="star" />
                     </div>
-                    <div class="c-box-header flex w-full flex-row items-center justify-between gap-4">
+                    <div class="c-box-header flex w-full flex-row items-stretch justify-between gap-4">
                         <!-- text content -->
-                        <div class="c-box-header-content z-10 col-span-3 max-w-2xl space-y-6 md:col-span-2 md:max-w-4xl md:text-left">
+                        <div
+                            class="c-box-header-content z-10 col-span-3 max-w-2xl space-y-6 p-5 py-8 sm:p-8 md:col-span-2 md:max-w-4xl md:px-12 md:py-16 md:text-left"
+                        >
                             <h2
                                 class="mb-0 max-w-[200px] min-w-[200px] scroll-m-20 font-unbounded text-xl leading-[1.4em] font-extrabold tracking-tight text-white sm:max-w-[656px] sm:text-3xl md:min-w-[440px] md:text-4xl lg:min-w-[656px] lg:text-5xl"
                             >
@@ -79,14 +81,8 @@ const statusVoting: StatusVoting = {
                         </div>
 
                         <!-- image -->
-                        <div class="c-box-header-image relative mr-10 block h-48 w-80 min-w-80">
-                            <div class="absolute inset-0 z-10 flex -rotate-6 transform items-center justify-center rounded-3xl bg-white shadow-2xl">
-                                <img
-                                    src="https://i.pinimg.com/736x/ac/ad/1d/acad1d464d090831b64890cae952e91e.jpg"
-                                    alt="Placeholder Pemira 2025"
-                                    class="aspect-3/2 rounded-2xl object-cover"
-                                />
-                            </div>
+                        <div class="c-box-header-image relative mr-10 block flex w-80 min-w-80 items-end justify-end object-cover pe-3">
+                            <img src="/images/dashboard-img-3.webp" alt="" class="absolute bottom-0 h-[95%]" />
                         </div>
                     </div>
                 </div>

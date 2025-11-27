@@ -5,6 +5,7 @@ import LoginModal from '@/components/sections/homepage/LoginModal.vue';
 import Timeline from '@/components/sections/homepage/Timeline.vue';
 import { initLenis } from '@/lib/lenis';
 import { usePage } from '@inertiajs/vue3';
+import { Instagram } from 'lucide-vue-next';
 import { onMounted, ref } from 'vue';
 
 const page = usePage();
@@ -203,14 +204,20 @@ onMounted(() => {
                         Pemira adalah wujud nyata demokrasi mahasiswa, di mana setiap suara memiliki makna dan kekuatan untuk menentukan arah
                         kepemimpinan. Melalui proses ini, kita bersama-sama membangun budaya partisipasi yang sehat, jujur, dan penuh tanggung jawab.
                     </p>
-                    <button
-                        class="mt-6 flex cursor-pointer items-center justify-center gap-2 bg-[#4342FF] px-5 py-3 font-unbounded text-xs text-white hover:bg-[#1c1cad] md:text-sm"
-                    >
-                        VOTE NOW <img src="/images/arrow-white.svg" alt="arrow white icon" class="w-3" />
-                    </button>
+                    <LoginModal>
+                        <template #trigger>
+                            <button
+                                class="mt-6 flex cursor-pointer items-center justify-center gap-2 bg-[#4342FF] px-5 py-3 font-unbounded text-xs text-white hover:bg-[#1c1cad] md:text-sm"
+                            >
+                                VOTE NOW <img src="/images/arrow-white.svg" alt="arrow white icon" class="w-3" />
+                            </button>
+                        </template>
+                    </LoginModal>
                 </div>
                 <!-- ILLUSTRATION -->
-                <div class="bg-blue flex flex-1 items-center justify-center overflow-hidden rounded-md"></div>
+                <div class="flex flex-1 items-center justify-center overflow-hidden rounded-md">
+                    <img src="/images/about-image.webp" alt="" />
+                </div>
             </div>
         </section>
         <!-- END ABOUT -->
@@ -417,11 +424,15 @@ onMounted(() => {
                     <p class="w-full max-w-lg text-center font-dmsans text-sm leading-relaxed text-white opacity-60 sm:text-base">
                         Penasaran dengan para kandidat yang akan maju pada PEMIRA 2025? Yuk simak dan dukung mereka pada ajang kali ini!
                     </p>
-                    <button
-                        class="mt-3 flex cursor-pointer items-center justify-center gap-2 bg-[#4342FF] px-5 py-3 font-unbounded text-xs text-white hover:bg-[#1c1cad] sm:mt-6 md:text-sm"
-                    >
-                        VOTE NOW <img src="/images/arrow-white.svg" alt="arrow white icon" class="w-3" />
-                    </button>
+                    <LoginModal>
+                        <template #trigger>
+                            <button
+                                class="mt-6 flex cursor-pointer items-center justify-center gap-2 bg-[#4342FF] px-5 py-3 font-unbounded text-xs text-white hover:bg-[#1c1cad] md:text-sm"
+                            >
+                                VOTE NOW <img src="/images/arrow-white.svg" alt="arrow white icon" class="w-3" />
+                            </button>
+                        </template>
+                    </LoginModal>
                 </div>
                 <!-- MOVEMENT -->
                 <div
@@ -492,19 +503,9 @@ onMounted(() => {
                 <div class="flex flex-col items-center justify-end gap-4 md:items-end">
                     <div class="flex w-full flex-row items-center justify-end gap-5">
                         <!-- ITEM SOSMED -->
-                        <a href="/" class="flex items-center justify-center gap-3">
-                            <img src="/images/instagram-white.svg" alt="instagram white icon" class="h-5 w-5" />
-                            <span class="cursor-pointer font-dmsans text-sm text-white opacity-70">pemira2025</span>
-                        </a>
-                        <!-- ITEM SOSMED -->
-                        <a href="/" class="flex items-center justify-center gap-3">
-                            <img src="/images/instagram-white.svg" alt="instagram white icon" class="h-5 w-5" />
-                            <span class="cursor-pointer font-dmsans text-sm text-white opacity-70">pemira2025</span>
-                        </a>
-                        <!-- ITEM SOSMED -->
-                        <a href="/" class="flex items-center justify-center gap-3">
-                            <img src="/images/instagram-white.svg" alt="instagram white icon" class="h-5 w-5" />
-                            <span class="cursor-pointer font-dmsans text-sm text-white opacity-70">pemira2025</span>
+                        <a href="/" class="flex items-center justify-center gap-1">
+                            <Instagram class="h-5 text-white opacity-70" />
+                            <span class="cursor-pointer font-dmsans text-sm text-white opacity-70">@dpmprimakara</span>
                         </a>
                     </div>
                     <span class="font-dmsans text-sm text-white opacity-70">© 2024 Pemira Primakara. All rights reserved.</span>
