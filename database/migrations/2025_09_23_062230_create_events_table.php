@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->enum('type', ['PRESMA', 'DPM', 'HIMA']);
+            $table->enum('type', ['BEM', 'DPM', 'HIMA']);
             $table->string('id_prodi')->nullable();
             $table->foreign('id_prodi')
                 ->references('id_prodi')

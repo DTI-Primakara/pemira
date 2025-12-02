@@ -3,28 +3,27 @@ import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
 import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
-import { dashboard, history, kandidat } from '@/routes';
+import { dashboard } from '@/routes';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { LayoutGrid, UsersRound } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
     {
         title: 'Voting',
         href: dashboard(),
-        iconUrl: "/voting.svg",
+        iconUrl: '/voting.svg',
     },
-    {
-        title: 'History',
-        href: history(),
-        icon: LayoutGrid,
-    },
-    {
-        title: 'Kandidat',
-        href: kandidat(),
-        icon: UsersRound,
-    },
+    // {
+    //     title: 'History',
+    //     href: history(),
+    //     icon: LayoutGrid,
+    // },
+    // {
+    //     title: 'Kandidat',
+    //     href: kandidat(),
+    //     icon: UsersRound,
+    // },
 ];
 
 const footerNavItems: NavItem[] = [];

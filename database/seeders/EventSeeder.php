@@ -15,7 +15,7 @@ class EventSeeder extends Seeder
     {
         DB::table('events')->insert([
             ['title' => 'Dewan Perwakilan Mahasiswa', 'type' => 'DPM', 'id_prodi' => null],
-            ['title' => 'Presiden dan Wakil Presiden Mahasiswa', 'type' => 'PRESMA', 'id_prodi' => null],
+            ['title' => 'Presiden dan Wakil Presiden Mahasiswa', 'type' => 'BEM', 'id_prodi' => null],
             ['title' => 'HIMA Sistem Informasi', 'type' => 'HIMA', 'id_prodi' => '0101'],
             ['title' => 'HIMA Informatika', 'type' => 'HIMA', 'id_prodi' => '0102'],
             ['title' => 'HIMA Sistem Informasi Akuntansi', 'type' => 'HIMA', 'id_prodi' => '0103'],
