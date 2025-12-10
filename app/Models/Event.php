@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Event extends Model
 {
@@ -14,12 +16,12 @@ class Event extends Model
         'id_prodi',
     ];
 
-    public function candidates()
+    public function candidates() : HasMany
     {
         return $this->hasMany(Candidate::class);
     }
 
-    public function prodi()
+    public function prodi() : BelongsTo
     {
         return $this->belongsTo(Prodi::class, 'id_prodi', 'id');
     }

@@ -47,7 +47,7 @@ class VoterResource extends Resource
                             ->maxLength(255)
                             ->email(),
                         Hidden::make('roles')
-                            ->default(1)
+                            ->default(3)
                     ])
                     ]);
     }
@@ -58,7 +58,7 @@ class VoterResource extends Resource
                 ->modifyQueryUsing(function ($query) {
                     return $query
                         ->leftJoin('user_vote', 'user_vote.user_id', '=', 'users.id')
-                        ->where('users.roles', 1)
+                        ->where('users.roles', 3)
                         ->select([
                             'users.*',
                             'user_vote.status as vote_status',
@@ -90,7 +90,7 @@ class VoterResource extends Resource
     public static function getRelations(): array
     {
         return [
-            
+
         ];
     }
 
