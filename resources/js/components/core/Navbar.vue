@@ -20,7 +20,7 @@ import LoginModal from '../sections/homepage/LoginModal.vue';
                 <LoginModal>
                     <template #trigger>
                         <button
-                            class="flex cursor-pointer items-center justify-center gap-2 bg-[#4342FF] px-5 py-3 font-unbounded text-xs text-white hover:bg-[#1c1cad] md:text-sm"
+                            class="flex cursor-pointer items-center justify-center gap-2 bg-[#4342FF] px-3 py-2 font-unbounded text-xs text-white hover:bg-[#1c1cad] sm:px-5 sm:py-3 md:text-sm"
                         >
                             VOTE NOW <img src="/images/arrow-white.svg" alt="arrow white icon" class="w-3" />
                         </button>

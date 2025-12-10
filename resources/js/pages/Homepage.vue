@@ -51,7 +51,7 @@ onMounted(() => {
                     <LoginModal>
                         <template #trigger>
                             <button
-                                class="mt-6 flex cursor-pointer items-center justify-center gap-2 bg-[#4342FF] px-5 py-3 font-unbounded text-xs text-white hover:bg-[#1c1cad] md:text-sm"
+                                class="mt-6 flex cursor-pointer items-center justify-center gap-2 bg-[#4342FF] px-3 py-2 font-unbounded text-xs text-white hover:bg-[#1c1cad] sm:px-5 sm:py-3 md:text-sm"
                             >
                                 VOTE NOW <img src="/images/arrow-white.svg" alt="arrow white icon" class="w-3" />
                             </button>
@@ -119,66 +119,66 @@ onMounted(() => {
                     </div>
                 </div>
                 <div class="relative flex w-full flex-row items-start justify-start gap-4 overflow-hidden">
-                    <div class="linear-move flex w-full flex-row items-start justify-start gap-4">
+                    <div class="linear-move flex w-full flex-row items-start justify-start gap-2 sm:gap-4">
                         <img
                             src="/images/example-card-1.png"
                             alt=""
-                            class="w-full max-w-56 min-w-56 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
+                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
                         />
                         <img
                             src="/images/example-card-2.png"
                             alt=""
-                            class="w-full max-w-56 min-w-56 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
+                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
                         />
                         <img
                             src="/images/example-card-1.png"
                             alt=""
-                            class="w-full max-w-56 min-w-56 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
+                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
                         />
                         <img
                             src="/images/example-card-2.png"
                             alt=""
-                            class="w-full max-w-56 min-w-56 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
+                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
                         />
                         <img
                             src="/images/example-card-1.png"
                             alt=""
-                            class="w-full max-w-56 min-w-56 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
+                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
                         />
                         <img
                             src="/images/example-card-2.png"
                             alt=""
-                            class="w-full max-w-56 min-w-56 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
+                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
                         />
                         <img
                             src="/images/example-card-1.png"
                             alt=""
-                            class="w-full max-w-56 min-w-56 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
+                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
                         />
                         <img
                             src="/images/example-card-2.png"
                             alt=""
-                            class="w-full max-w-56 min-w-56 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
+                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
                         />
                         <img
                             src="/images/example-card-1.png"
                             alt=""
-                            class="w-full max-w-56 min-w-56 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
+                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
                         />
                         <img
                             src="/images/example-card-2.png"
                             alt=""
-                            class="w-full max-w-56 min-w-56 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
+                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
                         />
                         <img
                             src="/images/example-card-1.png"
                             alt=""
-                            class="w-full max-w-56 min-w-56 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
+                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
                         />
                         <img
                             src="/images/example-card-2.png"
                             alt=""
-                            class="w-full max-w-56 min-w-56 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
+                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
                         />
                     </div>
                 </div>
@@ -187,10 +187,10 @@ onMounted(() => {
         <!-- END HERO -->
 
         <!-- START ABOUT -->
-        <section class="relative mb-16 flex w-full items-center justify-center px-6 md:mb-30 md:px-10">
-            <div class="flex w-full max-w-7xl flex-col items-stretch justify-between gap-16 lg:flex-row">
+        <section class="relative mb-16 flex w-full items-center justify-center px-3 md:mb-30 md:px-10">
+            <div class="flex w-full max-w-7xl flex-col items-stretch justify-between gap-4 md:gap-16 lg:flex-row">
                 <!-- CONTENT -->
-                <div class="flex flex-1 flex-col items-start justify-start py-8">
+                <div class="flex flex-1 flex-col items-start justify-start px-3 py-8 md:px-0">
                     <h2 class="relative font-unbounded text-2xl leading-[1.5em] font-bold text-black sm:text-3xl md:text-4xl lg:text-5xl">
                         Where Voices Become
                         <span class="text-blue">Leadership</span>
@@ -207,7 +207,7 @@ onMounted(() => {
                     <LoginModal>
                         <template #trigger>
                             <button
-                                class="mt-6 flex cursor-pointer items-center justify-center gap-2 bg-[#4342FF] px-5 py-3 font-unbounded text-xs text-white hover:bg-[#1c1cad] md:text-sm"
+                                class="mt-6 flex cursor-pointer items-center justify-center gap-2 bg-[#4342FF] px-3 py-2 font-unbounded text-xs text-white hover:bg-[#1c1cad] sm:px-5 sm:py-3 md:text-sm"
                             >
                                 VOTE NOW <img src="/images/arrow-white.svg" alt="arrow white icon" class="w-3" />
                             </button>
@@ -223,10 +223,10 @@ onMounted(() => {
         <!-- END ABOUT -->
 
         <!-- START CANDIDATES -->
-        <section class="relative mb-16 flex w-full flex-col items-center justify-center px-6 sm:px-10 md:mb-30">
+        <section class="relative mb-16 flex w-full flex-col items-center justify-center px-0 sm:px-10 md:mb-30">
             <div class="relative flex w-full max-w-7xl flex-col gap-10">
                 <!-- HEAD CONTENT -->
-                <div class="flex w-full flex-col items-start justify-between gap-3 md:flex-row md:items-center md:gap-12">
+                <div class="flex w-full flex-col items-start justify-between gap-3 px-6 sm:px-0 md:flex-row md:items-center md:gap-12">
                     <div class="flex max-w-xl flex-1 flex-col items-start justify-start">
                         <h2 class="relative font-unbounded text-2xl leading-[1.5em] font-bold text-black sm:text-3xl md:text-4xl lg:text-5xl">
                             Let's Meet The
@@ -427,7 +427,7 @@ onMounted(() => {
                     <LoginModal>
                         <template #trigger>
                             <button
-                                class="mt-6 flex cursor-pointer items-center justify-center gap-2 bg-[#4342FF] px-5 py-3 font-unbounded text-xs text-white hover:bg-[#1c1cad] md:text-sm"
+                                class="mt-6 flex cursor-pointer items-center justify-center gap-2 bg-[#4342FF] px-3 py-2 font-unbounded text-xs text-white hover:bg-[#1c1cad] sm:px-5 sm:py-3 md:text-sm"
                             >
                                 VOTE NOW <img src="/images/arrow-white.svg" alt="arrow white icon" class="w-3" />
                             </button>
@@ -494,14 +494,14 @@ onMounted(() => {
             </div>
 
             <div
-                class="relative flex w-full max-w-7xl flex-col items-center justify-between gap-6 px-6 py-8 md:flex-row md:gap-4 md:px-10"
+                class="relative flex w-full max-w-7xl flex-col items-center justify-between gap-2 px-6 py-8 sm:gap-6 md:flex-row md:gap-4 md:px-10"
                 style="border-top: 1px solid #d9d9d920"
             >
                 <a href="/" class="font-unbounded text-xl font-bold text-white sm:text-2xl md:text-3xl">
                     PEMIRA <span class="text-blue">2025</span>
                 </a>
                 <div class="flex flex-col items-center justify-end gap-4 md:items-end">
-                    <div class="flex w-full flex-row items-center justify-end gap-5">
+                    <div class="hidden w-full flex-row items-center justify-end gap-5 md:flex">
                         <!-- ITEM SOSMED -->
                         <a href="/" class="flex items-center justify-center gap-1">
                             <Instagram class="h-5 text-white opacity-70" />

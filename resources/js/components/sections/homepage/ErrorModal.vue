@@ -25,7 +25,10 @@ const emit = defineEmits(['update:open']);
                 <DialogClose as-child @click="emit('update:open', false)">
                     <Button type="button" variant="outline" font="dmsans" rounded="lg"> Kembali </Button>
                 </DialogClose>
-                <a href="https://youtube.com">
+                <a
+                    href="https://wa.me/62895622771393?text=Halo%20kak%2C%20bisa%20tolong%20dibantu%20untuk%20aktivasi%20akun%20Pemira%20saya%3F
+"
+                >
                     <Button type="button" class="w-full" variant="default" font="dmsans" rounded="lg"> Hubungi Admin </Button>
                 </a>
             </DialogFooter>
