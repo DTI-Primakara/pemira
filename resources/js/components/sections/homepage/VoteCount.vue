@@ -8,7 +8,7 @@ console.log(props);
 </script>
 
 <template>
-    <div class="flex w-full flex-col items-center justify-center gap-16">
+    <div class="flex w-full flex-col items-center justify-center gap-10 sm:gap-14 md:gap-16">
         <!-- EVENT DPM BEM CONTAINER -->
         <div class="flex w-full flex-row flex-wrap items-end justify-center gap-8">
             <VoteCountBox title="Dewan Perwakilan Mahasiswa" :items="props.datas.dpm" />
@@ -16,7 +16,7 @@ console.log(props);
         </div>
 
         <div class="itemc mt-8 flex flex-col justify-center gap-0">
-            <h2 class="max-w-xl text-center font-unbounded text-4xl font-semibold text-black">
+            <h2 class="max-w-xl text-center font-unbounded text-2xl font-semibold text-black md:text-3xl lg:text-4xl">
                 Fakultas <span class="text-blue">Teknologi Informasi</span> dan <span class="text-blue">Desain</span>
             </h2>
             <p class="mt-4 w-full max-w-[764px] text-center font-dmsans text-xs leading-relaxed text-black opacity-80 sm:text-base">
@@ -33,7 +33,7 @@ console.log(props);
         </div>
 
         <div class="itemc mt-8 flex flex-col justify-center gap-0">
-            <h2 class="max-w-xl text-center font-unbounded text-4xl font-semibold text-black">
+            <h2 class="max-w-xl text-center font-unbounded text-2xl font-semibold text-black md:text-3xl lg:text-4xl">
                 Fakultas <span class="text-blue">Ekonomi</span> dan <span class="text-blue">Bisnis</span>
             </h2>
             <p class="mt-4 w-full max-w-[764px] text-center font-dmsans text-xs leading-relaxed text-black opacity-80 sm:text-base">
