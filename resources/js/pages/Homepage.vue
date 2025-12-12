@@ -3,7 +3,6 @@ import Navbar from '@/components/core/Navbar.vue';
 import ErrorModal from '@/components/sections/homepage/ErrorModal.vue';
 import LoginModal from '@/components/sections/homepage/LoginModal.vue';
 import Timeline from '@/components/sections/homepage/Timeline.vue';
-import VoteCount from '@/components/sections/homepage/VoteCount.vue';
 import { initLenis } from '@/lib/lenis';
 import { usePage } from '@inertiajs/vue3';
 import { Instagram } from 'lucide-vue-next';
@@ -123,62 +122,95 @@ onMounted(() => {
                 <div class="relative flex w-full flex-row items-start justify-start gap-4 overflow-hidden">
                     <div class="linear-move flex w-full flex-row items-start justify-start gap-2 sm:gap-4">
                         <img
-                            src="/images/example-card-1.png"
+                            src="/paslon-images/bem_1_1x.webp"
+                            alt=""
+                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
+                        />
+
+                        <img
+                            src="/paslon-images/dpm_1_1x.webp"
                             alt=""
                             class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
                         />
                         <img
-                            src="/images/example-card-2.png"
+                            src="/paslon-images/dpm_2_1x.webp"
+                            alt=""
+                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
+                        />
+
+                        <img
+                            src="/paslon-images/hima_akun_1_1x.webp"
                             alt=""
                             class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
                         />
                         <img
-                            src="/images/example-card-1.png"
+                            src="/paslon-images/hima_akun_2_1x.webp"
+                            alt=""
+                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
+                        />
+
+                        <img
+                            src="/paslon-images/hima_bd_1_1x.webp"
                             alt=""
                             class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
                         />
                         <img
-                            src="/images/example-card-2.png"
+                            src="/paslon-images/hima_bd_2_1x.webp"
+                            alt=""
+                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
+                        />
+
+                        <img
+                            src="/paslon-images/hima_dkv_1_1x.webp"
                             alt=""
                             class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
                         />
                         <img
-                            src="/images/example-card-1.png"
+                            src="/paslon-images/hima_dkv_2_1x.webp"
+                            alt=""
+                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
+                        />
+
+                        <img
+                            src="/paslon-images/hima_if_1_1x.webp"
                             alt=""
                             class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
                         />
                         <img
-                            src="/images/example-card-2.png"
+                            src="/paslon-images/hima_if_2_1x.webp"
+                            alt=""
+                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
+                        />
+
+                        <img
+                            src="/paslon-images/hima_mana_1_1x.webp"
                             alt=""
                             class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
                         />
                         <img
-                            src="/images/example-card-1.png"
+                            src="/paslon-images/hima_mana_2_1x.webp"
+                            alt=""
+                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
+                        />
+
+                        <img
+                            src="/paslon-images/hima_si_1_1x.webp"
                             alt=""
                             class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
                         />
                         <img
-                            src="/images/example-card-2.png"
+                            src="/paslon-images/hima_si_2_1x.webp"
+                            alt=""
+                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
+                        />
+
+                        <img
+                            src="/paslon-images/hima_sia_1_1x.webp"
                             alt=""
                             class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
                         />
                         <img
-                            src="/images/example-card-1.png"
-                            alt=""
-                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
-                        />
-                        <img
-                            src="/images/example-card-2.png"
-                            alt=""
-                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
-                        />
-                        <img
-                            src="/images/example-card-1.png"
-                            alt=""
-                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
-                        />
-                        <img
-                            src="/images/example-card-2.png"
+                            src="/paslon-images/hima_sia_2_1x.webp"
                             alt=""
                             class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
                         />
@@ -225,9 +257,8 @@ onMounted(() => {
         <!-- END ABOUT -->
 
         <!-- START LIVE COUNT -->
-        <section class="relative mb-16 flex w-full items-center justify-center px-3 md:mb-30 md:px-10">
+        <!-- <section class="relative mb-16 flex w-full items-center justify-center px-3 md:mb-30 md:px-10">
             <div class="flex w-full max-w-7xl flex-col items-stretch justify-between gap-4 md:gap-16">
-                <!-- TITLE -->
                 <div class="flex flex-col items-center justify-center gap-4">
                     <h2
                         class="relative max-w-3xl text-center font-unbounded text-2xl leading-[1.5em] font-bold text-black sm:text-3xl md:text-4xl lg:text-5xl"
@@ -247,10 +278,9 @@ onMounted(() => {
                     </p>
                 </div>
 
-                <!-- LIVE VOTE -->
                 <VoteCount />
             </div>
-        </section>
+        </section> -->
         <!-- START LIVE COUNT -->
 
         <!-- START CANDIDATES -->
@@ -290,134 +320,151 @@ onMounted(() => {
                             </h4>
                         </div>
                         <div class="md:flex-unwrap flex flex-row flex-wrap items-center justify-center gap-2 px-12 sm:gap-3 md:gap-6">
-                            <img src="/images/example-card-1.png" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
-                            <img src="/images/example-card-2.png" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
-                            <img src="/images/example-card-2.png" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
+                            <img src="/paslon-images/dpm_1_1x.webp" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
+                            <img src="/paslon-images/dpm_2_1x.webp" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
                         </div>
                     </div>
-                    <!-- DPM BOX CANDIDATES -->
+
+                    <!-- BEM BOX CANDIDATES -->
                     <div class="flex w-full flex-col items-center justify-center gap-5 md:gap-8">
                         <div class="flex flex-col items-center justify-center">
                             <h3 class="relative font-unbounded text-2xl leading-[1.5em] font-bold text-black sm:text-3xl md:text-4xl lg:text-5xl">
-                                DPM
+                                BEM
                             </h3>
                             <h4
                                 class="text-blue relative px-16 text-center font-unbounded text-lg leading-[1.5em] font-bold sm:px-12 sm:text-xl md:text-2xl"
                             >
-                                Dewan Perwakilan Mahasiswa
+                                Badan Eksekutif Mahasiswa
                             </h4>
                         </div>
                         <div class="md:flex-unwrap flex flex-row flex-wrap items-center justify-center gap-2 px-12 sm:gap-3 md:gap-6">
-                            <img src="/images/example-card-1.png" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
-                            <img src="/images/example-card-2.png" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
+                            <img src="/paslon-images/bem_1_1x.webp" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
                         </div>
                     </div>
-                    <!-- DPM BOX CANDIDATES -->
+
+                    <!-- SI BOX CANDIDATES -->
                     <div class="flex w-full flex-col items-center justify-center gap-5 md:gap-8">
                         <div class="flex flex-col items-center justify-center">
                             <h3 class="relative font-unbounded text-2xl leading-[1.5em] font-bold text-black sm:text-3xl md:text-4xl lg:text-5xl">
-                                DPM
+                                HIMA SI
                             </h3>
                             <h4
                                 class="text-blue relative px-16 text-center font-unbounded text-lg leading-[1.5em] font-bold sm:px-12 sm:text-xl md:text-2xl"
                             >
-                                Dewan Perwakilan Mahasiswa
+                                Himpunan Mahasiswa Sistem Informasi
                             </h4>
                         </div>
                         <div class="md:flex-unwrap flex flex-row flex-wrap items-center justify-center gap-2 px-12 sm:gap-3 md:gap-6">
-                            <img src="/images/example-card-1.png" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
-                            <img src="/images/example-card-2.png" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
-                            <img src="/images/example-card-2.png" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
+                            <img src="/paslon-images/hima_si_1_1x.webp" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
+                            <img src="/paslon-images/hima_si_2_1x.webp" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
                         </div>
                     </div>
-                    <!-- DPM BOX CANDIDATES -->
+
+                    <!-- IF BOX CANDIDATES -->
                     <div class="flex w-full flex-col items-center justify-center gap-5 md:gap-8">
                         <div class="flex flex-col items-center justify-center">
                             <h3 class="relative font-unbounded text-2xl leading-[1.5em] font-bold text-black sm:text-3xl md:text-4xl lg:text-5xl">
-                                DPM
+                                HIMA IF
                             </h3>
                             <h4
                                 class="text-blue relative px-16 text-center font-unbounded text-lg leading-[1.5em] font-bold sm:px-12 sm:text-xl md:text-2xl"
                             >
-                                Dewan Perwakilan Mahasiswa
+                                Himpunan Mahasiswa Informatika
                             </h4>
                         </div>
                         <div class="md:flex-unwrap flex flex-row flex-wrap items-center justify-center gap-2 px-12 sm:gap-3 md:gap-6">
-                            <img src="/images/example-card-1.png" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
-                            <img src="/images/example-card-2.png" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
-                            <img src="/images/example-card-2.png" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
+                            <img src="/paslon-images/hima_if_1_1x.webp" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
+                            <img src="/paslon-images/hima_if_2_1x.webp" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
                         </div>
                     </div>
-                    <!-- DPM BOX CANDIDATES -->
+
+                    <!-- SIA BOX CANDIDATES -->
                     <div class="flex w-full flex-col items-center justify-center gap-5 md:gap-8">
                         <div class="flex flex-col items-center justify-center">
                             <h3 class="relative font-unbounded text-2xl leading-[1.5em] font-bold text-black sm:text-3xl md:text-4xl lg:text-5xl">
-                                DPM
+                                HIMA SIA
                             </h3>
                             <h4
                                 class="text-blue relative px-16 text-center font-unbounded text-lg leading-[1.5em] font-bold sm:px-12 sm:text-xl md:text-2xl"
                             >
-                                Dewan Perwakilan Mahasiswa
+                                Himpunan Mahasiswa Sistem Informasi Akuntansi
                             </h4>
                         </div>
                         <div class="md:flex-unwrap flex flex-row flex-wrap items-center justify-center gap-2 px-12 sm:gap-3 md:gap-6">
-                            <img src="/images/example-card-1.png" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
-                            <img src="/images/example-card-2.png" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
-                            <img src="/images/example-card-2.png" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
+                            <img src="/paslon-images/hima_sia_1_1x.webp" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
+                            <img src="/paslon-images/hima_sia_2_1x.webp" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
                         </div>
                     </div>
-                    <!-- DPM BOX CANDIDATES -->
+
+                    <!-- DKV BOX CANDIDATES -->
                     <div class="flex w-full flex-col items-center justify-center gap-5 md:gap-8">
                         <div class="flex flex-col items-center justify-center">
                             <h3 class="relative font-unbounded text-2xl leading-[1.5em] font-bold text-black sm:text-3xl md:text-4xl lg:text-5xl">
-                                DPM
+                                HIMA DKV
                             </h3>
                             <h4
                                 class="text-blue relative px-16 text-center font-unbounded text-lg leading-[1.5em] font-bold sm:px-12 sm:text-xl md:text-2xl"
                             >
-                                Dewan Perwakilan Mahasiswa
+                                Himpunan Mahasiswa Desain Komunikasi Visual
                             </h4>
                         </div>
                         <div class="md:flex-unwrap flex flex-row flex-wrap items-center justify-center gap-2 px-12 sm:gap-3 md:gap-6">
-                            <img src="/images/example-card-1.png" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
-                            <img src="/images/example-card-2.png" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
-                            <img src="/images/example-card-2.png" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
+                            <img src="/paslon-images/hima_dkv_1_1x.webp" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
+                            <img src="/paslon-images/hima_dkv_2_1x.webp" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
                         </div>
                     </div>
-                    <!-- DPM BOX CANDIDATES -->
+
+                    <!-- MANAJEMEN BOX CANDIDATES -->
                     <div class="flex w-full flex-col items-center justify-center gap-5 md:gap-8">
                         <div class="flex flex-col items-center justify-center">
                             <h3 class="relative font-unbounded text-2xl leading-[1.5em] font-bold text-black sm:text-3xl md:text-4xl lg:text-5xl">
-                                DPM
+                                HIMA MANAJEMEN
                             </h3>
                             <h4
                                 class="text-blue relative px-16 text-center font-unbounded text-lg leading-[1.5em] font-bold sm:px-12 sm:text-xl md:text-2xl"
                             >
-                                Dewan Perwakilan Mahasiswa
+                                Himpunan Mahasiswa Manajemen
                             </h4>
                         </div>
                         <div class="md:flex-unwrap flex flex-row flex-wrap items-center justify-center gap-2 px-12 sm:gap-3 md:gap-6">
-                            <img src="/images/example-card-1.png" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
-                            <img src="/images/example-card-2.png" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
-                            <img src="/images/example-card-2.png" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
+                            <img src="/paslon-images/hima_mana_1_1x.webp" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
+                            <img src="/paslon-images/hima_mana_2_1x.webp" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
                         </div>
                     </div>
-                    <!-- DPM BOX CANDIDATES -->
+
+                    <!-- AKUNTANSI BOX CANDIDATES -->
                     <div class="flex w-full flex-col items-center justify-center gap-5 md:gap-8">
                         <div class="flex flex-col items-center justify-center">
                             <h3 class="relative font-unbounded text-2xl leading-[1.5em] font-bold text-black sm:text-3xl md:text-4xl lg:text-5xl">
-                                DPM
+                                HIMA AKUNTANSI
                             </h3>
                             <h4
                                 class="text-blue relative px-16 text-center font-unbounded text-lg leading-[1.5em] font-bold sm:px-12 sm:text-xl md:text-2xl"
                             >
-                                Dewan Perwakilan Mahasiswa
+                                Himpunan Mahasiswa Akutansi
                             </h4>
                         </div>
                         <div class="md:flex-unwrap flex flex-row flex-wrap items-center justify-center gap-2 px-12 sm:gap-3 md:gap-6">
-                            <img src="/images/example-card-1.png" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
-                            <img src="/images/example-card-2.png" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
-                            <img src="/images/example-card-2.png" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
+                            <img src="/paslon-images/hima_akun_1_1x.webp" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
+                            <img src="/paslon-images/hima_akun_2_1x.webp" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
+                        </div>
+                    </div>
+
+                    <!-- BD BOX CANDIDATES -->
+                    <div class="flex w-full flex-col items-center justify-center gap-5 md:gap-8">
+                        <div class="flex flex-col items-center justify-center">
+                            <h3 class="relative font-unbounded text-2xl leading-[1.5em] font-bold text-black sm:text-3xl md:text-4xl lg:text-5xl">
+                                HIMA BD
+                            </h3>
+                            <h4
+                                class="text-blue relative px-16 text-center font-unbounded text-lg leading-[1.5em] font-bold sm:px-12 sm:text-xl md:text-2xl"
+                            >
+                                Himpunan Mahasiswa Bisnis Digital
+                            </h4>
+                        </div>
+                        <div class="md:flex-unwrap flex flex-row flex-wrap items-center justify-center gap-2 px-12 sm:gap-3 md:gap-6">
+                            <img src="/paslon-images/hima_bd_1_1x.webp" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
+                            <img src="/paslon-images/hima_bd_2_1x.webp" alt="" class="w-[20vw] max-w-72 min-w-48 sm:min-w-36" />
                         </div>
                     </div>
 
