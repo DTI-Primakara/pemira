@@ -3,10 +3,9 @@
 namespace App\Filament\Resources\Voters\Pages;
 
 use App\Filament\Resources\Voters\VoterResource;
-use Filament\Actions\CreateAction;
-use Filament\Resources\Pages\ListRecords;
 use App\Imports\VoterImport;
 use Filament\Actions;
+use Filament\Resources\Pages\ListRecords;
 use EightyNine\ExcelImport\ExcelImportAction;
 
 class ListVoters extends ListRecords

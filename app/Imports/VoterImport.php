@@ -33,7 +33,7 @@ class VoterImport implements ToModel, WithHeadingRow
             'name' => $name,
             'nim' => $nim,
             'email' => $email,
-            'roles' => 1, 
+            'roles' => 3,
             'password' => Hash::make(Str::random(10)),
         ]);
     }
