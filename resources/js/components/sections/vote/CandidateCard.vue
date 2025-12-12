@@ -63,7 +63,7 @@ const isOverlayVisible = ref<boolean>(false);
         <div class="relative z-10 grid h-96 grid-cols-9 gap-4 px-8 pt-8">
             <div class="relative z-10 col-span-9 flex flex-col gap-4">
                 <div class="flex h-1/2 items-start justify-start rounded-lg">
-                    <span class="font-unbounded text-5xl font-extrabold text-white sm:text-6xl md:text-7xl">{{ number }}</span>
+                    <span class="font-unbounded text-5xl font-extrabold text-white sm:text-6xl md:text-7xl">0{{ number }}</span>
                 </div>
                 <div class="-ml-4 flex h-1/2 flex-col justify-center gap-2 rounded-lg p-4">
                     <h3 class="font-unbounded text-2xl font-bold text-white sm:text-3xl md:text-4xl">{{ name }}</h3>

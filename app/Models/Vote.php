@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Vote extends Model
 {
@@ -12,4 +13,9 @@ class Vote extends Model
         'candidate_id',
         'voted_at',
     ];
+
+    public function candidate() : BelongsTo
+    {
+        return $this->belongsTo(Candidate::class);
+    }
 }

@@ -39,7 +39,7 @@ const variantColors = computed(() => {
 <template>
     <div
         :class="variantColors.background"
-        class="relative flex max-h-[14rem] w-full flex-1 cursor-pointer flex-col items-center justify-center rounded-xl p-8 text-center sm:max-h-[16rem] md:max-h-[22rem]"
+        class="relative flex max-h-[14rem] w-full flex-1 flex-col items-center justify-center rounded-xl p-8 text-center sm:max-h-[16rem] md:max-h-[22rem]"
     >
         <!-- dashed border -->
         <svg class="pointer-events-none absolute inset-0 h-full w-full" xmlns="http://www.w3.org/2000/svg">
@@ -65,5 +65,12 @@ const variantColors = computed(() => {
         <!-- teks -->
         <h3 class="font-unbounded text-base font-bold text-slate-800 sm:text-lg md:text-xl lg:text-2xl">{{ title }}</h3>
         <p class="mt-2 font-dmsans text-xs text-slate-500 sm:text-base dark:text-slate-400">{{ desc }}</p>
+
+        <button
+            v-if="title == 'Start Vote Now'"
+            class="mt-4 cursor-pointer rounded-md bg-[#0047FF] px-8 py-3 font-unbounded text-base font-semibold text-white"
+        >
+            Mulai Voting
+        </button>
     </div>
 </template>

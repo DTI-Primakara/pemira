@@ -8,7 +8,7 @@ use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use EightyNine\ExcelImport\ExcelImportAction;
 
-class ListVoters extends ListRecords
+class ListVoterss extends ListRecords
 {
     protected static string $resource = VoterResource::class;
 
@@ -21,7 +21,7 @@ class ListVoters extends ListRecords
                 ->use(VoterImport::class)
                 ->validateUsing([
                     'name' => 'required|string|max:255',
-                    'nim' => 'required|numeric|unique:users,nim', 
+                    'nim' => 'required|numeric|unique:users,nim',
                     'email' => 'required|email|max:255|unique:users,email',
                 ]),
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LogoutUserController;
 use App\Http\Controllers\SocialiteCallbackController;
 use App\Http\Controllers\UserController;
@@ -11,12 +12,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Socialite\Socialite;
 
-Route::get('/', function () {
-    if (Auth::user()) {
-        return redirect()->route('dashboard');
-    }
-    return Inertia::render('Homepage');
-})->name('home');
+Route::get('/', [DashboardController::class, 'showHomepage'])->name('home');
 
 Route::prefix('/auth')->group(function () {
     Route::get('/redirect', function () {
