@@ -1,0 +1,44 @@
+services:
+    app:
+        container_name: primakara-pemira-app
+        build:
+            context: .
+            args:
+                USER_ID: $USER_ID
+                GROUP_ID: $GROUP_ID
+        ports:
+            - "8099:80"
+            - "5173:5173"
+        env_file: .env
+        restart: unless-stopped
+        volumes:
+            - "./:/var/www/"
+        networks:
+            - primakara-pemira
+    redis:
+        image: redis
+        container_name: primakara-pemira-redis
+        restart: unless-stopped
+        networks:
+            - primakara-pemira
+
+    mysql:
+        image: mysql:8.0
+        container_name: primakara-pemira-mysql
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "3310:3306"
+        environment:
+            MYSQL_DATABASE: pemira
+            MYSQL_USER: pemira
+            MYSQL_PASSWORD: pemira
+            MYSQL_ROOT_PASSWORD: root
+        volumes:
+            - pemira_data:/var/lib/mysql
+        networks:
+            - primakara-pemira
+volumes:
+    pemira_data:
+networks:
+    primakara-pemira:

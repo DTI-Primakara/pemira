@@ -26,7 +26,7 @@ onMounted(() => {
         <Navbar />
 
         <!-- START HERO -->
-        <section class="relative mb-16 flex w-full items-center justify-start overflow-hidden bg-white pt-36 md:mb-30">
+        <section class="relative mb-16 flex w-full items-center justify-start overflow-hidden bg-white pt-36 md:mb-30" id="hero">
             <div class="flex w-full flex-col items-center justify-start">
                 <div class="z-10 flex flex-col items-center justify-center">
                     <h1 class="text-blue relative font-unbounded text-[16vw] leading-tight font-bold md:text-[12vw] xl:text-[160px]">
@@ -221,7 +221,7 @@ onMounted(() => {
         <!-- END HERO -->
 
         <!-- START ABOUT -->
-        <section class="relative mb-16 flex w-full items-center justify-center px-3 md:mb-30 md:px-10">
+        <section class="relative mb-16 flex w-full items-center justify-center px-3 md:mb-30 md:px-10" id="about">
             <div class="flex w-full max-w-7xl flex-col items-stretch justify-between gap-4 md:gap-16 lg:flex-row">
                 <!-- CONTENT -->
                 <div class="flex flex-1 flex-col items-start justify-start px-3 py-8 md:px-0">
@@ -284,7 +284,7 @@ onMounted(() => {
         <!-- START LIVE COUNT -->
 
         <!-- START CANDIDATES -->
-        <section class="relative mb-16 flex w-full flex-col items-center justify-center px-0 sm:px-10 md:mb-30">
+        <section class="relative mb-16 flex w-full flex-col items-center justify-center px-0 sm:px-10 md:mb-30" id="candidate">
             <div class="relative flex w-full max-w-7xl flex-col gap-10">
                 <!-- HEAD CONTENT -->
                 <div class="flex w-full flex-col items-start justify-between gap-3 px-6 sm:px-0 md:flex-row md:items-center md:gap-12">
@@ -481,10 +481,10 @@ onMounted(() => {
         <!-- END CANDIDATES -->
 
         <!-- START TIMELINES -->
-        <Timeline />
+        <Timeline id="timeline" />
         <!-- END TIMELINES -->
         <!-- START FOOTER -->
-        <section class="relative flex w-full flex-col items-center justify-center bg-[#030520]">
+        <section class="relative flex w-full flex-col items-center justify-center bg-[#030520]" id="contact">
             <div class="relative flex w-full flex-col items-center justify-center gap-10 overflow-hidden px-8 pt-12 pb-16">
                 <!-- CONTENT -->
                 <div class="relative z-10 flex max-w-7xl flex-col items-center justify-center gap-2 pt-10 sm:gap-4">
