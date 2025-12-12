@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
 import LoginModal from '../sections/homepage/LoginModal.vue';
+
+function scrollTo(id: string) {
+    const el = document.getElementById(id);
+    if (el) {
+        const y = el.getBoundingClientRect().top + window.scrollY - 120;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+}
 </script>
 
 <template>
@@ -11,11 +19,11 @@ import LoginModal from '../sections/homepage/LoginModal.vue';
             </Link>
             <div class="flex flex-row items-center justify-end gap-8">
                 <div class="hidden flex-row items-center justify-end gap-5 md:flex">
-                    <Link href="" class="font-dmsans text-base opacity-80 hover:opacity-100">Home</Link>
-                    <Link href="" class="font-dmsans text-base opacity-80 hover:opacity-100">About</Link>
-                    <Link href="" class="font-dmsans text-base opacity-80 hover:opacity-100">Candidates</Link>
-                    <Link href="" class="font-dmsans text-base opacity-80 hover:opacity-100">Timeline</Link>
-                    <Link href="" class="font-dmsans text-base opacity-80 hover:opacity-100">Contact</Link>
+                    <button @click.prevent="scrollTo('hero')" class="font-dmsans text-base opacity-80 hover:opacity-100">Home</button>
+                    <button @click.prevent="scrollTo('about')" class="font-dmsans text-base opacity-80 hover:opacity-100">About</button>
+                    <button @click.prevent="scrollTo('candidate')" class="font-dmsans text-base opacity-80 hover:opacity-100">Candidates</button>
+                    <button @click.prevent="scrollTo('timeline')" class="font-dmsans text-base opacity-80 hover:opacity-100">Timeline</button>
+                    <button @click.prevent="scrollTo('contact')" class="font-dmsans text-base opacity-80 hover:opacity-100">Contact</button>
                 </div>
                 <LoginModal>
                     <template #trigger>
