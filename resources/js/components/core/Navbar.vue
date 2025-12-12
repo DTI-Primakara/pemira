@@ -15,7 +15,7 @@ function scrollTo(id: string) {
     <nav class="fixed top-0 left-0 z-50 flex w-full items-center justify-center bg-white px-6 py-4 md:px-10">
         <div class="container flex w-full max-w-7xl items-center justify-between gap-4">
             <Link href="/" class="flex items-start justify-start">
-                <img src="/images/logo-color.svg" alt="logo color pemira" class="h-8 sm:h-10 md:h-12" />
+                <img src="/images/logo-color.svg" alt="logo color pemiraas" class="h-8 sm:h-10 md:h-12" />
             </Link>
             <div class="flex flex-row items-center justify-end gap-8">
                 <div class="hidden flex-row items-center justify-end gap-5 md:flex">
