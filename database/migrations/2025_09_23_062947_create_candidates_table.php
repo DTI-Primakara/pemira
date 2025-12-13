@@ -18,8 +18,8 @@ return new class extends Migration
                 ->cascadeOnDelete();
             $table->string('name_candidates');
             $table->integer('number');
-            $table->string('vision');
-            $table->string('mission');
+            $table->longText('vision');
+            $table->longText('mission');
             $table->string('position');
             $table->string('image');
             $table->timestamps();

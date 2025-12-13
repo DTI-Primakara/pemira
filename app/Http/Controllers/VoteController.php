@@ -18,7 +18,7 @@ class VoteController extends Controller
 
         $prodiCode = substr($nim, 2, 4);
 
-        $events = Event::whereNull('id_prodi')->orWhere('id_prodi', $prodiCode)->with('candidates')->get();
+        $events = Event::whereNull('id_prodi')->orWhere('id_prodi', $prodiCode)->orderBy('id')->with('candidates')->get();
 
         return Inertia::render('Voting', [
             'events' => $events

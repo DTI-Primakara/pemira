@@ -73,7 +73,7 @@ const isOverlayVisible = ref<boolean>(false);
 
             <div class="absolute right-0 bottom-0 h-full overflow-hidden rounded-lg pt-6">
                 <img
-                    :src="'/storage/' + imageUrl"
+                    :src="imageUrl"
                     :alt="name"
                     class="h-full w-full object-cover object-top grayscale transition-transform duration-500 group-hover:scale-105"
                 />
@@ -81,7 +81,7 @@ const isOverlayVisible = ref<boolean>(false);
         </div>
 
         <div
-            class="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/80 p-6 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+            class="absolute inset-0 z-20 flex max-h-full flex-col items-center justify-start overflow-y-scroll bg-black/80 p-6 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100"
             :class="{ '!opacity-100': isOverlayVisible }"
         >
             <h4 class="mb-2 font-unbounded text-xl font-bold">Visi & Misi</h4>
@@ -92,7 +92,7 @@ const isOverlayVisible = ref<boolean>(false);
                 </div>
                 <div>
                     <p class="font-semibold">Misi:</p>
-                    <p class="opacity-80">{{ mission }}</p>
+                    <p class="whitespace-pre-line opacity-80">{{ mission }}</p>
                 </div>
             </div>
             <button @click.stop="isOverlayVisible = false" class="absolute top-4 right-4 z-30 text-white md:hidden" aria-label="Tutup Visi & Misi">
