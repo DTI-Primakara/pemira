@@ -54,7 +54,7 @@ class PaslonResource extends Resource
 
                                 $event = \App\Models\Event::find($state);
 
-                                if (! $event) { 
+                                if (! $event) {
                                     $set('position', null);
                                     return;
                                 }

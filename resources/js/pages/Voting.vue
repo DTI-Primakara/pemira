@@ -34,6 +34,8 @@ const props = defineProps({
 
 const electionSteps = props.events as ElectionStep[];
 
+console.log(electionSteps);
+
 const currentStepIndex = ref<number>(0);
 const selections = ref<Selections>({});
 
@@ -90,7 +92,7 @@ const finishVote = (): void => {
         <header class="mb-8 flex flex-col items-start justify-between md:flex-row">
             <div>
                 <p class="mt-4 text-primary">
-                    Tahapan {{ currentStepData.id }} / <span class="text-gray-300">{{ electionSteps.length }} </span>
+                    Tahapan {{ currentStepIndex + 1 }} / <span class="text-gray-300">{{ electionSteps.length }} </span>
                 </p>
                 <h2 class="mt-1 font-unbounded text-4xl font-extrabold tracking-tight text-slate-800 sm:text-5xl">Pilih Kandidatmu <br /></h2>
             </div>

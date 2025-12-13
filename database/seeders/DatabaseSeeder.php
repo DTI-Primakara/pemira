@@ -18,12 +18,12 @@ class DatabaseSeeder extends Seeder
         $this->call(RolesSeeder::class);
         $this->call(ProdiSeeder::class);
         $this->call(EventSeeder::class);
-        // $this->call(CandidatesSeeder::class);
+        $this->call(CandidatesSeeder::class);
 
         User::factory()->create([
             'name' => 'admin',
             'email' => 'admin@pemira.com',
-            'password' => Hash::make('admin'),
+            'password' => Hash::make('IniPasswordAdmin123'),
             'roles' => 2,
         ]);
     }
