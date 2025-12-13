@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use Filament\View\PanelsRenderHook;
 use Illuminate\Support\Facades\Blade;
 use Filament\Support\Facades\FilamentView;
+use Illuminate\Support\Facades\URL;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -25,5 +27,9 @@ class AppServiceProvider extends ServiceProvider
             PanelsRenderHook::USER_MENU_BEFORE,
             fn (): string => Blade::render('<livewire:action-shortcuts />'),
         );
+
+        if (app()->environment('production')) {
+            URL::forceScheme('https');
+        }
     }
 }
