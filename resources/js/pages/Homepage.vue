@@ -571,18 +571,26 @@ onMounted(() => {
                 class="relative flex w-full max-w-7xl flex-col items-center justify-between gap-2 px-6 py-8 sm:gap-6 md:flex-row md:gap-4 md:px-10"
                 style="border-top: 1px solid #d9d9d920"
             >
-                <a href="/" class="font-unbounded text-xl font-bold text-white sm:text-2xl md:text-3xl">
-                    PEMIRA <span class="text-blue">2025</span>
-                </a>
+                <div class="flex flex-col items-center justify-center gap-2 md:items-start md:justify-start">
+                    <a href="https://pemira.primakara.ac.id" class="font-unbounded text-xl font-bold text-white sm:text-2xl md:text-3xl">
+                        PEMIRA <span class="text-blue">2025</span>
+                    </a>
+                    <span class="text-center font-dmsans text-sm text-white opacity-70 md:text-left"
+                        >© 2025 PEMIRA Primakara. All rights reserved.</span
+                    >
+                </div>
                 <div class="flex flex-col items-center justify-end gap-4 md:items-end">
                     <div class="hidden w-full flex-row items-center justify-end gap-5 md:flex">
                         <!-- ITEM SOSMED -->
-                        <a href="/" class="flex items-center justify-center gap-1">
+                        <a href="https://www.instagram.com/dpmprimakara/" class="flex items-center justify-center gap-1">
                             <Instagram class="h-5 text-white opacity-70" />
                             <span class="cursor-pointer font-dmsans text-sm text-white opacity-70">@dpmprimakara</span>
                         </a>
                     </div>
-                    <span class="font-dmsans text-sm text-white opacity-70">© 2024 PEMIRA Primakara. All rights reserved.</span>
+                    <span class="text-center font-dmsans text-sm text-white opacity-70 md:text-right"
+                        >Hosting supported by <a href="https://hookigroup.com/" class="underline">Hooki</a>. Developed with ❤️ by DTI & PEMIRA
+                        Primakara.</span
+                    >
                 </div>
             </div>
         </section>
