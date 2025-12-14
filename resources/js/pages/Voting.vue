@@ -112,7 +112,9 @@ const finishVote = (): void => {
 
         <footer class="mt-12 flex flex-col items-end justify-between gap-5 pb-20 md:flex-row md:items-center">
             <p v-if="!isCandidateSelected"></p>
-            <p v-if="isCandidateSelected" class="font-unbounded text-lg font-semibold">No Undi Terpilih : 0{{ selections[currentStepData.title] }}</p>
+            <p v-if="isCandidateSelected" class="font-unbounded text-lg font-semibold">
+                No Undi Terpilih : 0{{ selections[currentStepData.title] % 2 == 0 ? 2 : 1 }}
+            </p>
             <Button @click="nextStep" :disabled="!isCandidateSelected" size="lg" font="unbounded" class="rounded-none">
                 {{ isLastStep ? 'FINISH VOTE' : 'PEMILIHAN SELANJUTNYA' }}
             </Button>
