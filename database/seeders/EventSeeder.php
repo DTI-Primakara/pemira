@@ -16,13 +16,13 @@ class EventSeeder extends Seeder
         DB::table('events')->insert([
             ['title' => 'Dewan Perwakilan Mahasiswa', 'type' => 'DPM', 'id_prodi' => null],
             ['title' => 'Presiden dan Wakil Presiden Mahasiswa', 'type' => 'BEM', 'id_prodi' => null],
-            ['title' => 'HIMA Sistem Informasi', 'type' => 'HIMA', 'id_prodi' => '0101'],
-            ['title' => 'HIMA Informatika', 'type' => 'HIMA', 'id_prodi' => '0102'],
-            ['title' => 'HIMA Sistem Informasi Akuntansi', 'type' => 'HIMA', 'id_prodi' => '0103'],
-            ['title' => 'HIMA Desain Komunikasi Visual', 'type' => 'HIMA', 'id_prodi' => '0104'],
-            ['title' => 'HIMA Manajemen', 'type' => 'HIMA', 'id_prodi' => '0201'],
-            ['title' => 'HIMA Akuntansi', 'type' => 'HIMA', 'id_prodi' => '0202'],
-            ['title' => 'HIMA Bisnis Digital', 'type' => 'HIMA', 'id_prodi' => '0203'],
+            ['title' => 'HIMA Prodi Sistem Informasi', 'type' => 'HIMA', 'id_prodi' => '0101'],
+            ['title' => 'HIMA Prodi Informatika', 'type' => 'HIMA', 'id_prodi' => '0102'],
+            ['title' => 'HIMA Prodi Sistem Informasi Akuntansi', 'type' => 'HIMA', 'id_prodi' => '0103'],
+            ['title' => 'HIMA Prodi Desain Komunikasi Visual', 'type' => 'HIMA', 'id_prodi' => '0104'],
+            ['title' => 'HIMA Prodi Manajemen', 'type' => 'HIMA', 'id_prodi' => '0201'],
+            ['title' => 'HIMA Prodi Akuntansi', 'type' => 'HIMA', 'id_prodi' => '0202'],
+            ['title' => 'HIMA Prodi Bisnis Digital', 'type' => 'HIMA', 'id_prodi' => '0203'],
         ]);
     }
 }

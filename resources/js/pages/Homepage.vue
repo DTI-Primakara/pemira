@@ -55,10 +55,9 @@ onMounted(() => {
                                 !expanded ? 'line-clamp-3' : '',
                             ]"
                         >
-                            PEMIRA 2025 adalah saatnya mahasiswa Primakara menentukan pemimpin baru. Mari gunakan suara kita untuk membawa kampus
-                            menuju masa depan yang lebih baik. Pemilu Raya Mahasiswa atau PEMIRA merupakan salah satu kegiatan yang diselenggarakan
-                            oleh DPM Primakara University. Pada kegiatan PEMIRA ini mahasiswa diberikan kesempatan untuk menentukan pemimpin ORMAWA
-                            baru untuk kepengurusan berikutnya. Gunakan hak suara kalian untuk menentukan pemimpin selanjutnya.
+                            Pemilu Raya Mahasiswa atau PEMIRA merupakan salah satu kegiatan yang diselenggarakan oleh DPM Primakara University. Pada
+                            kegiatan PEMIRA ini mahasiswa diberikan kesempatan untuk menentukan pemimpin ORMAWA baru untuk kepengurusan berikutnya.
+                            Gunakan hak suara kalian untuk menentukan pemimpin selanjutnya.
                         </p>
 
                         <span
@@ -348,7 +347,7 @@ onMounted(() => {
                             <h4
                                 class="text-blue relative px-16 text-center font-unbounded text-lg leading-[1.5em] font-bold sm:px-12 sm:text-xl md:text-2xl"
                             >
-                                Himpunan Mahasiswa Sistem Informasi
+                                HIMA Prodi Sistem Informasi
                             </h4>
                         </div>
                         <div class="md:flex-unwrap flex flex-row flex-wrap items-center justify-center gap-2 px-12 sm:gap-3 md:gap-6">
@@ -366,7 +365,7 @@ onMounted(() => {
                             <h4
                                 class="text-blue relative px-16 text-center font-unbounded text-lg leading-[1.5em] font-bold sm:px-12 sm:text-xl md:text-2xl"
                             >
-                                Himpunan Mahasiswa Informatika
+                                HIMA Prodi Informatika
                             </h4>
                         </div>
                         <div class="md:flex-unwrap flex flex-row flex-wrap items-center justify-center gap-2 px-12 sm:gap-3 md:gap-6">
@@ -384,7 +383,7 @@ onMounted(() => {
                             <h4
                                 class="text-blue relative px-16 text-center font-unbounded text-lg leading-[1.5em] font-bold sm:px-12 sm:text-xl md:text-2xl"
                             >
-                                Himpunan Mahasiswa Sistem Informasi Akuntansi
+                                HIMA Prodi Sistem Informasi Akuntansi
                             </h4>
                         </div>
                         <div class="md:flex-unwrap flex flex-row flex-wrap items-center justify-center gap-2 px-12 sm:gap-3 md:gap-6">
@@ -402,7 +401,7 @@ onMounted(() => {
                             <h4
                                 class="text-blue relative px-16 text-center font-unbounded text-lg leading-[1.5em] font-bold sm:px-12 sm:text-xl md:text-2xl"
                             >
-                                Himpunan Mahasiswa Desain Komunikasi Visual
+                                HIMA Prodi Desain Komunikasi Visual
                             </h4>
                         </div>
                         <div class="md:flex-unwrap flex flex-row flex-wrap items-center justify-center gap-2 px-12 sm:gap-3 md:gap-6">
@@ -420,7 +419,7 @@ onMounted(() => {
                             <h4
                                 class="text-blue relative px-16 text-center font-unbounded text-lg leading-[1.5em] font-bold sm:px-12 sm:text-xl md:text-2xl"
                             >
-                                Himpunan Mahasiswa Manajemen
+                                HIMA Prodi Manajemen
                             </h4>
                         </div>
                         <div class="md:flex-unwrap flex flex-row flex-wrap items-center justify-center gap-2 px-12 sm:gap-3 md:gap-6">
@@ -438,7 +437,7 @@ onMounted(() => {
                             <h4
                                 class="text-blue relative px-16 text-center font-unbounded text-lg leading-[1.5em] font-bold sm:px-12 sm:text-xl md:text-2xl"
                             >
-                                Himpunan Mahasiswa Akuntansi
+                                HIMA Prodi Akuntansi
                             </h4>
                         </div>
                         <div class="md:flex-unwrap flex flex-row flex-wrap items-center justify-center gap-2 px-12 sm:gap-3 md:gap-6">
@@ -456,7 +455,7 @@ onMounted(() => {
                             <h4
                                 class="text-blue relative px-16 text-center font-unbounded text-lg leading-[1.5em] font-bold sm:px-12 sm:text-xl md:text-2xl"
                             >
-                                Himpunan Mahasiswa Bisnis Digital
+                                HIMA Prodi Bisnis Digital
                             </h4>
                         </div>
                         <div class="md:flex-unwrap flex flex-row flex-wrap items-center justify-center gap-2 px-12 sm:gap-3 md:gap-6">
