@@ -27,8 +27,8 @@ class UserController extends Controller
 
         $now = Carbon::now('Asia/Makassar');
 
-        $start = Carbon::create(2025, 12, 14, 0, 0, 0, 'Asia/Makassar');
-        $end   = Carbon::create(2025, 12, 16, 23, 59, 59, 'Asia/Makassar');
+        $start = Carbon::create(2025, 12, 15, 10, 0, 0, 'Asia/Makassar');
+        $end   = Carbon::create(2025, 12, 16, 16, 59, 59, 'Asia/Makassar');
 
         $votingOpen = $now->between($start, $end);
         $votingEnded = $now->gt($end);
