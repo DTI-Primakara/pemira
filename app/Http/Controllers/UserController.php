@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\EligibleUser;
 use App\Models\UserVote;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
@@ -24,9 +25,19 @@ class UserController extends Controller
             ['status' => 'not voted']
         )->status;
 
+        $now = Carbon::now('Asia/Makassar');
+
+        $start = Carbon::create(2025, 12, 14, 0, 0, 0, 'Asia/Makassar');
+        $end   = Carbon::create(2025, 12, 16, 23, 59, 59, 'Asia/Makassar');
+
+        $votingOpen = $now->between($start, $end);
+        $votingEnded = $now->gt($end);
+
         return Inertia::render('Dashboard', [
             'user' => $user,
             'status' => $status,
+            'votingOpen' => $votingOpen,
+            'votingEnded' => $votingEnded,
         ]);
     }
 }

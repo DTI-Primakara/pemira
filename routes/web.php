@@ -40,10 +40,11 @@ Route::middleware(OauthLoginCheck::class)->group(function () {
         })->name('guide');
 
         Route::get('voting', [VoteController::class, 'getCandidates'])->name('voting');
+
+        Route::post('/vote/submit', [VoteController::class, 'submitVote'])
+            ->name('vote.submit');
     });
 
-    Route::post('/vote/submit', [VoteController::class, 'submitVote'])
-        ->name('vote.submit');
 });
 
 Route::get('/logout', [LogoutUserController::class, 'logout']);

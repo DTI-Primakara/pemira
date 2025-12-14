@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Models\EligibleUser;
 use App\Models\User;
+use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,9 +19,18 @@ class CheckVoterStatus
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $user = Auth::user()->userVote;
+        $now = Carbon::now('Asia/Makassar');
 
-        if ($user->status != 'not voted') {
+        $start = Carbon::create(2025, 12, 14, 0, 0, 0, 'Asia/Makassar');
+        $end   = Carbon::create(2025, 12, 16, 23, 59, 59, 'Asia/Makassar');
+
+        if ($now->lt($start) || $now->gt($end)) {
+            return redirect()->route('dashboard');
+        }
+
+        $userVote = Auth::user()->userVote;
+
+        if ($userVote->status !== 'not voted') {
             return redirect()->route('dashboard');
         }
 
