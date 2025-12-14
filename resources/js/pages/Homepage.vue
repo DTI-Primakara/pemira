@@ -3,12 +3,16 @@ import Navbar from '@/components/core/Navbar.vue';
 import ErrorModal from '@/components/sections/homepage/ErrorModal.vue';
 import LoginModal from '@/components/sections/homepage/LoginModal.vue';
 import Timeline from '@/components/sections/homepage/Timeline.vue';
+import VoteCountContainer from '@/components/VoteCountContainer.vue';
 import { initLenis } from '@/lib/lenis';
 import { usePage } from '@inertiajs/vue3';
 import { Instagram } from 'lucide-vue-next';
 import { onMounted, ref } from 'vue';
 
+const expanded = ref(false);
+
 const { props } = usePage();
+console.log(props);
 
 const showModalError = ref(false);
 
@@ -43,12 +47,27 @@ onMounted(() => {
                         />
                     </h1>
                     <h2 class="relative font-unbounded text-[9vw] leading-tight font-bold text-black md:text-[5vw] xl:text-[64px]">2025</h2>
-                    <p
-                        class="mt-4 w-full max-w-[764px] px-6 text-center font-dmsans text-xs leading-relaxed text-black opacity-80 sm:text-base md:px-0"
-                    >
-                        Pemira 2025 adalah saatnya mahasiswa Primakara menentukan pemimpin baru. Mari gunakan suara kita untuk membawa kampus menuju
-                        masa depan yang lebih baik
-                    </p>
+                    <div class="w-full max-w-[764px]">
+                        <p
+                            ref="textRef"
+                            :class="[
+                                'mt-4 px-6 text-center font-dmsans text-xs leading-relaxed text-black opacity-80 sm:text-base md:px-0',
+                                !expanded ? 'line-clamp-3' : '',
+                            ]"
+                        >
+                            PEMIRA 2025 adalah saatnya mahasiswa Primakara menentukan pemimpin baru. Mari gunakan suara kita untuk membawa kampus
+                            menuju masa depan yang lebih baik. Pemilu Raya Mahasiswa atau PEMIRA merupakan salah satu kegiatan yang diselenggarakan
+                            oleh DPM Primakara University. Pada kegiatan PEMIRA ini mahasiswa diberikan kesempatan untuk menentukan pemimpin ORMAWA
+                            baru untuk kepengurusan berikutnya. Gunakan hak suara kalian untuk menentukan pemimpin selanjutnya.
+                        </p>
+
+                        <span
+                            @click="expanded = !expanded"
+                            class="mt-2 block cursor-pointer text-center text-xs font-semibold text-blue-600 hover:underline sm:text-sm"
+                        >
+                            {{ expanded ? 'Tutup' : 'Baca selengkapnya' }}
+                        </span>
+                    </div>
                     <LoginModal>
                         <template #trigger>
                             <button
@@ -235,7 +254,7 @@ onMounted(() => {
                         />
                     </h2>
                     <p class="mt-4 w-full max-w-[764px] text-left font-dmsans text-xs leading-relaxed text-black opacity-80 sm:text-base">
-                        Pemira adalah wujud nyata demokrasi mahasiswa, di mana setiap suara memiliki makna dan kekuatan untuk menentukan arah
+                        PEMIRA adalah wujud nyata demokrasi mahasiswa, di mana setiap suara memiliki makna dan kekuatan untuk menentukan arah
                         kepemimpinan. Melalui proses ini, kita bersama-sama membangun budaya partisipasi yang sehat, jujur, dan penuh tanggung jawab.
                     </p>
                     <LoginModal>
@@ -257,30 +276,8 @@ onMounted(() => {
         <!-- END ABOUT -->
 
         <!-- START LIVE COUNT -->
-        <!-- <section class="relative mb-16 flex w-full items-center justify-center px-3 md:mb-30 md:px-10">
-            <div class="flex w-full max-w-7xl flex-col items-stretch justify-between gap-4 md:gap-16">
-                <div class="flex flex-col items-center justify-center gap-4">
-                    <h2
-                        class="relative max-w-3xl text-center font-unbounded text-2xl leading-[1.5em] font-bold text-black sm:text-3xl md:text-4xl lg:text-5xl"
-                    >
-                        Live Tracking for
-                        <span class="text-blue">Transparent</span>
-                        Voting
-                        <img
-                            src="/images/snow-pink.svg"
-                            alt="snow pink illustration"
-                            class="rotate-counter-clock absolute -top-10 right-0 h-12 -rotate-12 sm:h-14 lg:h-16 xl:h-20"
-                        />
-                    </h2>
-                    <p class="mt-4 w-full max-w-[764px] text-center font-dmsans text-xs leading-relaxed text-black opacity-80 sm:text-base">
-                        Pantau pergerakan suara secara langsung. Data diperbarui secara berkala untuk memastikan setiap suara tercatat dengan
-                        transparan dan sesuai jalurnya.
-                    </p>
-                </div>
-
-                <VoteCount />
-            </div>
-        </section> -->
+        {{}}
+        <VoteCountContainer />
         <!-- START LIVE COUNT -->
 
         <!-- START CANDIDATES -->
@@ -441,7 +438,7 @@ onMounted(() => {
                             <h4
                                 class="text-blue relative px-16 text-center font-unbounded text-lg leading-[1.5em] font-bold sm:px-12 sm:text-xl md:text-2xl"
                             >
-                                Himpunan Mahasiswa Akutansi
+                                Himpunan Mahasiswa Akuntansi
                             </h4>
                         </div>
                         <div class="md:flex-unwrap flex flex-row flex-wrap items-center justify-center gap-2 px-12 sm:gap-3 md:gap-6">
@@ -586,7 +583,7 @@ onMounted(() => {
                             <span class="cursor-pointer font-dmsans text-sm text-white opacity-70">@dpmprimakara</span>
                         </a>
                     </div>
-                    <span class="font-dmsans text-sm text-white opacity-70">© 2024 Pemira Primakara. All rights reserved.</span>
+                    <span class="font-dmsans text-sm text-white opacity-70">© 2024 PEMIRA Primakara. All rights reserved.</span>
                 </div>
             </div>
         </section>

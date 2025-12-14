@@ -81,7 +81,11 @@ class VoterResource extends Resource
                     TextColumn::make('vote_status')
                         ->label('Status')
                         ->sortable()
-                        ->searchable()
+                        ->searchable(
+                            query: function ($query, string $search) {
+                                $query->orWhere('user_vote.status', 'like', "%{$search}%");
+                            }
+                        )
                         ->default('Not Login')
                         ->formatStateUsing(fn ($state) => Str::title($state))
                 ]);

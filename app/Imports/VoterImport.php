@@ -7,8 +7,11 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
+use Maatwebsite\Excel\Concerns\WithBatchInserts;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 
-class VoterImport implements ToModel, WithHeadingRow
+class VoterImport implements ToModel, WithHeadingRow, WithChunkReading, WithBatchInserts, SkipsEmptyRows
 {
     /**
      * @param array $row
@@ -17,24 +20,37 @@ class VoterImport implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
-        $name = $row['name'] ?? $row['nama'] ?? null;
-        $nim = $row['nim'] ?? null;
-        $email = $row['email'] ?? null;
+        $name  = trim($row['name'] ?? '');
+        $nim   = trim($row['nim'] ?? '');
+        $email = trim($row['email'] ?? '');
 
-        if (!$name || !$nim || !$email) {
+        if ($name === '' || $nim === '' || $email === '') {
             return null;
         }
 
-        if (User::where('nim', $nim)->exists()) {
-            return null;
-        }
+        // if (
+        //     User::where('email', $email)->exists() ||
+        //     ($nim !== '' && User::where('nim', $nim)->exists())
+        // ) {
+        //     return null;
+        // }
 
         return new User([
-            'name' => $name,
-            'nim' => $nim,
-            'email' => $email,
-            'roles' => 3,
-            'password' => Hash::make(Str::random(10)),
+            'name'     => $name,
+            'nim'      => $nim,
+            'email'    => $email,
+            'roles'    => 3,
+            'password' => 'mahasiswa123',
         ]);
+    }
+
+    public function chunkSize(): int
+    {
+        return 500;
+    }
+
+    public function batchSize(): int
+    {
+        return 500;
     }
 }

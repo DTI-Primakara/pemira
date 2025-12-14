@@ -56,6 +56,15 @@ class CandidatesSeeder extends Seeder
                 'image' => '/candidates/candidate_bem_1_1x.webp',
                 'position' => 'Calon Presma & Wapresma',
             ],
+            [
+                'event_id' => 2,
+                'name_candidates' => 'Kotak Kosong',
+                'number' => 2,
+                'vision' => 'Kotak kosong',
+                'mission' => 'Kotak kosong',
+                'image' => '/candidates/candidate_bem_2.webp',
+                'position' => 'Calon Presma & Wapresma',
+            ],
 
             // HIMA SI
             [
@@ -143,7 +152,7 @@ class CandidatesSeeder extends Seeder
             // HIMA DKV
             [
                 'event_id' => 6,
-                'name_candidates' => 'Made',
+                'name_candidates' => 'Zidan',
                 'number' => 1,
                 'vision' => 'Mewujudkan HIMA DKV sebagai organisasi yang inklusif dan open-minded dengan menyediakan ruang kreatif yang progresif untuk mengembangkan keterampilan, mendorong inovasi, memperkuat kolaborasi, serta memastikan setiap mahasiswa dapat belajar dan berkembang secara maksimal dalam lingkungan yang suportif.',
                 'mission' => '1. Membangun lingkungan HIMA DKV yang inklusif dan ramah bagi seluruh mahasiswa.
@@ -157,7 +166,7 @@ class CandidatesSeeder extends Seeder
 
             [
                 'event_id' => 6,
-                'name_candidates' => 'Made',
+                'name_candidates' => 'Griya',
                 'number' => 2,
                 'vision' => 'Menjadi Himpunan Mahasiswa DKV yang kreatif dan kolaboratif , di mana setiap anggota dapat berkembang dan bersama -sama mencapai tujuan bersama.',
                 'mission' => '1. Menyediakan wadah pengembangan diri melalui program dan kegiatan pendukung di bidang DKV.

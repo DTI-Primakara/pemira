@@ -40,7 +40,7 @@ const isOverlayVisible = ref<boolean>(false);
 <template>
     <div
         class="group relative transform cursor-pointer overflow-hidden rounded-xl bg-blue-600 transition-all duration-300 hover:-translate-y-2"
-        :class="isSelected ? 'ring-4 ring-blue-600 ring-offset-2' : 'ring-1 ring-gray-200 dark:ring-gray-700'"
+        :class="isSelected ? 'ring-6 ring-blue-600 ring-offset-2' : 'ring-1 ring-gray-200 dark:ring-gray-700'"
     >
         <!-- DECORATION -->
         <div class="absolute inset-y-0 left-0 w-20 opacity-30 md:opacity-90">

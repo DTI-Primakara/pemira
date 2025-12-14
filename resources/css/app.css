@@ -234,7 +234,7 @@ body {
 }
 .linear-move {
     animation-name: linear-move;
-    animation-duration: 60s;
+    animation-duration: 20s;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
 }
