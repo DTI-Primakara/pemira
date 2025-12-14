@@ -29,9 +29,9 @@ const page = usePage();
 const user = computed(() => page.props.user as User).value;
 
 const statusVoting: StatusVoting = {
-    open: true,
+    open: page.props.votingOpen as boolean,
     status: page.props.status as 'voted' | 'not voted' | 'passed',
-    ended: false,
+    ended: page.props.votingClose as boolean,
 };
 </script>
 
