@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ProdiSeeder::class);
         $this->call(EventSeeder::class);
         $this->call(CandidatesSeeder::class);
+        $this->call(ConfigSeeder::class);
 
         User::factory()->create([
             'name' => 'admin',

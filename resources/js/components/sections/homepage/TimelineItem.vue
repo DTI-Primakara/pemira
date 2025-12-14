@@ -1,19 +1,45 @@
 <script lang="ts" setup>
+import { computed } from 'vue';
+
 interface Props {
     order: number;
     title: string;
     dateStart: Date;
-    dateEnd: Date;
+    dateEnd: Date | null;
 }
 
 const props = defineProps<Props>();
-let status = 'upcoming'; // upcoming, ongoing, done
 
-if (props.dateStart <= new Date() && props.dateEnd >= new Date()) {
-    status = 'ongoing';
-} else if (props.dateEnd < new Date()) {
-    status = 'done';
-}
+const status = computed(() => {
+    const now = new Date();
+
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const start = new Date(props.dateStart.getFullYear(), props.dateStart.getMonth(), props.dateStart.getDate());
+
+    if (!props.dateEnd) {
+        if (today.getTime() === start.getTime()) {
+            return 'ongoing';
+        }
+
+        if (today.getTime() > start.getTime()) {
+            return 'done';
+        }
+
+        return 'upcoming';
+    }
+
+    const end = new Date(props.dateEnd.getFullYear(), props.dateEnd.getMonth(), props.dateEnd.getDate());
+
+    if (today >= start && today <= end) {
+        return 'ongoing';
+    }
+
+    if (today > end) {
+        return 'done';
+    }
+
+    return 'upcoming';
+});
 </script>
 
 <template>
@@ -49,8 +75,8 @@ if (props.dateStart <= new Date() && props.dateEnd >= new Date()) {
                     status == 'done' ? 'text-[#D0D0D0]' : 'text-blue',
                 ]"
             >
-                {{ props.dateStart.toLocaleDateString('id-ID', { dateStyle: 'long' }) }} -
-                {{ props.dateEnd.toLocaleDateString('id-ID', { dateStyle: 'long' }) }}
+                {{ props.dateStart.toLocaleDateString('id-ID', { dateStyle: 'long' }) }}
+                {{ props.dateEnd ? ' - ' + props.dateEnd.toLocaleDateString('id-ID', { dateStyle: 'long' }) : '' }}
             </h4>
         </div>
     </div>

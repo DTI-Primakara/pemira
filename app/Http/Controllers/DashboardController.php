@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Candidate;
+use App\Models\Config;
 use App\Models\Vote;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -49,6 +50,8 @@ class DashboardController extends Controller
             return $data['event']['id_prodi'] == "0203";
         });
 
+        $config = Config::get();
+
         return Inertia::render('Homepage', [
             'datas' => [
                 'dpm' => $datasDPM,
@@ -60,7 +63,8 @@ class DashboardController extends Controller
                 'hima_manajemen' => $datasHIMAManajemen,
                 'hima_akuntansi' => $datasHIMAAkuntansi,
                 'hima_bd' => $datasHIMABD,
-            ]
+            ],
+            'config' => $config
         ]);
     }
 }

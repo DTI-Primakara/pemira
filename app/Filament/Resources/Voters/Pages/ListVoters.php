@@ -20,9 +20,9 @@ class ListVoters extends ListRecords
                 ->color('success')
                 ->use(VoterImport::class)
                 ->validateUsing([
-                    'name' => 'required|string|max:255',
-                    'nim' => 'required|numeric|unique:users,nim',
-                    'email' => 'required|email|max:255|unique:users,email',
+                    'name'  => 'required|string|max:255',
+                    'nim'   => 'required|numeric',
+                    'email' => 'required|email|max:255',
                 ]),
 
             Actions\CreateAction::make(),

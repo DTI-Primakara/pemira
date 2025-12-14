@@ -18,10 +18,16 @@ export interface NavItem {
     iconUrl?: string;
 }
 
+export interface ConfigItem {
+    title: string;
+    value: string;
+}
+
 export type AppPageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
     name: string;
     quote: { message: string; author: string };
     auth: Auth;
+    config: ConfigItem[];
     sidebarOpen: boolean;
 };
 
