@@ -68,7 +68,7 @@ const variantColors = computed(() => {
 
         <button
             v-if="title == 'Start Vote Now'"
-            class="mt-4 cursor-pointer rounded-md bg-[#0047FF] px-8 py-3 font-unbounded text-base font-semibold text-white"
+            class="mt-4 cursor-pointer rounded-md bg-[#0047FF] px-6 py-2 font-unbounded text-xs font-semibold text-white md:px-8 md:py-3 md:text-base"
         >
             Mulai Voting
         </button>
