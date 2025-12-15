@@ -26,10 +26,10 @@ console.log(props);
 
         <!-- EVENT FTID CONTAINER -->
         <div class="flex w-full flex-row flex-wrap items-end justify-center gap-8">
-            <VoteCountBox title="Hima Sistem Informasi" :items="props.datas.hima_si" />
-            <VoteCountBox title="HIMA Informatika" :items="props.datas.hima_if" />
-            <VoteCountBox title="HIMA Sistem Informasi Akuntansi" :items="props.datas.hima_sia" />
-            <VoteCountBox title="HIMA Desain Komunikasi Visual" :items="props.datas.hima_dkv" />
+            <VoteCountBox title="HIMA Prodi Sistem Informasi" :items="props.datas.hima_si" />
+            <VoteCountBox title="HIMA Prodi Informatika" :items="props.datas.hima_if" />
+            <VoteCountBox title="HIMA Prodi Sistem Informasi Akuntansi" :items="props.datas.hima_sia" />
+            <VoteCountBox title="HIMA Prodi Desain Komunikasi Visual" :items="props.datas.hima_dkv" />
         </div>
 
         <div class="itemc mt-8 flex flex-col justify-center gap-0">
@@ -43,9 +43,9 @@ console.log(props);
 
         <!-- EVENT FEB -->
         <div class="flex w-full flex-row flex-wrap items-end justify-center gap-8">
-            <VoteCountBox title="Hima Manajemen" :items="props.datas.hima_manajemen" />
-            <VoteCountBox title="HIMA Akuntansi" :items="props.datas.hima_akuntansi" />
-            <VoteCountBox title="HIMA Bisnis Digital" :items="props.datas.hima_bd" />
+            <VoteCountBox title="HIMA Prodi Manajemen" :items="props.datas.hima_manajemen" />
+            <VoteCountBox title="HIMA Prodi Akuntansi" :items="props.datas.hima_akuntansi" />
+            <VoteCountBox title="HIMA Prodi Bisnis Digital" :items="props.datas.hima_bd" />
         </div>
     </div>
 </template>
