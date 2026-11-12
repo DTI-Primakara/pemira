@@ -4,7 +4,7 @@ import VotingCta from '@/components/sections/dashboard/VotingCta.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { dashboard } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
-import { usePage } from '@inertiajs/vue3';
+import { Head, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -26,13 +26,13 @@ interface User {
 }
 
 const page = usePage();
-const user = computed(() => page.props.user as User).value;
+const user = computed(() => page.props.user as User);
 
-const statusVoting: StatusVoting = {
+const statusVoting = computed<StatusVoting>(() => ({
     open: page.props.votingOpen as boolean,
     status: page.props.status as 'voted' | 'not voted' | 'passed',
-    ended: page.props.votingClose as boolean,
-};
+    ended: page.props.votingEnded as boolean,
+}));
 </script>
 
 <template>
@@ -114,7 +114,7 @@ const statusVoting: StatusVoting = {
                 />
             </template>
 
-            <template v-else-if="statusVoting.status == 'passed'">
+            <template v-else-if="statusVoting.ended || statusVoting.status === 'passed'">
                 <VotingCta
                     variant="error"
                     title="Voting Closed"

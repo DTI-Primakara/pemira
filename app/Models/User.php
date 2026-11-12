@@ -2,21 +2,26 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-//use Couchbase\Role;
 use App\Models\Role;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+
+    public const ROLE_SUPER_ADMIN = 1;
+
+    public const ROLE_ADMIN = 2;
+
+    public const ROLE_PARTICIPANT = 3;
 
     /**
      * The attributes that are mass assignable.
@@ -50,7 +55,7 @@ class User extends Authenticatable implements FilamentUser
     {
         return [
             'email_verified_at' => 'datetime',
-            // 'password' => 'hashed',
+            'password' => 'hashed',
         ];
     }
 
@@ -64,12 +69,58 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasOne(UserVote::class);
     }
 
+    /**
+     * The voter's ballot-status row, created on first access.
+     */
+    public function ballot(): UserVote
+    {
+        return $this->userVote()->firstOrCreate(
+            ['user_id' => $this->id],
+            ['status' => UserVote::STATUS_NOT_VOTED]
+        );
+    }
+
+    /**
+     * Study-programme code encoded in the student number, e.g. 23 0102 001 -> "0102".
+     */
+    public function prodiCode(): ?string
+    {
+        $nim = (string) $this->nim;
+
+        return strlen($nim) >= 6 ? substr($nim, 2, 4) : null;
+    }
+
+    /**
+     * Elections this voter may take part in: university-wide ones plus the one
+     * belonging to their study programme. Elections without candidates are skipped.
+     *
+     * @return Collection<int, Event>
+     */
+    public function eligibleEvents(): Collection
+    {
+        $prodiCode = $this->prodiCode();
+
+        return Event::query()
+            ->where(function ($query) use ($prodiCode) {
+                $query->whereNull('id_prodi');
+
+                if ($prodiCode !== null) {
+                    $query->orWhere('id_prodi', $prodiCode);
+                }
+            })
+            ->has('candidates')
+            ->with(['candidates' => fn ($query) => $query->orderBy('number')])
+            ->orderBy('id')
+            ->get();
+    }
+
+    public function isAdmin(): bool
+    {
+        return in_array((int) $this->roles, [self::ROLE_SUPER_ADMIN, self::ROLE_ADMIN], true);
+    }
+
     public function canAccessPanel(Panel $panel): bool
     {
-        if ($this->role) {
-            return in_array($this->role->id_roles, [1, 2]);
-        }
-
-        return false;
+        return $this->isAdmin();
     }
 }

@@ -1,31 +1,12 @@
 <script setup lang="ts">
-import type { PropType } from 'vue';
+import type { Candidate } from '@/types';
 import CandidateCard from './CandidateCard.vue';
 
-interface Candidate {
-    id: number;
-    number: string;
-    name_candidates: string;
-    position: string;
-    image: string;
-    vision: string;
-    mission: string;
-}
-
-defineProps({
-    candidates: {
-        type: Array as PropType<Candidate[]>,
-        required: true,
-    },
-    stepTitle: {
-        type: String,
-        required: true,
-    },
-    selectedCandidate: {
-        type: Number,
-        required: false, // optional
-    },
-});
+defineProps<{
+    candidates: Candidate[];
+    stepTitle: string;
+    selectedCandidate?: number;
+}>();
 
 // define emit
 const emit = defineEmits<{

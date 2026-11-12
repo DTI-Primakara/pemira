@@ -3,83 +3,64 @@ import VotingStep from '@/components/sections/vote/VotingStep.vue';
 import { Button } from '@/components/ui/button';
 import VoteLayout from '@/layouts/VoteLayout.vue';
 import { dashboard } from '@/routes';
+import type { BallotEvent, Candidate } from '@/types';
 import { Head, router } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
 
-interface Candidate {
-    id: number;
-    number: string;
-    name_candidates: string;
-    position: string;
-    image: string;
-    vision: string;
-    mission: string;
-}
+const props = defineProps<{
+    events: BallotEvent[];
+}>();
 
-interface ElectionStep {
-    id: number;
-    title: string;
-    type: string;
-    subtitle: string;
-    candidates: Candidate[];
-}
+const currentStepIndex = ref(0);
+const submitting = ref(false);
 
-interface Selections {
-    [key: string]: number;
-}
+/** candidate id chosen per event id */
+const selections = ref<Record<number, number>>({});
 
-const props = defineProps({
-    events: Array,
-});
+const currentStepData = computed<BallotEvent | undefined>(() => props.events[currentStepIndex.value]);
+const isLastStep = computed(() => currentStepIndex.value === props.events.length - 1);
 
-const electionSteps = props.events as ElectionStep[];
+const selectedCandidateId = computed<number | undefined>(() =>
+    currentStepData.value ? selections.value[currentStepData.value.id] : undefined,
+);
 
-console.log(electionSteps);
+const isCandidateSelected = computed(() => selectedCandidateId.value !== undefined);
 
-const currentStepIndex = ref<number>(0);
-const selections = ref<Selections>({});
+const selectedCandidate = computed<Candidate | undefined>(() =>
+    currentStepData.value?.candidates.find((candidate) => candidate.id === selectedCandidateId.value),
+);
 
-const currentStepData = computed<ElectionStep>(() => electionSteps[currentStepIndex.value]);
-const isLastStep = computed<boolean>(() => currentStepIndex.value === electionSteps.length - 1);
+const handleVote = (candidateId: number): void => {
+    if (!currentStepData.value) return;
+    selections.value[currentStepData.value.id] = candidateId;
+};
 
 const nextStep = (): void => {
     if (!isLastStep.value) {
         currentStepIndex.value++;
-    } else {
-        finishVote();
+        return;
     }
+    finishVote();
 };
 
-const isCandidateSelected = computed(() => {
-    const stepTitle = currentStepData.value.title;
-    return !!selections.value[stepTitle];
-});
-
-// nyimpen kandidat
-const handleVote = (candidateId: number): void => {
-    const stepTitle = currentStepData.value.title;
-    selections.value[stepTitle] = candidateId;
-    console.log('Current selections:', selections.value);
-};
-
-//  menyelesaikan voting
 const finishVote = (): void => {
-    const votesPayload = electionSteps.map((step) => ({
-        event_id: step.id,
-        candidate_id: selections.value[step.title],
+    if (submitting.value) return;
+    submitting.value = true;
+
+    const votesPayload = props.events.map((event) => ({
+        event_id: event.id,
+        candidate_id: selections.value[event.id],
     }));
 
     router.post(
         '/vote/submit',
         { votes: votesPayload },
         {
-            onSuccess: () => {
-                // alert('Terima kasih sudah voting!');
-                router.get(dashboard().url);
-            },
             onError: (errors) => {
-                console.error(errors);
-                alert('Gagal mengirim vote, coba lagi.');
+                alert(Object.values(errors)[0] ?? 'Gagal mengirim suara, coba lagi.');
+            },
+            onFinish: () => {
+                submitting.value = false;
             },
         },
     );
@@ -89,35 +70,49 @@ const finishVote = (): void => {
 <template>
     <Head title="Voting" />
     <VoteLayout>
-        <header class="mb-8 flex flex-col items-start justify-between md:flex-row">
-            <div>
-                <p class="mt-4 text-primary">
-                    Tahapan {{ currentStepIndex + 1 }} / <span class="text-gray-300">{{ electionSteps.length }} </span>
+        <div v-if="!currentStepData" class="py-20 text-center">
+            <h2 class="font-unbounded text-2xl font-extrabold text-slate-800">Belum ada pemilihan yang tersedia</h2>
+            <p class="mt-2 text-gray-500">Belum ada kandidat yang terdaftar untuk hak suaramu saat ini.</p>
+            <Button class="mt-6 rounded-none" font="unbounded" @click="router.get(dashboard().url)">KEMBALI KE DASHBOARD</Button>
+        </div>
+
+        <template v-else>
+            <header class="mb-8 flex flex-col items-start justify-between md:flex-row">
+                <div>
+                    <p class="mt-4 text-primary">
+                        Tahapan {{ currentStepIndex + 1 }} / <span class="text-gray-300">{{ props.events.length }} </span>
+                    </p>
+                    <h2 class="mt-1 font-unbounded text-4xl font-extrabold tracking-tight text-slate-800 sm:text-5xl">Pilih Kandidatmu <br /></h2>
+                </div>
+                <div class="mt-12 text-left md:text-right">
+                    <h3 class="font-unbounded text-xl font-extrabold text-slate-800 sm:text-4xl">{{ currentStepData.type }}</h3>
+                    <p class="mt-1 text-gray-500">{{ currentStepData.title }}</p>
+                </div>
+            </header>
+
+            <VotingStep
+                :key="currentStepData.id"
+                :candidates="currentStepData.candidates"
+                :step-title="currentStepData.title"
+                :selected-candidate="selectedCandidateId"
+                @vote="handleVote"
+            />
+
+            <footer class="mt-12 flex flex-col items-end justify-between gap-5 pb-20 md:flex-row md:items-center">
+                <p v-if="selectedCandidate" class="font-unbounded text-lg font-semibold">
+                    No Undi Terpilih : {{ String(selectedCandidate.number).padStart(2, '0') }}
                 </p>
-                <h2 class="mt-1 font-unbounded text-4xl font-extrabold tracking-tight text-slate-800 sm:text-5xl">Pilih Kandidatmu <br /></h2>
-            </div>
-            <div class="mt-12 text-left md:text-right">
-                <h3 class="font-unbounded text-xl font-extrabold text-slate-800 sm:text-4xl">{{ currentStepData.type }}</h3>
-                <p class="mt-1 text-gray-500">{{ currentStepData.title }}</p>
-            </div>
-        </header>
-
-        <VotingStep
-            :key="currentStepData.id"
-            :candidates="currentStepData.candidates"
-            :step-title="currentStepData.title"
-            :selected-candidate="selections[currentStepData.title]"
-            @vote="handleVote"
-        />
-
-        <footer class="mt-12 flex flex-col items-end justify-between gap-5 pb-20 md:flex-row md:items-center">
-            <p v-if="!isCandidateSelected"></p>
-            <p v-if="isCandidateSelected" class="font-unbounded text-lg font-semibold">
-                No Undi Terpilih : 0{{ selections[currentStepData.title] % 2 == 0 ? 2 : 1 }}
-            </p>
-            <Button @click="nextStep" :disabled="!isCandidateSelected" size="lg" font="unbounded" class="rounded-none">
-                {{ isLastStep ? 'FINISH VOTE' : 'PEMILIHAN SELANJUTNYA' }}
-            </Button>
-        </footer>
+                <p v-else></p>
+                <Button
+                    @click="nextStep"
+                    :disabled="!isCandidateSelected || submitting"
+                    size="lg"
+                    font="unbounded"
+                    class="rounded-none"
+                >
+                    {{ isLastStep ? (submitting ? 'MENGIRIM...' : 'FINISH VOTE') : 'PEMILIHAN SELANJUTNYA' }}
+                </Button>
+            </footer>
+        </template>
     </VoteLayout>
 </template>

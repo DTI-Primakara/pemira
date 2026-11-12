@@ -23,13 +23,45 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $this->ensureRolesExist();
+
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
+            'nim' => fake()->unique()->numerify('23010#####'),
+            'roles' => \App\Models\User::ROLE_PARTICIPANT,
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
         ];
+    }
+
+    public function admin(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'roles' => \App\Models\User::ROLE_ADMIN,
+        ]);
+    }
+
+    /**
+     * Give the voter a student number belonging to a specific study programme.
+     */
+    public function inProdi(string $prodiCode): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'nim' => '23'.$prodiCode.fake()->unique()->numerify('####'),
+        ]);
+    }
+
+    /**
+     * users.roles is a foreign key, so the lookup rows must exist before any
+     * user is created in a freshly migrated test database.
+     */
+    protected function ensureRolesExist(): void
+    {
+        foreach ([1 => 'Super Admin', 2 => 'Admin', 3 => 'Peserta'] as $id => $name) {
+            \App\Models\Role::firstOrCreate(['id_roles' => $id], ['nama_roles' => $name]);
+        }
     }
 
     /**
