@@ -1,0 +1,69 @@
+<?php
+
+use App\Models\Candidate;
+use App\Models\Config;
+use App\Models\Event;
+use App\Models\Prodi;
+use App\Models\Vote;
+
+it('hides the tally entirely while the admin toggle is off', function () {
+    Config::set(Config::VOTE_COUNT_VISIBLE, 'false');
+
+    $this->get(route('home'))
+        ->assertInertia(fn ($page) => $page->component('Homepage')->where('voteCountVisible', false));
+});
+
+it('publishes aggregate counts but never individual vote rows', function () {
+    Config::set(Config::VOTE_COUNT_VISIBLE, 'true');
+
+    $event = Event::factory()->universityWide()->create(['title' => 'Presiden Mahasiswa']);
+    $candidate = Candidate::factory()->create(['event_id' => $event->id, 'number' => 1]);
+
+    Vote::insert(collect(range(1, 3))->map(fn () => [
+        'event_id' => $event->id,
+        'candidate_id' => $candidate->id,
+        'voted_at' => now()->startOfHour(),
+        'created_at' => now()->startOfHour(),
+        'updated_at' => now()->startOfHour(),
+    ])->all());
+
+    $response = $this->get(route('home'));
+
+    $response->assertInertia(fn ($page) => $page
+        ->component('Homepage')
+        ->where('voteCountVisible', true)
+        ->where('groups.0.events.0.candidates.0.votes_count', 3)
+        // Individual ballots carry timestamps that can be correlated per voter.
+        ->missing('groups.0.events.0.candidates.0.votes')
+    );
+});
+
+it('includes newly created elections without any code change', function () {
+    Config::set(Config::VOTE_COUNT_VISIBLE, 'true');
+
+    Prodi::factory()->create([
+        'id_prodi' => '0301',
+        'faculty' => 'Fakultas Baru',
+        'faculty_short' => 'FB',
+    ]);
+
+    $mpr = Event::factory()->create(['title' => 'Majelis Permusyawaratan Rakyat', 'type' => 'MPR', 'id_prodi' => null]);
+    Candidate::factory()->create(['event_id' => $mpr->id]);
+
+    $newHima = Event::factory()->forProdi('0301')->create(['title' => 'HIMA Prodi Baru']);
+    Candidate::factory()->create(['event_id' => $newHima->id]);
+
+    $this->get(route('home'))->assertInertia(fn ($page) => $page
+        ->where('groups.0.events.0.title', 'Majelis Permusyawaratan Rakyat')
+        ->where('groups.1.title', 'Fakultas Baru')
+        ->where('groups.1.events.0.title', 'HIMA Prodi Baru')
+    );
+});
+
+it('leaves out elections that have no candidates yet', function () {
+    Config::set(Config::VOTE_COUNT_VISIBLE, 'true');
+
+    Event::factory()->universityWide()->create(['title' => 'Belum Ada Paslon']);
+
+    $this->get(route('home'))->assertInertia(fn ($page) => $page->where('groups', []));
+});

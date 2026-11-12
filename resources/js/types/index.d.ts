@@ -18,16 +18,10 @@ export interface NavItem {
     iconUrl?: string;
 }
 
-export interface ConfigItem {
-    title: string;
-    value: string;
-}
-
 export type AppPageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
     name: string;
     quote: { message: string; author: string };
     auth: Auth;
-    config: ConfigItem[];
     sidebarOpen: boolean;
 };
 
@@ -46,15 +40,9 @@ export type BreadcrumbItemType = BreadcrumbItem;
 
 export interface Event {
     id: number;
-    id_prodi?: number;
+    id_prodi?: string | null;
     title: string;
     type: string;
-}
-
-export interface Vote {
-    id: number;
-    candidate_id: number;
-    event_id: number;
 }
 
 export interface Candidate {
@@ -62,23 +50,41 @@ export interface Candidate {
     name_candidates: string;
     number: number;
     image: string;
-    mision: string;
+    mission: string;
     vision: string;
     position: string;
-    event: Event;
-    votes: [Vote];
+    event?: Event;
 }
 
-export interface CandidateProps {
-    datas: {
-        bem: [Candidate];
-        dpm: [Candidate];
-        hima_if: [Candidate];
-        hima_si: [Candidate];
-        hima_sia: [Candidate];
-        hima_dkv: [Candidate];
-        hima_manajemen: [Candidate];
-        hima_akuntansi: [Candidate];
-        hima_bd: [Candidate];
-    };
+/** A ballot step as served to the voting wizard. */
+export interface BallotEvent extends Event {
+    candidates: Candidate[];
 }
+
+/** Public tally: aggregate counts only, never individual vote rows. */
+export interface TallyCandidate {
+    id: number;
+    name_candidates: string;
+    number: number;
+    image: string;
+    votes_count: number;
+}
+
+export interface TallyEvent {
+    id: number;
+    title: string;
+    type: string;
+    candidates: TallyCandidate[];
+}
+
+export interface TallyGroup {
+    key: string;
+    title: string | null;
+    subtitle: string | null;
+    events: TallyEvent[];
+}
+
+export type HomepageProps = AppPageProps<{
+    groups: TallyGroup[];
+    voteCountVisible: boolean;
+}>;

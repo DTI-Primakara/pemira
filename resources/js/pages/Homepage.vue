@@ -12,7 +12,6 @@ import { onMounted, ref } from 'vue';
 const expanded = ref(false);
 
 const { props } = usePage();
-console.log(props);
 
 const showModalError = ref(false);
 

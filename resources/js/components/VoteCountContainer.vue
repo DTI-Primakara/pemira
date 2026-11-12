@@ -1,14 +1,13 @@
 <script lang="ts" setup>
-import { AppPageProps } from '@/types';
+import type { HomepageProps } from '@/types';
 import { usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import VoteCount from './sections/homepage/VoteCount.vue';
 
-const { props } = usePage<AppPageProps>();
+const { props } = usePage<HomepageProps>();
 
-const isVoteCountVisible = computed(() => {
-    return props.config?.find((item) => item.title === 'is_vote_count_visible')?.value === 'true';
-});
+const groups = computed(() => props.groups ?? []);
+const isVoteCountVisible = computed(() => props.voteCountVisible === true && groups.value.length > 0);
 </script>
 
 <template>
@@ -34,7 +33,7 @@ const isVoteCountVisible = computed(() => {
                 </p>
             </div>
 
-            <VoteCount />
+            <VoteCount :groups="groups" />
         </div>
     </section>
 </template>
