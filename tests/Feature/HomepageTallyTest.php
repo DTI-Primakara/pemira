@@ -9,8 +9,27 @@ use App\Models\Vote;
 it('hides the tally entirely while the admin toggle is off', function () {
     Config::set(Config::VOTE_COUNT_VISIBLE, 'false');
 
-    $this->get(route('home'))
-        ->assertInertia(fn ($page) => $page->component('Homepage')->where('voteCountVisible', false));
+    $event = Event::factory()->universityWide()->create();
+    $candidate = Candidate::factory()->create(['event_id' => $event->id]);
+
+    Vote::insert([[
+        'event_id' => $event->id,
+        'candidate_id' => $candidate->id,
+        'voted_at' => now()->startOfHour(),
+        'created_at' => now()->startOfHour(),
+        'updated_at' => now()->startOfHour(),
+    ]]);
+
+    $response = $this->get(route('home'));
+
+    // The counts must not merely be unrendered: they must never reach the page.
+    $response->assertInertia(fn ($page) => $page
+        ->component('Homepage')
+        ->where('voteCountVisible', false)
+        ->where('groups', [])
+    );
+
+    $response->assertDontSee('votes_count');
 });
 
 it('publishes aggregate counts but never individual vote rows', function () {

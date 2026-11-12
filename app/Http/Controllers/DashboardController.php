@@ -11,9 +11,14 @@ class DashboardController extends Controller
 {
     public function showHomepage()
     {
+        $visible = Config::voteCountVisible();
+
         return Inertia::render('Homepage', [
-            'groups' => $this->tallyGroups(),
-            'voteCountVisible' => Config::voteCountVisible(),
+            // While the tally is hidden the counts are not computed or sent at all:
+            // shipping them and merely not rendering would leave them readable in
+            // the page source.
+            'groups' => $visible ? $this->tallyGroups() : [],
+            'voteCountVisible' => $visible,
         ]);
     }
 
