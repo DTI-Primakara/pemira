@@ -5,48 +5,47 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Inertia\Inertia;
-use Laravel\Socialite\Socialite;
+use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\Two\InvalidStateException;
 
 class SocialiteCallbackController extends Controller
 {
     public function handleCallback(Request $request)
     {
         try {
-            // Gunakan stateless FALSE agar tetap pakai session
             $socialUser = Socialite::driver('google')->user();
+        } catch (InvalidStateException) {
+            $this->resetSession($request);
 
-        } catch (\Laravel\Socialite\Two\InvalidStateException $e) {
-            Auth::logout();
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
+            return redirect()->route('home')->with('error', 'Sesi login berakhir, silakan login kembali.');
+        } catch (\Throwable) {
+            $this->resetSession($request);
 
-            return redirect('/auth/redirect')
-                ->with('error', 'Sesi login berakhir, silakan login kembali.');
-        } catch (\Exception $e) {
-            Auth::logout();
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-
-            return redirect('/')
-                ->with('error', 'Terjadi kesalahan saat login. Silakan coba lagi.');
+            return redirect()->route('home')->with('error', 'Terjadi kesalahan saat login. Silakan coba lagi.');
         }
 
-        // Cari user berdasarkan email Google
-        $pemiraUser = User::where('email', $socialUser->getEmail())->first();
+        $email = $socialUser->getEmail();
 
-        if (!$pemiraUser) {
-            return redirect('/')
-                ->with('error', 'Maaf, akun Anda tidak terdaftar di sistem Pemira.');
+        $pemiraUser = $email ? User::where('email', $email)->first() : null;
+
+        if (! $pemiraUser) {
+            $this->resetSession($request);
+
+            return redirect()->route('home')->with('error', 'Maaf, akun Anda tidak terdaftar di sistem Pemira.');
         }
 
-        // Login user
         Auth::login($pemiraUser);
 
-        // Pastikan data user dibagikan ke Inertia
-        Inertia::share('auth.user', fn () => Auth::user());
+        // Prevent session fixation: the pre-login session id must not survive login.
+        $request->session()->regenerate();
 
-        return redirect('/dashboard');
+        return redirect()->route('dashboard');
     }
 
+    private function resetSession(Request $request): void
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+    }
 }

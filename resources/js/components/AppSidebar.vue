@@ -14,16 +14,6 @@ const mainNavItems: NavItem[] = [
         href: dashboard(),
         iconUrl: '/voting.svg',
     },
-    // {
-    //     title: 'History',
-    //     href: history(),
-    //     icon: LayoutGrid,
-    // },
-    // {
-    //     title: 'Kandidat',
-    //     href: kandidat(),
-    //     icon: UsersRound,
-    // },
 ];
 
 const footerNavItems: NavItem[] = [];

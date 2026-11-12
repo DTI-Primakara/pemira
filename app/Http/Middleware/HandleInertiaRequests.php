@@ -43,7 +43,9 @@ class HandleInertiaRequests extends Middleware
             'name' => config('app.name'),
             'quote' => ['message' => trim($message), 'author' => trim($author)],
             'auth' => [
-                'user' => session('user') ?? null,
+                // Authentication runs through the web guard; the old session('user')
+                // lookup was left over from the abandoned SSO flow and always returned null.
+                'user' => fn () => $request->user()?->only(['id', 'name', 'nim', 'email']),
             ],
             'flash' => function () use ($request) {
                 return [
