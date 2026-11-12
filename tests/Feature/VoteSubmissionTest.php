@@ -191,3 +191,14 @@ it('coarsens vote timestamps so a ballot cannot be reassembled per voter', funct
             ->and($vote->voted_at->second)->toBe(0);
     });
 });
+
+it('never exposes a voter password through the shared auth props', function () {
+    $scenario = ballotScenario();
+
+    $this->actingAs($scenario['voter'])
+        ->get(route('dashboard'))
+        ->assertInertia(fn ($page) => $page
+            ->missing('auth.user.password')
+            ->missing('user.password')
+        );
+});
