@@ -4,9 +4,9 @@ namespace App\Filament\Resources\Voters\Pages;
 
 use App\Filament\Resources\Voters\VoterResource;
 use App\Imports\VoterImport;
+use EightyNine\ExcelImport\ExcelImportAction;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
-use EightyNine\ExcelImport\ExcelImportAction;
 
 class ListVoters extends ListRecords
 {
@@ -20,8 +20,8 @@ class ListVoters extends ListRecords
                 ->color('success')
                 ->use(VoterImport::class)
                 ->validateUsing([
-                    'name'  => 'required|string|max:255',
-                    'nim'   => 'required|numeric',
+                    'name' => 'required|string|max:255',
+                    'nim' => 'required|numeric',
                     'email' => 'required|email|max:255',
                 ]),
 

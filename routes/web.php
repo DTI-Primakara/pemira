@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\CoordinatorController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LogoutUserController;
 use App\Http\Controllers\SocialiteCallbackController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoteController;
 use App\Http\Middleware\CheckVoterStatus;
+use App\Http\Middleware\EnsureUserIsKorti;
 use App\Http\Middleware\OauthLoginCheck;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -22,6 +24,10 @@ Route::prefix('/auth')->group(function () {
 
 Route::middleware(OauthLoginCheck::class)->group(function () {
     Route::get('dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+
+    Route::get('koordinator', [CoordinatorController::class, 'index'])
+        ->middleware(EnsureUserIsKorti::class)
+        ->name('koordinator');
 
     Route::middleware(CheckVoterStatus::class)->group(function () {
         Route::get('guide', fn () => Inertia::render('TourGuide'))->name('guide');

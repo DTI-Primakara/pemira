@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Role;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Collection;
@@ -23,6 +22,8 @@ class User extends Authenticatable implements FilamentUser
 
     public const ROLE_PARTICIPANT = 3;
 
+    public const ROLE_KORTI = 4;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -34,6 +35,7 @@ class User extends Authenticatable implements FilamentUser
         'email',
         'password',
         'roles',
+        'class_id',
     ];
 
     /**
@@ -62,6 +64,22 @@ class User extends Authenticatable implements FilamentUser
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class, 'roles', 'id_roles');
+    }
+
+    public function classroom(): BelongsTo
+    {
+        return $this->belongsTo(Classroom::class, 'class_id');
+    }
+
+    /** The class this user coordinates, if they are a korti. */
+    public function coordinatedClass(): HasOne
+    {
+        return $this->hasOne(Classroom::class, 'korti_user_id');
+    }
+
+    public function isKorti(): bool
+    {
+        return (int) $this->roles === self::ROLE_KORTI && $this->coordinatedClass()->exists();
     }
 
     public function userVote(): HasOne

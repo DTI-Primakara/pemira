@@ -12,9 +12,9 @@ class RolesForm
         return $schema
             ->components([
                 TextInput::make('nama_roles')
-                ->required()
-                ->maxLength(255)
-                ->label('Nama Roles')->unique(ignoreRecord: true)
+                    ->required()
+                    ->maxLength(255)
+                    ->label('Nama Roles')->unique(ignoreRecord: true),
             ]);
     }
 }

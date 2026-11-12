@@ -11,11 +11,10 @@ use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
-use Filament\Tables\Table;
-
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Grouping\Group;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
@@ -36,7 +35,7 @@ class CandidateResource extends Resource
     {
         return $table
             ->modifyQueryUsing(
-                fn(Builder $query) => $query
+                fn (Builder $query) => $query
                     ->join('events', 'events.id', '=', 'candidates.event_id')
                     ->select('candidates.*', DB::raw('(select count(*) from `votes` where `candidates`.`id` = `votes`.`candidate_id`) as `votes_count`'))
             )
@@ -54,7 +53,7 @@ class CandidateResource extends Resource
                     ->label('Total Suara')
                     ->sortable()
                     ->color('success')
-                    ->formatStateUsing(fn(string $state): string => number_format($state)),
+                    ->formatStateUsing(fn (string $state): string => number_format($state)),
             ])
             ->filters([
                 SelectFilter::make('event_id')
@@ -75,7 +74,7 @@ class CandidateResource extends Resource
     public static function getRelations(): array
     {
         return [
-            
+
         ];
     }
 

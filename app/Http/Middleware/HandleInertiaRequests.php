@@ -46,6 +46,7 @@ class HandleInertiaRequests extends Middleware
                 // Authentication runs through the web guard; the old session('user')
                 // lookup was left over from the abandoned SSO flow and always returned null.
                 'user' => fn () => $request->user()?->only(['id', 'name', 'nim', 'email']),
+                'isKorti' => fn () => (bool) $request->user()?->isKorti(),
             ],
             'flash' => function () use ($request) {
                 return [

@@ -3,7 +3,6 @@
 use App\Filament\Pages\ManageVotingSettings;
 use App\Models\Config;
 use App\Models\User;
-
 use Livewire\Livewire;
 
 it('keeps the settings page away from participants', function () {

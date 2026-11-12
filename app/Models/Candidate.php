@@ -20,10 +20,10 @@ class Candidate extends Model
         'vision',
         'mission',
         'image',
-        'position'
+        'position',
     ];
 
-    public function event() : BelongsTo
+    public function event(): BelongsTo
     {
         return $this->belongsTo(Event::class);
     }

@@ -18,8 +18,8 @@ use UnitEnum;
 class RolesResource extends Resource
 {
     protected static ?string $model = Role::class;
-    protected static string | UnitEnum | null $navigationGroup = 'Users';
 
+    protected static string|UnitEnum|null $navigationGroup = 'Users';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::UserGroup;
 

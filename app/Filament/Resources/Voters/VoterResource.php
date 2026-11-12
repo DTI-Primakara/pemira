@@ -14,6 +14,7 @@ use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 
@@ -47,48 +48,62 @@ class VoterResource extends Resource
                             ->maxLength(255)
                             ->email(),
                         Hidden::make('roles')
-                            ->default(3)
-                    ])
-                    ]);
+                            ->default(3),
+                    ]),
+            ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
-                ->modifyQueryUsing(function ($query) {
-                    return $query
-                        ->leftJoin('user_vote', 'user_vote.user_id', '=', 'users.id')
-                        ->where('users.roles', 3)
-                        ->select([
-                            'users.*',
-                            'user_vote.status as vote_status',
-                        ]);
-                })
-                ->columns([
-                    TextColumn::make('name')
-                        ->label("Nama")
-                        ->searchable()
-                        ->sortable(),
+            ->modifyQueryUsing(function ($query) {
+                return $query
+                    ->leftJoin('user_vote', 'user_vote.user_id', '=', 'users.id')
+                    // Coordinators are voters too, so they must not drop off this list.
+                    ->whereIn('users.roles', [User::ROLE_PARTICIPANT, User::ROLE_KORTI])
+                    ->select([
+                        'users.*',
+                        'user_vote.status as vote_status',
+                    ]);
+            })
+            ->columns([
+                TextColumn::make('name')
+                    ->label('Nama')
+                    ->searchable()
+                    ->sortable(),
 
-                    TextColumn::make('nim')
-                        ->label('NIM')
-                        ->searchable()
-                        ->sortable(),
-                    TextColumn::make('email')
-                        ->label('Email')
-                        ->sortable()
-                        ->searchable(),
-                    TextColumn::make('vote_status')
-                        ->label('Status')
-                        ->sortable()
-                        ->searchable(
-                            query: function ($query, string $search) {
-                                $query->orWhere('user_vote.status', 'like', "%{$search}%");
-                            }
-                        )
-                        ->default('Not Login')
-                        ->formatStateUsing(fn ($state) => Str::title($state))
-                ]);
+                TextColumn::make('nim')
+                    ->label('NIM')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('email')
+                    ->label('Email')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('classroom.name')
+                    ->label('Kelas')
+                    ->placeholder('Belum ada kelas')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('vote_status')
+                    ->label('Status')
+                    ->sortable()
+                    ->searchable(
+                        query: function ($query, string $search) {
+                            $query->orWhere('user_vote.status', 'like', "%{$search}%");
+                        }
+                    )
+                    ->default('Not Login')
+                    ->formatStateUsing(fn ($state) => Str::title($state)),
+            ])
+            ->filters([
+                SelectFilter::make('class_id')
+                    ->label('Kelas')
+                    ->relationship('classroom', 'name')
+                    ->searchable()
+                    ->preload(),
+            ]);
     }
 
     public static function getRelations(): array
