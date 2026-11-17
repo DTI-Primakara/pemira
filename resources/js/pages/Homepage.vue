@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Navbar from '@/components/core/Navbar.vue';
 import ErrorModal from '@/components/sections/homepage/ErrorModal.vue';
+import HeroCardShuffle from '@/components/sections/homepage/HeroCardShuffle.vue';
 import LoginModal from '@/components/sections/homepage/LoginModal.vue';
 import Timeline from '@/components/sections/homepage/Timeline.vue';
 import VoteCountContainer from '@/components/VoteCountContainer.vue';
@@ -29,210 +30,67 @@ onMounted(() => {
         <Navbar />
 
         <!-- START HERO -->
-        <section class="relative mb-16 flex w-full items-center justify-start overflow-hidden bg-white pt-36 md:mb-30" id="hero">
-            <div class="flex w-full flex-col items-center justify-start">
-                <div class="z-10 flex flex-col items-center justify-center">
-                    <h1 class="text-blue relative font-unbounded text-[16vw] leading-tight font-bold md:text-[12vw] xl:text-[160px]">
-                        <img
-                            src="/images/star-pink.svg"
-                            alt="star pink svg"
-                            class="rotate-clock absolute top-[7vw] -left-[8vw] w-[12vw] rotate-24 md:-left-[5vw] md:w-[8vw] xl:w-[120px]"
-                        />
-                        PEMIRA
-                        <img
-                            src="/images/snow-orange.svg"
-                            alt="snow orange svg"
-                            class="rotate-counter-clock absolute top-[0vw] -right-[5vw] w-[12vw] rotate-24 md:-right-[3vw] md:w-[8vw] xl:w-[120px]"
-                        />
-                    </h1>
-                    <h2 class="relative font-unbounded text-[9vw] leading-tight font-bold text-black md:text-[5vw] xl:text-[64px]">2025</h2>
-                    <div class="w-full max-w-[764px]">
-                        <p
-                            ref="textRef"
-                            :class="[
-                                'mt-4 px-6 text-center font-dmsans text-xs leading-relaxed text-black opacity-80 sm:text-base md:px-0',
-                                !expanded ? 'line-clamp-3' : '',
-                            ]"
-                        >
-                            Pemilu Raya Mahasiswa atau PEMIRA merupakan salah satu kegiatan yang diselenggarakan oleh DPM Primakara University. Pada
-                            kegiatan PEMIRA ini mahasiswa diberikan kesempatan untuk menentukan pemimpin ORMAWA baru untuk kepengurusan berikutnya.
-                            Gunakan hak suara kalian untuk menentukan pemimpin selanjutnya.
-                        </p>
-
-                        <span
-                            @click="expanded = !expanded"
-                            class="mt-2 block cursor-pointer text-center text-xs font-semibold text-blue-600 hover:underline sm:text-sm"
-                        >
-                            {{ expanded ? 'Tutup' : 'Baca selengkapnya' }}
-                        </span>
-                    </div>
-                    <LoginModal>
-                        <template #trigger>
-                            <button
-                                class="mt-6 flex cursor-pointer items-center justify-center gap-2 bg-[#4342FF] px-3 py-2 font-unbounded text-xs text-white hover:bg-[#1c1cad] sm:px-5 sm:py-3 md:text-sm"
+        <section class="relative mb-16 flex w-full items-center justify-start overflow-y-visible bg-white pt-36 md:mb-30" id="hero">
+            <div class="flex w-full flex-col items-center justify-start overflow-y-visible">
+                <div class="relative z-10 flex w-full max-w-7xl flex-row items-center justify-center gap-12">
+                    <div class="flex w-full flex-col items-start justify-start gap-2">
+                        <h1 class="relative text-gradient-main-26 font-unbounded text-[15vw] leading-32 font-bold md:text-[11vw] xl:text-[144px]">
+                            PEMIRA
+                            <br />
+                            <img
+                                src="/images/asset26-1.svg"
+                                alt="snow orange svg"
+                                class="rotate-counter-clock absolute top-[-4vw] -right-[15vw] w-[12vw] rotate-24 md:-right-[8vw] md:w-[8vw] xl:w-[104px]"
+                            />
+                            <span class="text-gradient-secondary-26">2026</span>
+                        </h1>
+                        <div class="w-full max-w-[764px]">
+                            <p
+                                ref="textRef"
+                                :class="[
+                                    'mt-4 px-6 text-left font-dmsans text-sm leading-relaxed text-black opacity-80 sm:text-lg md:px-0',
+                                    !expanded ? 'line-clamp-3' : '',
+                                ]"
                             >
-                                VOTE NOW <img src="/images/arrow-white.svg" alt="arrow white icon" class="w-3" />
-                            </button>
-                        </template>
-                    </LoginModal>
+                                Pemilu Raya Mahasiswa atau PEMIRA merupakan salah satu kegiatan yang diselenggarakan oleh DPM Primakara University.
+                                Pada kegiatan PEMIRA ini mahasiswa diberikan kesempatan untuk menentukan pemimpin ORMAWA baru untuk kepengurusan
+                                berikutnya. Gunakan hak suara kalian untuk menentukan pemimpin selanjutnya.
+                            </p>
 
-                    <ErrorModal v-model:open="showModalError" />
-                </div>
-                <div class="relative mt-32 flex w-full flex-col items-center justify-center">
-                    <div
-                        class="absolute -left-40 flex w-full rotate-32 flex-row items-center justify-center gap-8 overflow-hidden bg-[#4342FF] py-4 md:gap-12"
-                    >
-                        <p class="linear-move-left font-unbounded text-3xl font-bold text-white md:text-5xl">VOTE</p>
-                        <img src="/images/star-pink.svg" alt="star pink" class="linear-move-left h-10 md:h-14" />
-                        <p class="linear-move-left font-unbounded text-3xl font-bold text-white md:text-5xl">VOTE</p>
-                        <img src="/images/star-pink.svg" alt="star pink" class="linear-move-left h-10 md:h-14" />
-                        <p class="linear-move-left font-unbounded text-3xl font-bold text-white md:text-5xl">VOTE</p>
-                        <img src="/images/star-pink.svg" alt="star pink" class="linear-move-left h-10 md:h-14" />
-                        <p class="linear-move-left font-unbounded text-3xl font-bold text-white md:text-5xl">VOTE</p>
-                        <img src="/images/star-pink.svg" alt="star pink" class="linear-move-left h-10 md:h-14" />
-                        <p class="linear-move-left font-unbounded text-3xl font-bold text-white md:text-5xl">VOTE</p>
-                        <img src="/images/star-pink.svg" alt="star pink" class="linear-move-left h-10 md:h-14" />
-                        <p class="linear-move-left font-unbounded text-3xl font-bold text-white md:text-5xl">VOTE</p>
-                        <img src="/images/star-pink.svg" alt="star pink" class="linear-move-left h-10 md:h-14" />
-                        <p class="linear-move-left font-unbounded text-3xl font-bold text-white md:text-5xl">VOTE</p>
-                        <img src="/images/star-pink.svg" alt="star pink" class="linear-move-left h-10 md:h-14" />
-                        <p class="linear-move-left font-unbounded text-3xl font-bold text-white md:text-5xl">VOTE</p>
-                        <img src="/images/star-pink.svg" alt="star pink" class="linear-move-left h-10 md:h-14" />
-                        <p class="linear-move-left font-unbounded text-3xl font-bold text-white md:text-5xl">VOTE</p>
-                        <img src="/images/star-pink.svg" alt="star pink" class="linear-move-left h-10 md:h-14" />
-                        <p class="linear-move-left font-unbounded text-3xl font-bold text-white md:text-5xl">VOTE</p>
-                        <img src="/images/star-pink.svg" alt="star pink" class="linear-move-left h-10 md:h-14" />
-                        <p class="linear-move-left font-unbounded text-3xl font-bold text-white md:text-5xl">VOTE</p>
-                        <img src="/images/star-pink.svg" alt="star pink" class="linear-move-left h-10 md:h-14" />
-                        <p class="linear-move-left font-unbounded text-3xl font-bold text-white md:text-5xl">VOTE</p>
-                        <img src="/images/star-pink.svg" alt="star pink" class="linear-move-left h-10 md:h-14" />
+                            <span
+                                @click="expanded = !expanded"
+                                class="mt-2 block cursor-pointer text-left text-xs font-semibold text-blue-600 hover:underline sm:text-sm"
+                            >
+                                {{ expanded ? 'Tutup' : 'Baca selengkapnya' }}
+                            </span>
+                        </div>
+                        <div class="flex flex-row gap-4">
+                            <LoginModal>
+                                <template #trigger>
+                                    <button
+                                        class="mt-6 flex cursor-pointer items-center justify-center gap-2 bg-gradient-main-26 px-3 py-2 font-unbounded text-xs text-white hover:bg-[#1c1cad] sm:px-5 sm:py-3 md:text-sm"
+                                    >
+                                        Vote Sekarang <img src="/images/arrow-white.svg" alt="arrow white icon" class="w-3" />
+                                    </button>
+                                </template>
+                            </LoginModal>
+                            <a
+                                href="#"
+                                class="mt-6 flex cursor-pointer items-center justify-center gap-2 border-[1px] border-[#E8E8E8] text-gradient-main-26 px-3 py-2 font-unbounded text-xs text-white hover:bg-[#1c1cad] sm:px-5 sm:py-3 md:text-sm"
+                                >Lihat Kandidat</a
+                            >
+                        </div>
+
+                        <ErrorModal v-model:open="showModalError" />
                     </div>
-                    <div
-                        class="absolute -right-40 flex w-full -rotate-32 flex-row items-center justify-center gap-8 overflow-hidden bg-[#4342FF] py-4 md:gap-12"
-                    >
-                        <p class="linear-move-right font-unbounded text-3xl font-bold text-white md:text-5xl">VOTE</p>
-                        <img src="/images/star-pink.svg" alt="star pink" class="linear-move-right h-10 md:h-14" />
-                        <p class="linear-move-right font-unbounded text-3xl font-bold text-white md:text-5xl">VOTE</p>
-                        <img src="/images/star-pink.svg" alt="star pink" class="linear-move-right h-10 md:h-14" />
-                        <p class="linear-move-right font-unbounded text-3xl font-bold text-white md:text-5xl">VOTE</p>
-                        <img src="/images/star-pink.svg" alt="star pink" class="linear-move-right h-10 md:h-14" />
-                        <p class="linear-move-right font-unbounded text-3xl font-bold text-white md:text-5xl">VOTE</p>
-                        <img src="/images/star-pink.svg" alt="star pink" class="linear-move-right h-10 md:h-14" />
-                        <p class="linear-move-right font-unbounded text-3xl font-bold text-white md:text-5xl">VOTE</p>
-                        <img src="/images/star-pink.svg" alt="star pink" class="linear-move-right h-10 md:h-14" />
-                        <p class="linear-move-right font-unbounded text-3xl font-bold text-white md:text-5xl">VOTE</p>
-                        <img src="/images/star-pink.svg" alt="star pink" class="linear-move-right h-10 md:h-14" />
-                        <p class="linear-move-right font-unbounded text-3xl font-bold text-white md:text-5xl">VOTE</p>
-                        <img src="/images/star-pink.svg" alt="star pink" class="linear-move-right h-10 md:h-14" />
-                        <p class="linear-move-right font-unbounded text-3xl font-bold text-white md:text-5xl">VOTE</p>
-                        <img src="/images/star-pink.svg" alt="star pink" class="linear-move-right h-10 md:h-14" />
-                        <p class="linear-move-right font-unbounded text-3xl font-bold text-white md:text-5xl">VOTE</p>
-                        <img src="/images/star-pink.svg" alt="star pink" class="linear-move-right h-10 md:h-14" />
-                        <p class="linear-move-right font-unbounded text-3xl font-bold text-white md:text-5xl">VOTE</p>
-                        <img src="/images/star-pink.svg" alt="star pink" class="linear-move-right h-10 md:h-14" />
-                        <p class="linear-move-right font-unbounded text-3xl font-bold text-white md:text-5xl">VOTE</p>
-                        <img src="/images/star-pink.svg" alt="star pink" class="linear-move-right h-10 md:h-14" />
-                        <p class="linear-move-right font-unbounded text-3xl font-bold text-white md:text-5xl">VOTE</p>
-                        <img src="/images/star-pink.svg" alt="star pink" class="linear-move-right h-10 md:h-14" />
-                    </div>
+
+                    <HeroCardShuffle />
                 </div>
-                <div class="relative flex w-full flex-row items-start justify-start gap-4 overflow-hidden">
-                    <div class="linear-move flex w-full flex-row items-start justify-start gap-2 sm:gap-4">
-                        <img
-                            src="/paslon-images/bem_1_1x.webp"
-                            alt=""
-                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
-                        />
-
-                        <img
-                            src="/paslon-images/dpm_1_1x.webp"
-                            alt=""
-                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
-                        />
-                        <img
-                            src="/paslon-images/dpm_2_1x.webp"
-                            alt=""
-                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
-                        />
-
-                        <img
-                            src="/paslon-images/hima_akun_1_1x.webp"
-                            alt=""
-                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
-                        />
-                        <img
-                            src="/paslon-images/hima_akun_2_1x.webp"
-                            alt=""
-                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
-                        />
-
-                        <img
-                            src="/paslon-images/hima_bd_1_1x.webp"
-                            alt=""
-                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
-                        />
-                        <img
-                            src="/paslon-images/hima_bd_2_1x.webp"
-                            alt=""
-                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
-                        />
-
-                        <img
-                            src="/paslon-images/hima_dkv_1_1x.webp"
-                            alt=""
-                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
-                        />
-                        <img
-                            src="/paslon-images/hima_dkv_2_1x.webp"
-                            alt=""
-                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
-                        />
-
-                        <img
-                            src="/paslon-images/hima_if_1_1x.webp"
-                            alt=""
-                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
-                        />
-                        <img
-                            src="/paslon-images/hima_if_2_1x.webp"
-                            alt=""
-                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
-                        />
-
-                        <img
-                            src="/paslon-images/hima_mana_1_1x.webp"
-                            alt=""
-                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
-                        />
-                        <img
-                            src="/paslon-images/hima_mana_2_1x.webp"
-                            alt=""
-                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
-                        />
-
-                        <img
-                            src="/paslon-images/hima_si_1_1x.webp"
-                            alt=""
-                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
-                        />
-                        <img
-                            src="/paslon-images/hima_si_2_1x.webp"
-                            alt=""
-                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
-                        />
-
-                        <img
-                            src="/paslon-images/hima_sia_1_1x.webp"
-                            alt=""
-                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
-                        />
-                        <img
-                            src="/paslon-images/hima_sia_2_1x.webp"
-                            alt=""
-                            class="w-full max-w-48 min-w-48 sm:max-w-[37vw] sm:min-w-[37vw] md:max-w-[24vw] md:min-w-[24vw] xl:max-w-96 xl:min-w-96"
-                        />
-                    </div>
-                </div>
+                <img
+                    src="/images/asset-homepage-hero-1.svg"
+                    alt="snow orange svg"
+                    class="absolute -right-1 -bottom-40 z-40 h-[24vw] animate-wiggle"
+                />
             </div>
         </section>
         <!-- END HERO -->

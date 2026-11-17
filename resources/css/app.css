@@ -289,3 +289,42 @@ body {
         display: none;
     }
 }
+
+/* CUSTOM COLOR FOR 2026 */
+@utility text-gradient-main-26 {
+    background-image: linear-gradient(to bottom, #4342ff, #0100d6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+
+@utility text-gradient-secondary-26 {
+    background-image: linear-gradient(to bottom, #23e2ff, #0788df);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+
+@utility bg-gradient-main-26 {
+    background-image: linear-gradient(to bottom, #4342ff, #0100d6);
+}
+
+@utility bg-gradient-secondary-26 {
+    background-image: linear-gradient(to bottom, #23e2ff, #0788df);
+}
+
+@theme {
+    --animate-wiggle: wiggle 3s ease-in-out infinite;
+
+    @keyframes wiggle {
+        0%,
+        100% {
+            transform: rotate(-0.8deg);
+        }
+        50% {
+            transform: rotate(0.8deg);
+        }
+    }
+}
