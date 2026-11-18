@@ -8,7 +8,7 @@ const candidates = [
 ];
 
 const DURATION = 600; // ms, samakan dengan duration-[600ms] di template
-const INTERVAL = 5000;
+const INTERVAL = 3000;
 
 const current = ref(0);
 const leaving = ref(false); // true = fase 1 (kartu depan keluar ke kiri)

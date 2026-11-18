@@ -328,3 +328,11 @@ body {
         }
     }
 }
+
+@utility max-w-8xl {
+    max-width: 96rem;
+}
+
+@utility bg-gradient-white-26 {
+    background-image: linear-gradient(to right, #ffffff00 0%, #ffffff 80%);
+}

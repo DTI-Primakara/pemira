@@ -23,6 +23,14 @@ onMounted(() => {
         showModalError.value = true;
     }
 });
+
+function scrollTo(id: string) {
+    const el = document.getElementById(id);
+    if (el) {
+        const y = el.getBoundingClientRect().top + window.scrollY - 120;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+}
 </script>
 
 <template>
@@ -30,17 +38,22 @@ onMounted(() => {
         <Navbar />
 
         <!-- START HERO -->
-        <section class="relative mb-16 flex w-full items-center justify-start overflow-y-visible bg-white pt-36 md:mb-30" id="hero">
-            <div class="flex w-full flex-col items-center justify-start overflow-y-visible">
-                <div class="relative z-10 flex w-full max-w-7xl flex-row items-center justify-center gap-12">
-                    <div class="flex w-full flex-col items-start justify-start gap-2">
-                        <h1 class="relative text-gradient-main-26 font-unbounded text-[15vw] leading-32 font-bold md:text-[11vw] xl:text-[144px]">
+        <section
+            class="relative mb-16 flex w-full items-center justify-center overflow-x-hidden overflow-y-visible bg-white pt-36 md:mb-30"
+            id="hero"
+        >
+            <div class="relative flex w-full max-w-8xl flex-col items-center justify-start overflow-y-visible px-6 md:px-10">
+                <div class="relative z-10 flex w-full max-w-7xl flex-col items-center justify-center gap-12 lg:flex-row">
+                    <div class="mb-8 flex w-full flex-col items-start justify-start gap-2">
+                        <h1
+                            class="relative text-gradient-main-26 font-unbounded text-[17.5vw] leading-[15.5vw] font-bold sm:text-[16.5vw] sm:leading-[14vw] lg:text-[144px] lg:leading-32"
+                        >
                             PEMIRA
                             <br />
                             <img
                                 src="/images/asset26-1.svg"
                                 alt="snow orange svg"
-                                class="rotate-counter-clock absolute top-[-4vw] -right-[15vw] w-[12vw] rotate-24 md:-right-[8vw] md:w-[8vw] xl:w-[104px]"
+                                class="rotate-counter-clock absolute top-[-6vw] -right-[12vw] w-[12vw] rotate-24 md:-right-[8vw] md:w-[8vw] xl:w-[104px]"
                             />
                             <span class="text-gradient-secondary-26">2026</span>
                         </h1>
@@ -48,7 +61,7 @@ onMounted(() => {
                             <p
                                 ref="textRef"
                                 :class="[
-                                    'mt-4 px-6 text-left font-dmsans text-sm leading-relaxed text-black opacity-80 sm:text-lg md:px-0',
+                                    'mt-4 text-left font-dmsans text-sm leading-relaxed text-black opacity-80 sm:text-lg md:px-0',
                                     !expanded ? 'line-clamp-3' : '',
                                 ]"
                             >
@@ -74,11 +87,13 @@ onMounted(() => {
                                     </button>
                                 </template>
                             </LoginModal>
-                            <a
-                                href="#"
+                            <button
+                                @click.prevent="scrollTo('candidate')"
                                 class="mt-6 flex cursor-pointer items-center justify-center gap-2 border-[1px] border-[#E8E8E8] text-gradient-main-26 px-3 py-2 font-unbounded text-xs text-white hover:bg-[#1c1cad] sm:px-5 sm:py-3 md:text-sm"
-                                >Lihat Kandidat</a
                             >
+                                Lihat Kandidat
+                            </button>
+                            <a href="#"></a>
                         </div>
 
                         <ErrorModal v-model:open="showModalError" />
@@ -86,14 +101,17 @@ onMounted(() => {
 
                     <HeroCardShuffle />
                 </div>
-                <img
-                    src="/images/asset-homepage-hero-1.svg"
-                    alt="snow orange svg"
-                    class="absolute -right-1 -bottom-40 z-40 h-[24vw] animate-wiggle"
-                />
             </div>
         </section>
         <!-- END HERO -->
+
+        <!-- DECORATION HERO -->
+        <div class="relative z-30 flex w-full animate-wiggle items-center justify-center">
+            <div class="relative z-30 w-full max-w-8xl">
+                <img src="/images/asset-homepage-hero-1.svg" alt="snow orange svg" class="absolute -right-1 -bottom-20 z-30 h-[300px] md:bottom-0" />
+            </div>
+        </div>
+        <!-- DECORATION HERO -->
 
         <!-- START ABOUT -->
         <section class="relative mb-16 flex w-full items-center justify-center px-3 md:mb-30 md:px-10" id="about">
