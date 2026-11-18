@@ -336,3 +336,6 @@ body {
 @utility bg-gradient-white-26 {
     background-image: linear-gradient(to right, #ffffff00 0%, #ffffff 80%);
 }
+@utility layer-blur {
+    filter: blur(200px);
+}

@@ -106,14 +106,50 @@ function scrollTo(id: string) {
         <!-- END HERO -->
 
         <!-- DECORATION HERO -->
-        <div class="relative z-30 flex w-full animate-wiggle items-center justify-center">
+        <div class="relative z-30 flex w-full animate-wiggle items-center justify-center sm:mb-20">
             <div class="relative z-30 w-full max-w-8xl">
-                <img src="/images/asset-homepage-hero-1.svg" alt="snow orange svg" class="absolute -right-1 -bottom-20 z-30 h-[300px] md:bottom-0" />
+                <img
+                    src="/images/asset-homepage-hero-1.svg"
+                    alt="snow orange svg"
+                    class="absolute -right-1 -bottom-20 z-30 hidden h-[300px] max-w-[95%] sm:flex md:bottom-0"
+                />
             </div>
         </div>
         <!-- DECORATION HERO -->
 
         <!-- START ABOUT -->
+        <section class="relative mb-16 flex w-full flex-col items-center justify-center px-0 md:mb-30" id="candidate">
+            <div class="relative flex w-full max-w-7xl flex-col gap-10 overflow-hidden pt-[10vw] md:pt-[64px]">
+                <!-- HEAD CONTENT -->
+                <div class="flex w-full flex-col items-center justify-center gap-3 px-6 sm:px-0 md:items-center md:gap-12">
+                    <div class="flex w-full flex-1 flex-col items-center justify-center gap-3">
+                        <h2
+                            class="relative text-gradient-main-26 text-center font-unbounded text-[6.1vw] leading-[8.4vw] font-bold text-black md:text-[52px] md:leading-[72px]"
+                        >
+                            Satu Langkah Menuju
+                            <br />
+                            <span class="text-gradient-secondary-26">Primakara Unggul</span>
+                            <img
+                                src="/images/asset26-2.svg"
+                                alt="snow pink illustration"
+                                class="absolute -top-[10vw] -right-6 w-[10vw] md:-top-[64px] md:w-[64px]"
+                            />
+                            <img
+                                src="/images/asset26-3.svg"
+                                alt="snow pink illustration"
+                                class="absolute -bottom-5 -left-5 w-[10vw] md:-bottom-[8px] md:w-[64px]"
+                            />
+                        </h2>
+                        <p class="w-full text-center font-dmsans text-sm leading-relaxed text-black opacity-80 sm:text-lg md:max-w-xl">
+                            Penasaran dengan para kandidat yang akan maju pada PEMIRA 2025? Yuk simak dan dukung mereka pada ajang kali ini!
+                        </p>
+                    </div>
+                    <div class="flex max-w-xl flex-1 flex-col items-end justify-start"></div>
+                </div>
+                <!-- HEAD CONTENT -->
+            </div>
+        </section>
+
         <section class="relative mb-16 flex w-full items-center justify-center px-3 md:mb-30 md:px-10" id="about">
             <div class="flex w-full max-w-7xl flex-col items-stretch justify-between gap-4 md:gap-16 lg:flex-row">
                 <!-- CONTENT -->
