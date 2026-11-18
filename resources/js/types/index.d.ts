@@ -62,12 +62,31 @@ export interface BallotEvent extends Event {
     candidates: Candidate[];
 }
 
+/** A candidate as shown in the public showcase on the homepage. */
+export interface ShowcaseCandidate {
+    id: number;
+    name_candidates: string;
+    number: number;
+    position: string;
+    image_url: string | null;
+}
+
+/** An election plus its candidates, built from the admin panel. */
+export interface ElectionShowcase {
+    id: number;
+    title: string;
+    shortLabel: string;
+    type: string;
+    /** Human-readable summary of who may vote in this election. */
+    eligibility: string;
+    candidates: ShowcaseCandidate[];
+}
+
 /** Public tally: aggregate counts only, never individual vote rows. */
 export interface TallyCandidate {
     id: number;
     name_candidates: string;
     number: number;
-    image: string;
     votes_count: number;
 }
 
@@ -86,6 +105,7 @@ export interface TallyGroup {
 }
 
 export type HomepageProps = AppPageProps<{
+    elections: ElectionShowcase[];
     groups: TallyGroup[];
     voteCountVisible: boolean;
 }>;

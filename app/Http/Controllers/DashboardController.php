@@ -2,24 +2,89 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Candidate;
 use App\Models\Config;
 use App\Models\Event;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Collection;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
 {
     public function showHomepage()
     {
-        $visible = Config::voteCountVisible();
+        $tallyVisible = Config::voteCountVisible();
+
+        $events = $this->electionsWithCandidates($tallyVisible);
 
         return Inertia::render('Homepage', [
-            // While the tally is hidden the counts are not computed or sent at all:
-            // shipping them and merely not rendering would leave them readable in
-            // the page source.
-            'groups' => $visible ? $this->tallyGroups() : [],
-            'voteCountVisible' => $visible,
+            'elections' => $this->presentElections($events),
+            // While the tally is hidden the counts are not sent at all: shipping
+            // them and merely not rendering would leave them readable in the
+            // page source.
+            'groups' => $tallyVisible ? $this->tallyGroups($events) : [],
+            'voteCountVisible' => $tallyVisible,
         ]);
+    }
+
+    /**
+     * Every election that actually has candidates, ordered as created.
+     *
+     * @return Collection<int, Event>
+     */
+    private function electionsWithCandidates(bool $withVoteCounts): Collection
+    {
+        return Event::query()
+            ->with([
+                'prodi',
+                'candidates' => function ($query) use ($withVoteCounts) {
+                    $query->orderBy('number');
+
+                    if ($withVoteCounts) {
+                        $query->withCount('votes');
+                    }
+                },
+            ])
+            ->has('candidates')
+            ->orderBy('id')
+            ->get();
+    }
+
+    /**
+     * The public candidate showcase: who stands in which election, and who is
+     * entitled to vote in it. Driven entirely by the admin panel.
+     *
+     * @param  Collection<int, Event>  $events
+     */
+    private function presentElections(Collection $events): array
+    {
+        return $events->map(fn (Event $event) => [
+            'id' => $event->id,
+            'title' => $event->title,
+            'shortLabel' => $this->shortLabelFor($event),
+            'type' => $event->type,
+            'eligibility' => $event->isUniversityWide()
+                ? 'Terbuka untuk seluruh mahasiswa'
+                : 'Khusus mahasiswa '.($event->prodi?->name ?? 'program studi terkait'),
+            'candidates' => $event->candidates->map(fn (Candidate $candidate) => [
+                'id' => $candidate->id,
+                'name_candidates' => $candidate->name_candidates,
+                'number' => $candidate->number,
+                'position' => $candidate->position,
+                'image_url' => $candidate->imageUrl(),
+            ])->values(),
+        ])->values()->all();
+    }
+
+    /**
+     * Short badge above the election title, e.g. "DPM", "MPR", "HIMA SI".
+     */
+    private function shortLabelFor(Event $event): string
+    {
+        if ($event->isUniversityWide()) {
+            return $event->type;
+        }
+
+        return trim($event->type.' '.($event->prodi?->short_name ?? ''));
     }
 
     /**
@@ -29,30 +94,26 @@ class DashboardController extends Controller
      * Only aggregate counts leave the server. Shipping the individual vote rows
      * would expose their timestamps, which is enough to reconstruct who voted
      * for whom across elections.
+     *
+     * @param  Collection<int, Event>  $events
      */
-    private function tallyGroups(): array
+    private function tallyGroups(Collection $events): array
     {
-        $events = Event::query()
-            ->with(['prodi', 'candidates' => fn ($query) => $query->withCount('votes')->orderBy('number')])
-            ->has('candidates')
-            ->orderBy('id')
-            ->get();
-
         $groups = [];
 
-        $universityWide = $events->whereNull('id_prodi');
+        $universityWide = $events->filter(fn (Event $event) => $event->isUniversityWide());
 
         if ($universityWide->isNotEmpty()) {
             $groups[] = [
                 'key' => 'universitas',
                 'title' => null,
                 'subtitle' => null,
-                'events' => $this->presentEvents($universityWide),
+                'events' => $this->presentTallyEvents($universityWide),
             ];
         }
 
         $byFaculty = $events
-            ->filter(fn (Event $event) => $event->id_prodi !== null)
+            ->reject(fn (Event $event) => $event->isUniversityWide())
             ->groupBy(fn (Event $event) => $event->prodi?->faculty ?? 'Program Studi Lainnya');
 
         foreach ($byFaculty as $faculty => $facultyEvents) {
@@ -60,24 +121,26 @@ class DashboardController extends Controller
                 'key' => str($faculty)->slug()->value(),
                 'title' => $faculty,
                 'subtitle' => 'Tentukan pilihanmu untuk '.($facultyEvents->first()->prodi?->faculty_short ?? $faculty).' lebih baik!',
-                'events' => $this->presentEvents($facultyEvents),
+                'events' => $this->presentTallyEvents($facultyEvents),
             ];
         }
 
         return $groups;
     }
 
-    private function presentEvents(Collection $events): array
+    /**
+     * @param  \Illuminate\Support\Collection<int, Event>  $events
+     */
+    private function presentTallyEvents($events): array
     {
         return $events->map(fn (Event $event) => [
             'id' => $event->id,
             'title' => $event->title,
             'type' => $event->type,
-            'candidates' => $event->candidates->map(fn ($candidate) => [
+            'candidates' => $event->candidates->map(fn (Candidate $candidate) => [
                 'id' => $candidate->id,
                 'name_candidates' => $candidate->name_candidates,
                 'number' => $candidate->number,
-                'image' => $candidate->image,
                 'votes_count' => $candidate->votes_count,
             ])->values(),
         ])->values()->all();
