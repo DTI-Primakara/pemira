@@ -12,7 +12,7 @@
         }
     </style>
 
-    <title inertia>PEMIRA 2025</title>
+    <title inertia>PEMIRA 2026</title>
 
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
