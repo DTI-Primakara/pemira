@@ -12,6 +12,7 @@ $adminPages = [
     '/admin/candidates',
     '/admin/classrooms',
     '/admin/prodis',
+    '/admin/timelines',
     '/admin/manage-voting-settings',
 ];
 

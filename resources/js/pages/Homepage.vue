@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import Navbar from '@/components/core/Navbar.vue';
+import AboutPemira from '@/components/sections/homepage/AboutPemira.vue';
+import CandidateShowcase from '@/components/sections/homepage/CandidateShowcase.vue';
 import ErrorModal from '@/components/sections/homepage/ErrorModal.vue';
 import HeroCardShuffle from '@/components/sections/homepage/HeroCardShuffle.vue';
 import LoginModal from '@/components/sections/homepage/LoginModal.vue';
 import RibbonMarquee from '@/components/sections/homepage/RibbonMarquee.vue';
 import Timeline from '@/components/sections/homepage/Timeline.vue';
-import AboutPemira from '@/components/sections/homepage/AboutPemira.vue';
-import CandidateShowcase from '@/components/sections/homepage/CandidateShowcase.vue';
 import VoteCountContainer from '@/components/VoteCountContainer.vue';
 import { initLenis } from '@/lib/lenis';
 import type { HomepageProps } from '@/types';
@@ -17,6 +17,7 @@ import { computed, onMounted, ref } from 'vue';
 const { props } = usePage<HomepageProps>();
 
 const elections = computed(() => props.elections ?? []);
+const timelines = computed(() => props.timelines ?? []);
 
 const expanded = ref(false);
 const showModalError = ref(false);
@@ -111,7 +112,7 @@ function scrollTo(id: string) {
         <!-- END HERO -->
 
         <!-- DECORATION HERO -->
-        <div class="relative z-30 hidden w-full animate-wiggle items-center justify-center sm:flex sm:mb-16">
+        <div class="relative z-30 hidden w-full animate-wiggle items-center justify-center sm:mb-16 sm:flex">
             <div class="relative z-30 w-full">
                 <img
                     src="/images/asset-homepage-hero-1.svg"
@@ -203,7 +204,7 @@ function scrollTo(id: string) {
         <!-- END CANDIDATES -->
 
         <!-- START TIMELINES -->
-        <Timeline id="timeline" />
+        <Timeline id="timeline" :entries="timelines" />
         <!-- END TIMELINES -->
         <!-- START FOOTER -->
         <section class="relative flex w-full flex-col items-center justify-center bg-[#030520]" id="contact">
@@ -314,10 +315,7 @@ function scrollTo(id: string) {
                             <span class="cursor-pointer font-dmsans text-sm text-white opacity-70">@dpmprimakara</span>
                         </a>
                     </div>
-                    <span class="text-center font-dmsans text-sm text-white opacity-70 md:text-right"
-                        >Hosting supported by <a href="https://hookigroup.com/" class="underline">Hooki</a>. Developed with ❤️ by DTI & PEMIRA
-                        Primakara.</span
-                    >
+                    <span class="text-center font-dmsans text-sm text-white opacity-70 md:text-right">Developed with ❤️ by PEMIRA Primakara.</span>
                 </div>
             </div>
         </section>

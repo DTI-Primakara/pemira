@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Candidate;
 use App\Models\Config;
 use App\Models\Event;
+use App\Models\Timeline;
 use Illuminate\Database\Eloquent\Collection;
 use Inertia\Inertia;
 
@@ -23,7 +24,28 @@ class DashboardController extends Controller
             // page source.
             'groups' => $tallyVisible ? $this->tallyGroups($events) : [],
             'voteCountVisible' => $tallyVisible,
+            'timelines' => $this->agenda(),
         ]);
+    }
+
+    /**
+     * The public agenda, managed from the admin panel. Dates are sent as plain
+     * days because the homepage only ever renders a date.
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    private function agenda(): array
+    {
+        return Timeline::query()
+            ->ordered()
+            ->get()
+            ->map(fn (Timeline $entry) => [
+                'id' => $entry->id,
+                'title' => $entry->title,
+                'starts_on' => $entry->starts_on->toDateString(),
+                'ends_on' => $entry->ends_on?->toDateString(),
+            ])
+            ->all();
     }
 
     /**

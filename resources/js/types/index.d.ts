@@ -104,8 +104,19 @@ export interface TallyGroup {
     events: TallyEvent[];
 }
 
+/** One agenda entry on the public timeline, managed from the admin panel. */
+export interface TimelineEntry {
+    id: number;
+    title: string;
+    /** Plain day, YYYY-MM-DD. */
+    starts_on: string;
+    /** Plain day, or null when the agenda lasts a single day. */
+    ends_on: string | null;
+}
+
 export type HomepageProps = AppPageProps<{
     elections: ElectionShowcase[];
     groups: TallyGroup[];
     voteCountVisible: boolean;
+    timelines: TimelineEntry[];
 }>;
