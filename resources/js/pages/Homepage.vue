@@ -5,6 +5,7 @@ import HeroCardShuffle from '@/components/sections/homepage/HeroCardShuffle.vue'
 import LoginModal from '@/components/sections/homepage/LoginModal.vue';
 import RibbonMarquee from '@/components/sections/homepage/RibbonMarquee.vue';
 import Timeline from '@/components/sections/homepage/Timeline.vue';
+import AboutPemira from '@/components/sections/homepage/AboutPemira.vue';
 import CandidateShowcase from '@/components/sections/homepage/CandidateShowcase.vue';
 import VoteCountContainer from '@/components/VoteCountContainer.vue';
 import { initLenis } from '@/lib/lenis';
@@ -38,7 +39,7 @@ function scrollTo(id: string) {
 </script>
 
 <template>
-    <div class="flex min-h-screen w-full flex-col items-center justify-start bg-white">
+    <div class="flex min-h-screen w-full flex-col items-center justify-start overflow-x-clip bg-white">
         <Navbar />
 
         <!-- START HERO -->
@@ -110,12 +111,13 @@ function scrollTo(id: string) {
         <!-- END HERO -->
 
         <!-- DECORATION HERO -->
-        <div class="relative z-30 flex w-full animate-wiggle items-center justify-center sm:mb-20">
-            <div class="relative z-30 w-full max-w-8xl">
+        <div class="relative z-30 hidden w-full animate-wiggle items-center justify-center sm:flex sm:mb-16">
+            <div class="relative z-30 w-full">
                 <img
                     src="/images/asset-homepage-hero-1.svg"
-                    alt="snow orange svg"
-                    class="absolute -right-1 -bottom-20 z-30 hidden h-[300px] max-w-[95%] sm:flex md:bottom-0"
+                    alt=""
+                    aria-hidden="true"
+                    class="absolute -right-10 -bottom-20 z-30 h-[260px] w-auto max-w-none md:bottom-0 md:h-[300px] 2xl:-bottom-8 2xl:h-[340px]"
                 />
             </div>
         </div>
@@ -126,8 +128,8 @@ function scrollTo(id: string) {
         <!-- RIBBON -->
 
         <!-- START ABOUT -->
-        <section class="relative mb-16 flex w-full flex-col items-center justify-center px-0 md:mb-30" id="candidate">
-            <div class="relative flex w-full max-w-7xl flex-col gap-10 overflow-hidden pt-[10vw] md:pt-[64px]">
+        <section class="relative mb-16 flex w-full flex-col items-center justify-center px-0 md:mb-30" id="about">
+            <div class="relative flex w-full max-w-7xl flex-col gap-10 pt-[10vw] md:gap-16 md:pt-[64px]">
                 <!-- HEAD CONTENT -->
                 <div class="flex w-full flex-col items-center justify-center gap-3 px-6 sm:px-0 md:items-center md:gap-12">
                     <div class="flex w-full flex-1 flex-col items-center justify-center gap-3">
@@ -149,18 +151,24 @@ function scrollTo(id: string) {
                             />
                         </h2>
                         <p class="w-full text-center font-dmsans text-sm leading-relaxed text-black opacity-80 sm:text-lg md:max-w-xl">
-                            Penasaran dengan para kandidat yang akan maju pada PEMIRA 2025? Yuk simak dan dukung mereka pada ajang kali ini!
+                            Pemira adalah wujud nyata demokrasi mahasiswa, di mana setiap suara memiliki makna dan kekuatan untuk menentukan arah
+                            kepemimpinan.
                         </p>
                     </div>
                     <div class="flex max-w-xl flex-1 flex-col items-end justify-start"></div>
                 </div>
                 <!-- HEAD CONTENT -->
+
+                <!-- BODY CONTENT -->
+                <div class="w-full px-6 sm:px-10">
+                    <AboutPemira :elections="elections" />
+                </div>
+                <!-- BODY CONTENT -->
             </div>
         </section>
         <!-- END ABOUT -->
 
         <!-- START LIVE COUNT -->
-        {{}}
         <VoteCountContainer />
         <!-- START LIVE COUNT -->
 
@@ -178,7 +186,7 @@ function scrollTo(id: string) {
                             <img
                                 src="/images/asset26-1.svg"
                                 alt="snow pink illustration"
-                                class="rotate-counter-clock absolute -top-10 -right-8 h-12 w-16 -rotate-12 sm:h-14 lg:h-16 xl:h-20"
+                                class="rotate-counter-clock absolute -top-10 -right-2 h-12 w-16 -rotate-12 sm:-right-8 sm:h-14 lg:h-16 xl:h-20"
                             />
                         </h2>
                     </div>
