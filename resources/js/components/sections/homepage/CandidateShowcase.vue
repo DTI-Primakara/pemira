@@ -48,13 +48,13 @@ defineProps<{
         <!-- DECORATION -->
         <div class="align-items-start absolute top-0 left-0 flex h-full w-full flex-row justify-between">
             <!-- LEFT -->
-            <div class="absolute top-0 left-0 h-12 w-64 bg-gradient-white-26"></div>
-            <div class="bg-setup top-0 left-0 h-full w-9 bg-[url(/images/candidate_side_2026.png)] sm:w-[15vw]"></div>
-            <div class="absolute bottom-0 left-0 h-12 w-64 rotate-180 bg-gradient-white-26"></div>
+            <div class="absolute top-0 left-0 h-12 w-32 bg-gradient-white-26 md:w-64"></div>
+            <div class="bg-setup top-0 left-0 h-full w-20 bg-[url(/images/candidate_side_2026.png)] sm:w-[15vw]"></div>
+            <div class="absolute bottom-0 left-0 h-12 w-32 rotate-180 bg-gradient-white-26 md:w-64"></div>
             <!-- RIGHT -->
-            <div class="absolute top-0 right-0 h-12 w-64 bg-gradient-white-26"></div>
-            <div class="bg-setup top-0 right-0 h-full w-9 bg-[url(/images/candidate_side_2_2026.png)] sm:w-[15vw]"></div>
-            <div class="absolute right-0 bottom-0 h-12 w-64 rotate-180 bg-gradient-white-26"></div>
+            <div class="absolute top-0 right-0 h-12 w-32 bg-gradient-white-26 md:w-64"></div>
+            <div class="bg-setup top-0 right-0 h-full w-20 bg-[url(/images/candidate_side_2_2026.png)] sm:w-[15vw]"></div>
+            <div class="absolute right-0 bottom-0 h-12 w-32 rotate-180 bg-gradient-white-26 md:w-64"></div>
         </div>
     </div>
 </template>

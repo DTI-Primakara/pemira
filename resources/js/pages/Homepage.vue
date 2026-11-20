@@ -45,7 +45,7 @@ function scrollTo(id: string) {
 
         <!-- START HERO -->
         <section
-            class="relative mb-16 flex w-full items-center justify-center overflow-x-hidden overflow-y-visible bg-white pt-48 md:mb-30"
+            class="relative mb-16 flex w-full items-center justify-center overflow-x-hidden overflow-y-visible bg-white pt-40 md:mb-30 md:pt-48"
             id="hero"
         >
             <div class="relative flex w-full max-w-8xl flex-col items-center justify-start overflow-y-visible px-6 md:px-10">
