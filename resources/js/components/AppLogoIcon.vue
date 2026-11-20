@@ -13,7 +13,7 @@ defineProps<Props>();
 </script>
 
 <template>
-   <div>
-       <img src="/logo.svg" alt="logo pemira">
-   </div>
+    <div>
+        <img src="/images/logo-color-2026.svg" alt="logo pemira" />
+    </div>
 </template>

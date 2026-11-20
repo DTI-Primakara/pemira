@@ -22,9 +22,7 @@ const selections = ref<Record<number, number>>({});
 const currentStepData = computed<BallotEvent | undefined>(() => props.events[currentStepIndex.value]);
 const isLastStep = computed(() => currentStepIndex.value === props.events.length - 1);
 
-const selectedCandidateId = computed<number | undefined>(() =>
-    currentStepData.value ? selections.value[currentStepData.value.id] : undefined,
-);
+const selectedCandidateId = computed<number | undefined>(() => (currentStepData.value ? selections.value[currentStepData.value.id] : undefined));
 
 const isCandidateSelected = computed(() => selectedCandidateId.value !== undefined);
 
@@ -99,7 +97,7 @@ const finishVote = (): void => {
         <template v-else>
             <header class="mb-8 flex flex-col items-start justify-between md:flex-row">
                 <div>
-                    <p class="mt-4 text-primary">
+                    <p class="mt-4 text-gradient-main-26">
                         Tahapan {{ currentStepIndex + 1 }} / <span class="text-gray-300">{{ props.events.length }} </span>
                     </p>
                     <h2 class="mt-1 font-unbounded text-4xl font-extrabold tracking-tight text-slate-800 sm:text-5xl">Pilih Kandidatmu <br /></h2>
@@ -123,13 +121,7 @@ const finishVote = (): void => {
                     No Undi Terpilih : {{ String(selectedCandidate.number).padStart(2, '0') }}
                 </p>
                 <p v-else></p>
-                <Button
-                    @click="nextStep"
-                    :disabled="!isCandidateSelected || submitting"
-                    size="lg"
-                    font="unbounded"
-                    class="rounded-none"
-                >
+                <Button @click="nextStep" :disabled="!isCandidateSelected || submitting" size="lg" font="unbounded" class="rounded-none">
                     {{ isLastStep ? (submitting ? 'MENGIRIM...' : 'FINISH VOTE') : 'PEMILIHAN SELANJUTNYA' }}
                 </Button>
             </footer>
