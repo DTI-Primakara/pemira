@@ -20,9 +20,6 @@ defineProps<{
                 <h4 class="text-blue relative px-16 text-center font-unbounded text-lg leading-[1.5em] font-bold sm:px-12 sm:text-xl md:text-2xl">
                     {{ election.title }}
                 </h4>
-                <p class="mt-2 px-10 text-center font-dmsans text-xs text-black opacity-60 sm:text-sm">
-                    {{ election.eligibility }}
-                </p>
             </div>
 
             <div class="md:flex-unwrap flex flex-row flex-wrap items-center justify-center gap-2 px-12 sm:gap-3 md:gap-6">

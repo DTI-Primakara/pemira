@@ -30,9 +30,7 @@ const agenda = computed(() =>
     <section v-if="agenda.length" class="relative mb-16 flex w-full items-center justify-center px-6 md:mb-30 md:px-10">
         <div class="flex w-full max-w-6xl flex-col items-center justify-center gap-4 md:gap-10">
             <!-- HEAD CONTENT -->
-            <h2
-                class="relative w-full max-w-lg text-center font-unbounded text-2xl leading-[1.5em] font-bold text-black sm:text-3xl md:text-4xl lg:text-5xl"
-            >
+            <h2 class="relative w-full text-center font-unbounded text-2xl leading-[1.5em] font-bold text-black sm:text-3xl md:text-4xl lg:text-5xl">
                 Linimasa
                 <span class="text-blue">Kegiatan</span>
                 <img

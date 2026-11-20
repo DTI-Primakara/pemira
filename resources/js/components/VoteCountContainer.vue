@@ -17,13 +17,12 @@ const isVoteCountVisible = computed(() => props.voteCountVisible === true && gro
                 <h2
                     class="relative max-w-3xl text-center font-unbounded text-2xl leading-[1.5em] font-bold text-black sm:text-3xl md:text-4xl lg:text-5xl"
                 >
-                    Live Tracking for
-                    <span class="text-blue">Transparent</span>
-                    Voting
+                    Pantau Secara Langsung untuk
+                    <span class="text-blue">Hasil Transparan</span>
                     <img
-                        src="/images/snow-pink.svg"
+                        src="/images/asset26-2.svg"
                         alt="snow pink illustration"
-                        class="rotate-counter-clock absolute -top-10 right-0 h-12 -rotate-12 sm:h-14 lg:h-16 xl:h-20"
+                        class="absolute -top-10 -right-24 h-12 -rotate-12 sm:h-14 lg:h-16 xl:h-20"
                     />
                 </h2>
 
