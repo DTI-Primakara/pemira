@@ -41,7 +41,7 @@ const steps = [
 <template>
     <div class="relative grid w-full grid-cols-1 items-stretch gap-12 md:grid-cols-2 md:gap-14 lg:gap-20">
         <!-- LEFT: apa yang dipilih -->
-        <div class="relative flex w-full flex-col">
+        <div v-reveal.left class="relative flex w-full flex-col">
             <div
                 class="relative z-10 flex w-full flex-1 flex-col gap-6 rounded-3xl border border-[#C9C9D4]/50 bg-white p-6 pb-16 shadow-[0_24px_50px_-34px_rgba(1,0,120,0.35)] sm:p-8 sm:pb-20 md:p-9 md:pb-20"
             >
@@ -90,7 +90,7 @@ const steps = [
         </div>
 
         <!-- RIGHT: alur dan angka -->
-        <div class="relative flex w-full flex-col">
+        <div v-reveal.right="140" class="relative flex w-full flex-col">
             <div
                 class="relative z-10 flex w-full flex-1 flex-col gap-6 overflow-hidden rounded-3xl bg-gradient-main-26 p-6 pb-16 sm:p-8 sm:pb-20 md:p-9 md:pb-20"
             >

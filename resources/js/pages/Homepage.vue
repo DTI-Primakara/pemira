@@ -52,6 +52,7 @@ function scrollTo(id: string) {
                 <div class="relative z-10 flex w-full max-w-7xl flex-col items-center justify-center gap-12 lg:flex-row">
                     <div class="mb-8 flex w-full flex-col items-start justify-start gap-2">
                         <h1
+                            v-reveal
                             class="relative text-gradient-main-26 font-unbounded text-[17.5vw] leading-[15.5vw] font-bold sm:text-[16.5vw] sm:leading-[14vw] lg:text-[144px] lg:leading-32"
                         >
                             PEMIRA
@@ -63,7 +64,7 @@ function scrollTo(id: string) {
                             />
                             <span class="text-gradient-secondary-26">2026</span>
                         </h1>
-                        <div class="w-full max-w-[764px]">
+                        <div v-reveal="140" class="w-full max-w-[764px]">
                             <p
                                 ref="textRef"
                                 :class="[
@@ -83,7 +84,7 @@ function scrollTo(id: string) {
                                 {{ expanded ? 'Tutup' : 'Baca selengkapnya' }}
                             </span>
                         </div>
-                        <div class="flex flex-row gap-4">
+                        <div v-reveal="240" class="flex flex-row gap-4">
                             <LoginModal>
                                 <template #trigger>
                                     <button
@@ -105,7 +106,7 @@ function scrollTo(id: string) {
                         <ErrorModal v-model:open="showModalError" />
                     </div>
 
-                    <HeroCardShuffle />
+                    <HeroCardShuffle v-reveal.zoom="180" />
                 </div>
             </div>
         </section>
@@ -125,7 +126,7 @@ function scrollTo(id: string) {
         <!-- DECORATION HERO -->
 
         <!-- RIBBON -->
-        <RibbonMarquee />
+        <RibbonMarquee v-reveal.zoom />
         <!-- RIBBON -->
 
         <!-- START ABOUT -->
@@ -135,6 +136,7 @@ function scrollTo(id: string) {
                 <div class="flex w-full flex-col items-center justify-center gap-3 px-6 sm:px-0 md:items-center md:gap-12">
                     <div class="flex w-full flex-1 flex-col items-center justify-center gap-3">
                         <h2
+                            v-reveal
                             class="relative text-gradient-main-26 text-center font-unbounded text-[6.1vw] leading-[8.4vw] font-bold text-black md:text-[52px] md:leading-[72px]"
                         >
                             Satu Langkah Menuju
@@ -151,7 +153,7 @@ function scrollTo(id: string) {
                                 class="absolute -bottom-5 -left-5 w-[10vw] md:-bottom-[8px] md:w-[64px]"
                             />
                         </h2>
-                        <p class="w-full text-center font-dmsans text-sm leading-relaxed text-black opacity-80 sm:text-lg md:max-w-xl">
+                        <p v-reveal="140" class="w-full text-center font-dmsans text-sm leading-relaxed text-black opacity-80 sm:text-lg md:max-w-xl">
                             Pemira adalah wujud nyata demokrasi mahasiswa, di mana setiap suara memiliki makna dan kekuatan untuk menentukan arah
                             kepemimpinan.
                         </p>
@@ -178,7 +180,7 @@ function scrollTo(id: string) {
             <div class="relative flex w-full flex-col items-center justify-center gap-10">
                 <!-- HEAD CONTENT -->
                 <div class="flex w-full max-w-7xl flex-col items-center justify-between gap-3 px-6 sm:px-10 md:flex-row md:items-start md:gap-12">
-                    <div class="flex max-w-2xl flex-1 flex-col items-start justify-start">
+                    <div v-reveal.left class="flex max-w-2xl flex-1 flex-col items-start justify-start">
                         <h2
                             class="relative text-gradient-main-26 text-center font-unbounded text-[6.1vw] leading-[8.4vw] font-bold text-black md:text-left md:text-[40px] md:leading-[56px]"
                         >
@@ -191,7 +193,7 @@ function scrollTo(id: string) {
                             />
                         </h2>
                     </div>
-                    <div class="flex w-full max-w-xl flex-1 flex-col items-center justify-center md:items-end md:justify-start">
+                    <div v-reveal.right="120" class="flex w-full max-w-xl flex-1 flex-col items-center justify-center md:items-end md:justify-start">
                         <p class="w-full max-w-sm text-center font-dmsans text-xs leading-relaxed text-black opacity-80 sm:text-base md:text-right">
                             Penasaran dengan para kandidat yang akan maju pada PEMIRA 2026? Yuk simak dan dukung mereka pada ajang kali ini!
                         </p>
@@ -212,6 +214,7 @@ function scrollTo(id: string) {
                 <!-- CONTENT -->
                 <div class="relative z-10 flex max-w-7xl flex-col items-center justify-center gap-2 pt-10 sm:gap-4">
                     <h2
+                        v-reveal
                         class="relative max-w-xl text-center font-unbounded text-2xl leading-[1.5em] font-bold text-white md:text-3xl lg:text-4xl xl:text-5xl"
                     >
                         Let’s Move to The New
@@ -223,7 +226,7 @@ function scrollTo(id: string) {
                             class="rotate-counter-clock absolute -top-14 -right-4 h-12 w-12 rotate-24 opacity-90 invert sm:-right-8 sm:h-14 sm:w-14 lg:h-16 lg:w-16"
                         />
                     </h2>
-                    <p class="w-full max-w-lg text-center font-dmsans text-sm leading-relaxed text-white opacity-60 sm:text-base">
+                    <p v-reveal="140" class="w-full max-w-lg text-center font-dmsans text-sm leading-relaxed text-white opacity-60 sm:text-base">
                         Penasaran dengan para kandidat yang akan maju pada PEMIRA 2026? Yuk simak dan dukung mereka pada ajang kali ini!
                     </p>
                     <LoginModal>
