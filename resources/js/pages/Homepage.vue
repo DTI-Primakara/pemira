@@ -192,7 +192,7 @@ function scrollTo(id: string) {
                     </div>
                     <div class="flex w-full max-w-xl flex-1 flex-col items-center justify-center md:items-end md:justify-start">
                         <p class="w-full max-w-sm text-center font-dmsans text-xs leading-relaxed text-black opacity-80 sm:text-base md:text-right">
-                            Penasaran dengan para kandidat yang akan maju pada PEMIRA 2025? Yuk simak dan dukung mereka pada ajang kali ini!
+                            Penasaran dengan para kandidat yang akan maju pada PEMIRA 2026? Yuk simak dan dukung mereka pada ajang kali ini!
                         </p>
                     </div>
                 </div>
@@ -216,18 +216,19 @@ function scrollTo(id: string) {
                         Let’s Move to The New
                         <span class="text-blue">World</span>
                         <img
-                            src="/images/star-pink.svg"
-                            alt="snow pink illustration"
-                            class="rotate-counter-clock absolute -top-10 right-0 h-12 w-16 -rotate-12 sm:h-14 lg:h-16 xl:h-20"
+                            src="/images/asset26-1.svg"
+                            alt=""
+                            aria-hidden="true"
+                            class="rotate-counter-clock absolute -top-14 -right-4 h-12 w-12 rotate-24 opacity-90 invert sm:-right-8 sm:h-14 sm:w-14 lg:h-16 lg:w-16"
                         />
                     </h2>
                     <p class="w-full max-w-lg text-center font-dmsans text-sm leading-relaxed text-white opacity-60 sm:text-base">
-                        Penasaran dengan para kandidat yang akan maju pada PEMIRA 2025? Yuk simak dan dukung mereka pada ajang kali ini!
+                        Penasaran dengan para kandidat yang akan maju pada PEMIRA 2026? Yuk simak dan dukung mereka pada ajang kali ini!
                     </p>
                     <LoginModal>
                         <template #trigger>
                             <button
-                                class="mt-6 flex cursor-pointer items-center justify-center gap-2 bg-[#4342FF] px-3 py-2 font-unbounded text-xs text-white hover:bg-[#1c1cad] sm:px-5 sm:py-3 md:text-sm"
+                                class="mt-6 flex cursor-pointer items-center justify-center gap-2 bg-gradient-main-26 px-3 py-2 font-unbounded text-xs text-white transition-opacity hover:opacity-90 sm:px-5 sm:py-3 md:text-sm"
                             >
                                 VOTE NOW <img src="/images/arrow-white.svg" alt="arrow white icon" class="w-3" />
                             </button>
@@ -236,60 +237,60 @@ function scrollTo(id: string) {
                 </div>
                 <!-- MOVEMENT -->
                 <div
-                    class="absolute top-0 -left-1/4 flex w-full -rotate-45 flex-row items-center justify-center gap-8 overflow-hidden bg-[#4342FF] py-3 sm:gap-10 sm:py-4 md:gap-12"
+                    class="absolute top-0 -left-1/4 flex w-full -rotate-45 flex-row items-center justify-center gap-8 overflow-hidden bg-gradient-main-26 py-3 sm:gap-10 sm:py-4 md:gap-12"
                 >
                     <p class="linear-move-left font-unbounded text-xl font-bold text-white sm:text-3xl md:text-5xl">VOTE</p>
-                    <img src="/images/star-pink.svg" alt="star pink" class="linear-move-left h-8 sm:h-10 md:h-14" />
+                    <img src="/images/asset26-1.svg" alt="" aria-hidden="true" class="linear-move-left h-8 sm:h-10 md:h-14" />
                     <p class="linear-move-left font-unbounded text-xl font-bold text-white sm:text-3xl md:text-5xl">VOTE</p>
-                    <img src="/images/star-pink.svg" alt="star pink" class="linear-move-left h-8 sm:h-10 md:h-14" />
+                    <img src="/images/asset26-1.svg" alt="" aria-hidden="true" class="linear-move-left h-8 sm:h-10 md:h-14" />
                     <p class="linear-move-left font-unbounded text-xl font-bold text-white sm:text-3xl md:text-5xl">VOTE</p>
-                    <img src="/images/star-pink.svg" alt="star pink" class="linear-move-left h-8 sm:h-10 md:h-14" />
+                    <img src="/images/asset26-1.svg" alt="" aria-hidden="true" class="linear-move-left h-8 sm:h-10 md:h-14" />
                     <p class="linear-move-left font-unbounded text-xl font-bold text-white sm:text-3xl md:text-5xl">VOTE</p>
-                    <img src="/images/star-pink.svg" alt="star pink" class="linear-move-left h-8 sm:h-10 md:h-14" />
+                    <img src="/images/asset26-1.svg" alt="" aria-hidden="true" class="linear-move-left h-8 sm:h-10 md:h-14" />
                     <p class="linear-move-left font-unbounded text-xl font-bold text-white sm:text-3xl md:text-5xl">VOTE</p>
-                    <img src="/images/star-pink.svg" alt="star pink" class="linear-move-left h-8 sm:h-10 md:h-14" />
+                    <img src="/images/asset26-1.svg" alt="" aria-hidden="true" class="linear-move-left h-8 sm:h-10 md:h-14" />
                     <p class="linear-move-left font-unbounded text-xl font-bold text-white sm:text-3xl md:text-5xl">VOTE</p>
-                    <img src="/images/star-pink.svg" alt="star pink" class="linear-move-left h-8 sm:h-10 md:h-14" />
+                    <img src="/images/asset26-1.svg" alt="" aria-hidden="true" class="linear-move-left h-8 sm:h-10 md:h-14" />
                     <p class="linear-move-left font-unbounded text-xl font-bold text-white sm:text-3xl md:text-5xl">VOTE</p>
-                    <img src="/images/star-pink.svg" alt="star pink" class="linear-move-left h-8 sm:h-10 md:h-14" />
+                    <img src="/images/asset26-1.svg" alt="" aria-hidden="true" class="linear-move-left h-8 sm:h-10 md:h-14" />
                     <p class="linear-move-left font-unbounded text-xl font-bold text-white sm:text-3xl md:text-5xl">VOTE</p>
-                    <img src="/images/star-pink.svg" alt="star pink" class="linear-move-left h-8 sm:h-10 md:h-14" />
+                    <img src="/images/asset26-1.svg" alt="" aria-hidden="true" class="linear-move-left h-8 sm:h-10 md:h-14" />
                     <p class="linear-move-left font-unbounded text-xl font-bold text-white sm:text-3xl md:text-5xl">VOTE</p>
-                    <img src="/images/star-pink.svg" alt="star pink" class="linear-move-left h-8 sm:h-10 md:h-14" />
+                    <img src="/images/asset26-1.svg" alt="" aria-hidden="true" class="linear-move-left h-8 sm:h-10 md:h-14" />
                     <p class="linear-move-left font-unbounded text-xl font-bold text-white sm:text-3xl md:text-5xl">VOTE</p>
-                    <img src="/images/star-pink.svg" alt="star pink" class="linear-move-left h-8 sm:h-10 md:h-14" />
+                    <img src="/images/asset26-1.svg" alt="" aria-hidden="true" class="linear-move-left h-8 sm:h-10 md:h-14" />
                     <p class="linear-move-left font-unbounded text-xl font-bold text-white sm:text-3xl md:text-5xl">VOTE</p>
-                    <img src="/images/star-pink.svg" alt="star pink" class="linear-move-left h-8 sm:h-10 md:h-14" />
+                    <img src="/images/asset26-1.svg" alt="" aria-hidden="true" class="linear-move-left h-8 sm:h-10 md:h-14" />
                     <p class="linear-move-left font-unbounded text-xl font-bold text-white sm:text-3xl md:text-5xl">VOTE</p>
-                    <img src="/images/star-pink.svg" alt="star pink" class="linear-move-left h-8 sm:h-10 md:h-14" />
+                    <img src="/images/asset26-1.svg" alt="" aria-hidden="true" class="linear-move-left h-8 sm:h-10 md:h-14" />
                 </div>
                 <div
-                    class="absolute -right-1/4 bottom-0 flex w-full -rotate-45 flex-row items-center justify-center gap-8 overflow-hidden bg-[#4342FF] py-3 sm:py-4 md:gap-12"
+                    class="absolute -right-1/4 bottom-0 flex w-full -rotate-45 flex-row items-center justify-center gap-8 overflow-hidden bg-gradient-main-26 py-3 sm:py-4 md:gap-12"
                 >
                     <p class="linear-move-right font-unbounded text-xl font-bold text-white sm:text-3xl md:text-5xl">VOTE</p>
-                    <img src="/images/star-pink.svg" alt="star pink" class="linear-move-right h-8 sm:h-10 md:h-14" />
+                    <img src="/images/asset26-1.svg" alt="" aria-hidden="true" class="linear-move-right h-8 sm:h-10 md:h-14" />
                     <p class="linear-move-right font-unbounded text-xl font-bold text-white sm:text-3xl md:text-5xl">VOTE</p>
-                    <img src="/images/star-pink.svg" alt="star pink" class="linear-move-right h-8 sm:h-10 md:h-14" />
+                    <img src="/images/asset26-1.svg" alt="" aria-hidden="true" class="linear-move-right h-8 sm:h-10 md:h-14" />
                     <p class="linear-move-right font-unbounded text-xl font-bold text-white sm:text-3xl md:text-5xl">VOTE</p>
-                    <img src="/images/star-pink.svg" alt="star pink" class="linear-move-right h-8 sm:h-10 md:h-14" />
+                    <img src="/images/asset26-1.svg" alt="" aria-hidden="true" class="linear-move-right h-8 sm:h-10 md:h-14" />
                     <p class="linear-move-right font-unbounded text-xl font-bold text-white sm:text-3xl md:text-5xl">VOTE</p>
-                    <img src="/images/star-pink.svg" alt="star pink" class="linear-move-right h-8 sm:h-10 md:h-14" />
+                    <img src="/images/asset26-1.svg" alt="" aria-hidden="true" class="linear-move-right h-8 sm:h-10 md:h-14" />
                     <p class="linear-move-right font-unbounded text-xl font-bold text-white sm:text-3xl md:text-5xl">VOTE</p>
-                    <img src="/images/star-pink.svg" alt="star pink" class="linear-move-right h-8 sm:h-10 md:h-14" />
+                    <img src="/images/asset26-1.svg" alt="" aria-hidden="true" class="linear-move-right h-8 sm:h-10 md:h-14" />
                     <p class="linear-move-right font-unbounded text-xl font-bold text-white sm:text-3xl md:text-5xl">VOTE</p>
-                    <img src="/images/star-pink.svg" alt="star pink" class="linear-move-right h-8 sm:h-10 md:h-14" />
+                    <img src="/images/asset26-1.svg" alt="" aria-hidden="true" class="linear-move-right h-8 sm:h-10 md:h-14" />
                     <p class="linear-move-right font-unbounded text-xl font-bold text-white sm:text-3xl md:text-5xl">VOTE</p>
-                    <img src="/images/star-pink.svg" alt="star pink" class="linear-move-right h-8 sm:h-10 md:h-14" />
+                    <img src="/images/asset26-1.svg" alt="" aria-hidden="true" class="linear-move-right h-8 sm:h-10 md:h-14" />
                     <p class="linear-move-right font-unbounded text-xl font-bold text-white sm:text-3xl md:text-5xl">VOTE</p>
-                    <img src="/images/star-pink.svg" alt="star pink" class="linear-move-right h-8 sm:h-10 md:h-14" />
+                    <img src="/images/asset26-1.svg" alt="" aria-hidden="true" class="linear-move-right h-8 sm:h-10 md:h-14" />
                     <p class="linear-move-right font-unbounded text-xl font-bold text-white sm:text-3xl md:text-5xl">VOTE</p>
-                    <img src="/images/star-pink.svg" alt="star pink" class="linear-move-right h-8 sm:h-10 md:h-14" />
+                    <img src="/images/asset26-1.svg" alt="" aria-hidden="true" class="linear-move-right h-8 sm:h-10 md:h-14" />
                     <p class="linear-move-right font-unbounded text-xl font-bold text-white sm:text-3xl md:text-5xl">VOTE</p>
-                    <img src="/images/star-pink.svg" alt="star pink" class="linear-move-right h-8 sm:h-10 md:h-14" />
+                    <img src="/images/asset26-1.svg" alt="" aria-hidden="true" class="linear-move-right h-8 sm:h-10 md:h-14" />
                     <p class="linear-move-right font-unbounded text-xl font-bold text-white sm:text-3xl md:text-5xl">VOTE</p>
-                    <img src="/images/star-pink.svg" alt="star pink" class="linear-move-right h-8 sm:h-10 md:h-14" />
+                    <img src="/images/asset26-1.svg" alt="" aria-hidden="true" class="linear-move-right h-8 sm:h-10 md:h-14" />
                     <p class="linear-move-right font-unbounded text-xl font-bold text-white sm:text-3xl md:text-5xl">VOTE</p>
-                    <img src="/images/star-pink.svg" alt="star pink" class="linear-move-right h-8 sm:h-10 md:h-14" />
+                    <img src="/images/asset26-1.svg" alt="" aria-hidden="true" class="linear-move-right h-8 sm:h-10 md:h-14" />
                 </div>
             </div>
 
@@ -299,10 +300,10 @@ function scrollTo(id: string) {
             >
                 <div class="flex flex-col items-center justify-center gap-2 md:items-start md:justify-start">
                     <a href="https://pemira.primakara.ac.id" class="font-unbounded text-xl font-bold text-white sm:text-2xl md:text-3xl">
-                        PEMIRA <span class="text-blue">2025</span>
+                        PEMIRA <span class="text-blue">2026</span>
                     </a>
                     <span class="text-center font-dmsans text-sm text-white opacity-70 md:text-left"
-                        >© 2025 PEMIRA Primakara. All rights reserved.</span
+                        >© 2026 PEMIRA Primakara. All rights reserved.</span
                     >
                 </div>
                 <div class="flex flex-col items-center justify-end gap-4 md:items-end">
