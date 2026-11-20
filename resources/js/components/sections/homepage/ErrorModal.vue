@@ -18,7 +18,7 @@ const emit = defineEmits(['update:open']);
             <DialogHeader>
                 <DialogTitle class="font-unbounded">Akun Tidak Terdaftar</DialogTitle>
                 <DialogDescription class="mt-2">
-                    Maaf, akun kamu belum terdaftar dalam sistem PEMIRA 2025. Silakan hubungi administrator untuk informasi lebih lanjut.
+                    Maaf, akun kamu belum terdaftar dalam sistem PEMIRA 2026. Silakan hubungi administrator untuk informasi lebih lanjut.
                 </DialogDescription>
             </DialogHeader>
             <DialogFooter class="sm:justify-start">

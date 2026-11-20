@@ -53,7 +53,7 @@ const statusVoting = computed<StatusVoting>(() => ({
                         }}, <span class="text-secondary">{{ user.name }}</span>
                     </h1>
                     <p class="mb-4 font-dmsans text-sm text-muted-foreground sm:text-base lg:text-lg xl:text-xl">
-                        Selamat datang kembali di website resmi PEMIRA 2025
+                        Selamat datang kembali di website resmi PEMIRA 2026
                     </p>
                 </div>
                 <div
@@ -73,7 +73,7 @@ const statusVoting = computed<StatusVoting>(() => ({
                             <h2
                                 class="mb-0 max-w-[200px] min-w-[200px] scroll-m-20 font-unbounded text-xl leading-[1.4em] font-extrabold tracking-tight text-white sm:max-w-[656px] sm:text-3xl md:min-w-[440px] md:text-4xl lg:min-w-[656px] lg:text-5xl"
                             >
-                                HEY, PEMIRA 2025 <span class="text-[#DFFF00]">NOW ONLINE!</span>
+                                HEY, PEMIRA 2026 <span class="text-[#DFFF00]">NOW ONLINE!</span>
                             </h2>
                             <p class="mt-2 font-dmsans text-xs text-white/90 sm:text-base md:mt-6 md:min-w-[440px] md:text-lg lg:min-w-[656px]">
                                 Tentukan pilihanmu secara langsung, terenkripsi dan aman tanpa keraguan
