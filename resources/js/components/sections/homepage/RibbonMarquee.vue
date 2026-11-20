@@ -16,16 +16,16 @@ const groups = 2;
 </script>
 
 <template>
-    <div class="pointer-events-none relative z-20 w-full overflow-hidden py-12 select-none sm:py-16 md:py-24" aria-hidden="true">
+    <div class="pointer-events-none relative z-20 w-full overflow-hidden py-14 select-none sm:py-16 md:-mt-24 md:py-20 lg:-mt-28" aria-hidden="true">
         <!-- BACK RIBBON: tilted the other way and dimmed by an overlay -->
         <div
-            class="absolute top-1/2 left-1/2 w-[140%] -translate-x-1/2 -translate-y-1/2 rotate-[4deg] overflow-hidden bg-gradient-main-26 py-2.5 sm:py-3.5 md:py-5"
+            class="absolute top-1/2 left-1/2 w-[140%] -translate-x-1/2 -translate-y-1/2 rotate-[4deg] overflow-hidden bg-gradient-main-26 py-3.5 sm:py-4 md:py-5"
         >
             <div class="marquee-26 marquee-26-reverse" style="--marquee-26-duration: 46s">
                 <div v-for="group in groups" :key="group" class="flex shrink-0 items-center gap-6 pr-6 sm:gap-8 sm:pr-8 md:gap-12 md:pr-12">
                     <template v-for="item in repeat" :key="item">
-                        <span class="font-unbounded text-lg font-bold whitespace-nowrap text-white sm:text-2xl md:text-4xl">PEMIRA 2026</span>
-                        <img src="/images/asset26-1.svg" alt="" class="h-7 w-7 shrink-0 sm:h-9 sm:w-9 md:h-12 md:w-12" />
+                        <span class="font-unbounded text-2xl font-bold whitespace-nowrap text-white sm:text-3xl md:text-4xl">PEMIRA 2026</span>
+                        <img src="/images/asset26-1.svg" alt="" class="h-9 w-9 shrink-0 sm:h-10 sm:w-10 md:h-12 md:w-12" />
                     </template>
                 </div>
             </div>
@@ -39,8 +39,8 @@ const groups = 2;
             <div class="marquee-26" style="--marquee-26-duration: 38s">
                 <div v-for="group in groups" :key="group" class="flex shrink-0 items-center gap-6 pr-6 sm:gap-8 sm:pr-8 md:gap-12 md:pr-12">
                     <template v-for="item in repeat" :key="item">
-                        <span class="font-unbounded text-lg font-bold whitespace-nowrap text-white sm:text-2xl md:text-4xl">PEMIRA 2026</span>
-                        <img src="/images/asset26-1.svg" alt="" class="h-7 w-7 shrink-0 sm:h-9 sm:w-9 md:h-12 md:w-12" />
+                        <span class="font-unbounded text-2xl font-bold whitespace-nowrap text-white sm:text-3xl md:text-4xl">PEMIRA 2026</span>
+                        <img src="/images/asset26-1.svg" alt="" class="h-9 w-9 shrink-0 sm:h-10 sm:w-10 md:h-12 md:w-12" />
                     </template>
                 </div>
             </div>
