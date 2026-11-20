@@ -26,9 +26,10 @@ const selectCandidate = (candidateId: number) => {
             :number="candidate.number"
             :name="candidate.name_candidates"
             :position="candidate.position"
-            :image-url="candidate.image"
-            :vision="candidate.vision"
-            :mission="candidate.mission"
+            :image-url="candidate.image ?? undefined"
+            :is-blank-box="candidate.is_blank_box ?? false"
+            :vision="candidate.vision ?? undefined"
+            :mission="candidate.mission ?? undefined"
             :is-selected="selectedCandidate === candidate.id"
             @click="selectCandidate(candidate.id)"
         />

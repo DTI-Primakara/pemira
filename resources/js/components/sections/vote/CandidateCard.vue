@@ -17,7 +17,11 @@ defineProps({
     },
     imageUrl: {
         type: String,
-        required: true,
+        default: null,
+    },
+    isBlankBox: {
+        type: Boolean,
+        default: false,
     },
     isSelected: {
         type: Boolean,
@@ -52,6 +56,7 @@ const isOverlayVisible = ref<boolean>(false);
         <!-- DECORATION -->
 
         <button
+            v-if="!isBlankBox"
             @click.stop="isOverlayVisible = !isOverlayVisible"
             v-show="!isOverlayVisible"
             class="absolute top-4 right-4 z-30 flex h-8 w-8 items-center justify-center rounded-full bg-black/30 text-white md:hidden"
@@ -73,6 +78,7 @@ const isOverlayVisible = ref<boolean>(false);
 
             <div class="absolute right-0 bottom-0 h-full overflow-hidden rounded-lg pt-6">
                 <img
+                    v-if="imageUrl"
                     :src="imageUrl"
                     :alt="name"
                     class="h-full w-full object-cover object-top grayscale transition-transform duration-500 group-hover:scale-105"
@@ -81,6 +87,7 @@ const isOverlayVisible = ref<boolean>(false);
         </div>
 
         <div
+            v-if="!isBlankBox"
             class="absolute inset-0 z-20 flex max-h-full flex-col items-center justify-start overflow-y-scroll bg-black/80 p-6 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100"
             :class="{ '!opacity-100': isOverlayVisible }"
         >

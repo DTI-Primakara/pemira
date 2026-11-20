@@ -50,10 +50,12 @@ export interface Candidate {
     id: number;
     name_candidates: string;
     number: number;
-    image: string;
-    mission: string;
-    vision: string;
+    /** Null for a blank box, which has no photo to show. */
+    image: string | null;
+    mission: string | null;
+    vision: string | null;
     position: string;
+    is_blank_box?: boolean;
     event?: Event;
 }
 
