@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ConfirmVoteModal from '@/components/sections/vote/ConfirmVoteModal.vue';
 import VotingStep from '@/components/sections/vote/VotingStep.vue';
 import { Button } from '@/components/ui/button';
 import VoteLayout from '@/layouts/VoteLayout.vue';
@@ -13,6 +14,7 @@ const props = defineProps<{
 
 const currentStepIndex = ref(0);
 const submitting = ref(false);
+const confirming = ref(false);
 
 /** candidate id chosen per event id */
 const selections = ref<Record<number, number>>({});
@@ -35,12 +37,29 @@ const handleVote = (candidateId: number): void => {
     selections.value[currentStepData.value.id] = candidateId;
 };
 
+/** Recap shown in the confirmation dialog: one line per election. */
+const summary = computed(() =>
+    props.events.map((event) => {
+        const chosen = event.candidates.find((candidate) => candidate.id === selections.value[event.id]);
+
+        return {
+            eventId: event.id,
+            type: event.type,
+            title: event.title,
+            candidateNumber: chosen?.number ?? 0,
+            candidateName: chosen?.name_candidates ?? '-',
+        };
+    }),
+);
+
 const nextStep = (): void => {
     if (!isLastStep.value) {
         currentStepIndex.value++;
         return;
     }
-    finishVote();
+
+    // The ballot cannot be undone, so ask once more before sending it.
+    confirming.value = true;
 };
 
 const finishVote = (): void => {
@@ -57,6 +76,7 @@ const finishVote = (): void => {
         { votes: votesPayload },
         {
             onError: (errors) => {
+                confirming.value = false;
                 alert(Object.values(errors)[0] ?? 'Gagal mengirim suara, coba lagi.');
             },
             onFinish: () => {
@@ -113,6 +133,8 @@ const finishVote = (): void => {
                     {{ isLastStep ? (submitting ? 'MENGIRIM...' : 'FINISH VOTE') : 'PEMILIHAN SELANJUTNYA' }}
                 </Button>
             </footer>
+
+            <ConfirmVoteModal v-model:open="confirming" :submitting="submitting" :summary="summary" @confirm="finishVote" />
         </template>
     </VoteLayout>
 </template>
