@@ -25,36 +25,44 @@ const steps = [
 </script>
 
 <template>
-    <div class="relative grid w-full grid-cols-1 items-start gap-12 md:grid-cols-2 md:gap-14 lg:gap-20">
+    <div class="relative grid w-full grid-cols-1 items-stretch gap-12 md:grid-cols-2 md:gap-14 lg:gap-20">
         <!-- LEFT: apa dan kenapa -->
         <div class="relative flex flex-col items-start gap-5">
             <span class="rounded-full border border-[#E3E3FF] bg-[#F3F3FF] px-4 py-1.5 font-unbounded text-[10px] text-[#2A29D6] sm:text-xs">
                 Apa itu PEMIRA?
             </span>
 
-            <h3 class="relative text-gradient-main-26 font-unbounded text-2xl leading-snug font-bold sm:text-3xl md:text-[34px] md:leading-[46px]">
-                Pesta Demokrasi
-                <span class="text-gradient-secondary-26">Mahasiswa Primakara</span>
-            </h3>
+            <div
+                class="flex w-full flex-1 flex-col gap-4 rounded-3xl border border-[#C9C9D4]/50 bg-white p-6 shadow-[0_24px_50px_-34px_rgba(1,0,120,0.35)] sm:p-8 md:p-9"
+            >
+                <div class="flex flex-col gap-1">
+                    <h3 class="text-gradient-main-26 font-unbounded text-base font-bold sm:text-xl">
+                        Pesta Demokrasi
+                        <span class="text-gradient-secondary-26">Mahasiswa Primakara</span>
+                    </h3>
+                </div>
 
-            <p class="font-dmsans text-sm leading-relaxed text-black opacity-80 sm:text-base">
-                PEMIRA atau Pemilu Raya Mahasiswa adalah pemilihan umum tingkat kampus yang diselenggarakan DPM Primakara University untuk memilih
-                pemimpin organisasi mahasiswa pada periode kepengurusan berikutnya.
-            </p>
-            <p class="font-dmsans text-sm leading-relaxed text-black opacity-80 sm:text-base">
-                Lewat PEMIRA, setiap mahasiswa memegang hak yang sama untuk menentukan siapa yang memimpin BEM, DPM, dan HIMA di program studinya
-                masing-masing — cukup lewat ponsel, tanpa perlu antre di bilik suara.
-            </p>
+                <p class="font-dmsans text-xs leading-relaxed text-black opacity-70 sm:text-sm">
+                    PEMIRA atau Pemilu Raya Mahasiswa adalah pemilihan umum tingkat kampus yang diselenggarakan DPM Primakara University untuk
+                    memilih pemimpin organisasi mahasiswa pada periode kepengurusan berikutnya.
+                </p>
+                <p class="font-dmsans text-xs leading-relaxed text-black opacity-70 sm:text-sm">
+                    Lewat PEMIRA, setiap mahasiswa memegang hak yang sama untuk menentukan siapa yang memimpin BEM, DPM, dan HIMA di program
+                    studinya masing-masing — cukup lewat ponsel, tanpa perlu antre di bilik suara.
+                </p>
 
-            <LoginModal>
-                <template #trigger>
-                    <button
-                        class="mt-3 flex cursor-pointer items-center justify-center gap-2 bg-gradient-main-26 px-4 py-2.5 font-unbounded text-xs text-white transition-opacity hover:opacity-90 sm:px-5 sm:py-3 md:text-sm"
-                    >
-                        Gunakan Hak Suaramu <img src="/images/arrow-white.svg" alt="" class="w-3" />
-                    </button>
-                </template>
-            </LoginModal>
+                <div class="mt-auto pt-2">
+                    <LoginModal>
+                        <template #trigger>
+                            <button
+                                class="flex cursor-pointer items-center justify-center gap-2 bg-gradient-main-26 px-4 py-2.5 font-unbounded text-xs text-white transition-opacity hover:opacity-90 sm:px-5 sm:py-3 md:text-sm"
+                            >
+                                Gunakan Hak Suaramu <img src="/images/arrow-white.svg" alt="" class="w-3" />
+                            </button>
+                        </template>
+                    </LoginModal>
+                </div>
+            </div>
 
             <img
                 src="/images/asset26-3.svg"
