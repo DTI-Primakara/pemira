@@ -12,10 +12,13 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -55,6 +58,16 @@ class PaslonResource extends Resource
                                 $set('position', static::suggestPosition($state));
                             }),
 
+                        Toggle::make('is_blank_box')
+                            ->label('Kotak Kosong')
+                            ->helperText('Centang kalau baris ini adalah pilihan kotak kosong. Tetap muncul di surat suara, tetapi tidak ditampilkan di halaman depan.')
+                            ->live()
+                            ->afterStateUpdated(function (bool $state, callable $set, callable $get) {
+                                if ($state && blank($get('name_candidates'))) {
+                                    $set('name_candidates', 'Kotak Kosong');
+                                }
+                            }),
+
                         TextInput::make('name_candidates')
                             ->label('Nama Paslon')
                             ->required()
@@ -76,21 +89,35 @@ class PaslonResource extends Resource
                         Textarea::make('vision')
                             ->label('Visi')
                             ->rows(4)
-                            ->required(),
+                            ->required(fn (Get $get) => ! $get('is_blank_box'))
+                            ->hidden(fn (Get $get) => (bool) $get('is_blank_box')),
 
                         Textarea::make('mission')
                             ->label('Misi')
                             ->rows(4)
-                            ->required(),
+                            ->required(fn (Get $get) => ! $get('is_blank_box'))
+                            ->hidden(fn (Get $get) => (bool) $get('is_blank_box')),
 
                         FileUpload::make('image')
-                            ->label('Foto Paslon')
+                            ->label('Foto Surat Suara')
+                            ->helperText('Foto polos yang dipakai di halaman pemilihan.')
                             ->image()
                             ->disk('public')
                             ->directory('paslon-images')
                             ->visibility('public')
                             ->maxSize(4096)
-                            ->required(),
+                            ->required(fn (Get $get) => ! $get('is_blank_box'))
+                            ->hidden(fn (Get $get) => (bool) $get('is_blank_box')),
+
+                        FileUpload::make('showcase_image')
+                            ->label('Foto Halaman Depan')
+                            ->helperText('Desain yang sudah jadi dan siap tampil di bagian kandidat halaman depan. Kalau dikosongkan, foto surat suara yang dipakai.')
+                            ->image()
+                            ->disk('public')
+                            ->directory('paslon-showcase')
+                            ->visibility('public')
+                            ->maxSize(4096)
+                            ->hidden(fn (Get $get) => (bool) $get('is_blank_box')),
                     ]),
             ]);
     }
@@ -99,9 +126,10 @@ class PaslonResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make('image')
-                    ->label('Foto')
+                ImageColumn::make('showcase_image')
+                    ->label('Halaman Depan')
                     ->disk('public')
+                    ->defaultImageUrl(fn (Candidate $record) => $record->imageUrl())
                     ->circular(),
 
                 TextColumn::make('number')
@@ -118,6 +146,10 @@ class PaslonResource extends Resource
                     ->badge()
                     ->sortable()
                     ->searchable(),
+
+                IconColumn::make('is_blank_box')
+                    ->label('Kotak Kosong')
+                    ->boolean(),
             ])
             ->filters([
                 SelectFilter::make('event_id')

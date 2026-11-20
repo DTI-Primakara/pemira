@@ -1,7 +1,10 @@
 <?php
 
 use App\Filament\Resources\Classrooms\Pages\ManageClassroomMembers;
+use App\Filament\Resources\Paslons\Pages\CreatePaslon;
+use App\Models\Candidate;
 use App\Models\Classroom;
+use App\Models\Event;
 use App\Models\User;
 use Livewire\Livewire;
 
@@ -61,4 +64,43 @@ it('enrols students and appoints a coordinator through the admin form', function
 
     expect($student->fresh()->roles)->toBe(User::ROLE_KORTI)
         ->and($classroom->fresh()->korti_user_id)->toBe($student->id);
+});
+
+it('creates a blank box option without a photo, vision or mission', function () {
+    $this->actingAs(User::factory()->admin()->create());
+
+    $event = Event::factory()->universityWide()->create(['title' => 'BEM']);
+
+    Livewire::test(CreatePaslon::class)
+        ->fillForm([
+            'event_id' => $event->id,
+            'is_blank_box' => true,
+            'name_candidates' => 'Kotak Kosong',
+            'number' => 2,
+            'position' => 'Kotak Kosong',
+        ])
+        ->call('create')
+        ->assertHasNoFormErrors();
+
+    $blankBox = Candidate::query()->where('event_id', $event->id)->sole();
+
+    expect($blankBox->is_blank_box)->toBeTrue()
+        ->and($blankBox->image)->toBeNull();
+});
+
+it('still demands a photo, vision and mission from a real candidate', function () {
+    $this->actingAs(User::factory()->admin()->create());
+
+    $event = Event::factory()->universityWide()->create();
+
+    Livewire::test(CreatePaslon::class)
+        ->fillForm([
+            'event_id' => $event->id,
+            'is_blank_box' => false,
+            'name_candidates' => 'Paslon Satu',
+            'number' => 1,
+            'position' => 'Calon Ketua BEM',
+        ])
+        ->call('create')
+        ->assertHasFormErrors(['vision', 'mission', 'image']);
 });

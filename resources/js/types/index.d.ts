@@ -68,6 +68,7 @@ export interface ShowcaseCandidate {
     name_candidates: string;
     number: number;
     position: string;
+    /** Homepage artwork, falling back to the ballot photo when none exists. */
     image_url: string | null;
 }
 

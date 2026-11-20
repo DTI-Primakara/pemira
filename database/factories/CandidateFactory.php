@@ -23,6 +23,21 @@ class CandidateFactory extends Factory
             'mission' => fake()->sentence(),
             'position' => 'Calon Ketua',
             'image' => 'paslon-images/placeholder.png',
+            'showcase_image' => null,
+            'is_blank_box' => false,
         ];
+    }
+
+    /** The "kotak kosong" option: a ballot row with nothing to show off. */
+    public function blankBox(): static
+    {
+        return $this->state(fn () => [
+            'name_candidates' => 'Kotak Kosong',
+            'vision' => null,
+            'mission' => null,
+            'image' => null,
+            'showcase_image' => null,
+            'is_blank_box' => true,
+        ]);
     }
 }

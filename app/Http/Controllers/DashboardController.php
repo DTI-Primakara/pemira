@@ -79,22 +79,32 @@ class DashboardController extends Controller
      */
     private function presentElections(Collection $events): array
     {
-        return $events->map(fn (Event $event) => [
-            'id' => $event->id,
-            'title' => $event->title,
-            'shortLabel' => $this->shortLabelFor($event),
-            'type' => $event->type,
-            'eligibility' => $event->isUniversityWide()
-                ? 'Terbuka untuk seluruh mahasiswa'
-                : 'Khusus mahasiswa '.($event->prodi?->name ?? 'program studi terkait'),
-            'candidates' => $event->candidates->map(fn (Candidate $candidate) => [
-                'id' => $candidate->id,
-                'name_candidates' => $candidate->name_candidates,
-                'number' => $candidate->number,
-                'position' => $candidate->position,
-                'image_url' => $candidate->imageUrl(),
-            ])->values(),
-        ])->values()->all();
+        return $events->map(function (Event $event) {
+            // A blank box is a real ballot option and keeps counting in the
+            // tally, but there is nothing to show off in the showcase.
+            $candidates = $event->candidates->reject(fn (Candidate $candidate) => $candidate->is_blank_box);
+
+            if ($candidates->isEmpty()) {
+                return null;
+            }
+
+            return [
+                'id' => $event->id,
+                'title' => $event->title,
+                'shortLabel' => $this->shortLabelFor($event),
+                'type' => $event->type,
+                'eligibility' => $event->isUniversityWide()
+                    ? 'Terbuka untuk seluruh mahasiswa'
+                    : 'Khusus mahasiswa '.($event->prodi?->name ?? 'program studi terkait'),
+                'candidates' => $candidates->map(fn (Candidate $candidate) => [
+                    'id' => $candidate->id,
+                    'name_candidates' => $candidate->name_candidates,
+                    'number' => $candidate->number,
+                    'position' => $candidate->position,
+                    'image_url' => $candidate->showcaseImageUrl(),
+                ])->values(),
+            ];
+        })->filter()->values()->all();
     }
 
     /**

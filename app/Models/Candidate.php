@@ -21,19 +21,41 @@ class Candidate extends Model
         'vision',
         'mission',
         'image',
+        'showcase_image',
+        'is_blank_box',
         'position',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'is_blank_box' => 'boolean',
+        ];
+    }
+
+    /** Public URL for the plain photo used on the ballot. */
+    public function imageUrl(): ?string
+    {
+        return $this->resolveImageUrl($this->image);
+    }
+
     /**
-     * Public URL for the candidate photo.
-     *
-     * Three conventions coexist in this column: absolute URLs, paths already
+     * Public URL for the finished artwork shown in the homepage showcase,
+     * falling back to the ballot photo while none has been uploaded.
+     */
+    public function showcaseImageUrl(): ?string
+    {
+        return $this->resolveImageUrl($this->showcase_image) ?? $this->imageUrl();
+    }
+
+    /**
+     * Three conventions coexist in these columns: absolute URLs, paths already
      * rooted in public/ (written by the seeders), and paths relative to the
      * "public" storage disk (written by uploads from the admin panel).
      */
-    public function imageUrl(): ?string
+    private function resolveImageUrl(?string $value): ?string
     {
-        $image = trim((string) $this->image);
+        $image = trim((string) $value);
 
         if ($image === '') {
             return null;
