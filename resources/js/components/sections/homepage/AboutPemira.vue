@@ -67,13 +67,6 @@ const steps = [
         <!-- RIGHT: alur dan angka -->
         <div class="relative w-full">
             <div class="relative z-10 flex w-full flex-col gap-6 overflow-hidden rounded-3xl bg-gradient-main-26 p-6 pb-16 sm:p-8 sm:pb-20 md:p-9 md:pb-20">
-                <img
-                    src="/images/asset26-2.svg"
-                    alt=""
-                    class="pointer-events-none absolute -top-6 -right-6 w-24 opacity-25 sm:w-28"
-                    aria-hidden="true"
-                />
-
                 <div class="relative flex flex-col gap-1">
                     <p class="font-unbounded text-base font-bold text-white sm:text-xl">Bagaimana cara memilih?</p>
                     <p class="font-dmsans text-xs leading-relaxed text-white opacity-70 sm:text-sm">
