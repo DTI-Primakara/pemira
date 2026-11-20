@@ -339,3 +339,32 @@ body {
 @utility layer-blur {
     filter: blur(200px);
 }
+
+/* RIBBON MARQUEE 2026 */
+@keyframes marquee-26 {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+    to {
+        transform: translate3d(-50%, 0, 0);
+    }
+}
+
+.marquee-26 {
+    display: flex;
+    width: max-content;
+    flex-shrink: 0;
+    align-items: center;
+    animation: marquee-26 var(--marquee-26-duration, 32s) linear infinite;
+    will-change: transform;
+}
+
+.marquee-26-reverse {
+    animation-direction: reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .marquee-26 {
+        animation: none;
+    }
+}

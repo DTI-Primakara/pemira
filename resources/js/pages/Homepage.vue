@@ -3,6 +3,7 @@ import Navbar from '@/components/core/Navbar.vue';
 import ErrorModal from '@/components/sections/homepage/ErrorModal.vue';
 import HeroCardShuffle from '@/components/sections/homepage/HeroCardShuffle.vue';
 import LoginModal from '@/components/sections/homepage/LoginModal.vue';
+import RibbonMarquee from '@/components/sections/homepage/RibbonMarquee.vue';
 import Timeline from '@/components/sections/homepage/Timeline.vue';
 import CandidateShowcase from '@/components/sections/homepage/CandidateShowcase.vue';
 import VoteCountContainer from '@/components/VoteCountContainer.vue';
@@ -119,6 +120,10 @@ function scrollTo(id: string) {
             </div>
         </div>
         <!-- DECORATION HERO -->
+
+        <!-- RIBBON -->
+        <RibbonMarquee />
+        <!-- RIBBON -->
 
         <!-- START ABOUT -->
         <section class="relative mb-16 flex w-full flex-col items-center justify-center px-0 md:mb-30" id="candidate">
