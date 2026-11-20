@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import LoginModal from '@/components/sections/homepage/LoginModal.vue';
 import type { ElectionShowcase } from '@/types';
 import { computed } from 'vue';
 
@@ -7,6 +6,21 @@ const props = withDefaults(defineProps<{ elections?: ElectionShowcase[] }>(), { 
 
 const electionCount = computed(() => props.elections.length);
 const candidateCount = computed(() => props.elections.reduce((total, election) => total + election.candidates.length, 0));
+
+const organizations = [
+    {
+        title: 'Pemilihan BEM',
+        description: 'Badan Eksekutif Mahasiswa, pelaksana program kemahasiswaan di tingkat universitas.',
+    },
+    {
+        title: 'Pemilihan DPM',
+        description: 'Dewan Perwakilan Mahasiswa, pengawas jalannya organisasi sekaligus penyelenggara PEMIRA.',
+    },
+    {
+        title: 'Pemilihan HIMA',
+        description: 'Himpunan Mahasiswa di setiap program studi, dipilih khusus oleh mahasiswa prodi tersebut.',
+    },
+];
 
 const steps = [
     {
@@ -26,41 +40,55 @@ const steps = [
 
 <template>
     <div class="relative grid w-full grid-cols-1 items-stretch gap-12 md:grid-cols-2 md:gap-14 lg:gap-20">
-        <!-- LEFT: apa dan kenapa -->
+        <!-- LEFT: apa yang dipilih -->
         <div class="relative flex flex-col items-start gap-5">
             <span class="rounded-full border border-[#E3E3FF] bg-[#F3F3FF] px-4 py-1.5 font-unbounded text-[10px] text-[#2A29D6] sm:text-xs">
                 Apa itu PEMIRA?
             </span>
 
-            <div
-                class="flex w-full flex-1 flex-col gap-4 rounded-3xl border border-[#C9C9D4]/50 bg-white p-6 shadow-[0_24px_50px_-34px_rgba(1,0,120,0.35)] sm:p-8 md:p-9"
-            >
-                <div class="flex flex-col gap-1">
-                    <h3 class="text-gradient-main-26 font-unbounded text-base font-bold sm:text-xl">
-                        Pesta Demokrasi
-                        <span class="text-gradient-secondary-26">Mahasiswa Primakara</span>
-                    </h3>
+            <div class="relative flex w-full flex-1 flex-col">
+                <div
+                    class="relative z-10 flex w-full flex-1 flex-col gap-6 rounded-3xl border border-[#C9C9D4]/50 bg-white p-6 pb-16 shadow-[0_24px_50px_-34px_rgba(1,0,120,0.35)] sm:p-8 sm:pb-20 md:p-9 md:pb-20"
+                >
+                    <div class="flex flex-col gap-1">
+                        <h3 class="text-gradient-main-26 font-unbounded text-base font-bold sm:text-xl">
+                            Pesta Demokrasi
+                            <span class="text-gradient-secondary-26">Mahasiswa Primakara</span>
+                        </h3>
+                        <p class="font-dmsans text-xs leading-relaxed text-black opacity-60 sm:text-sm">
+                            Pemilihan umum tingkat kampus yang digelar DPM Primakara University setiap tahun.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-col gap-5">
+                        <div v-for="(organization, index) in organizations" :key="organization.title" class="flex items-start gap-4">
+                            <span
+                                class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#F1F1FF] font-unbounded text-xs font-bold text-[#2A29D6] sm:text-sm"
+                            >
+                                {{ String(index + 1).padStart(2, '0') }}
+                            </span>
+                            <div class="flex flex-col gap-1">
+                                <p class="font-unbounded text-xs font-bold text-[#11114E] sm:text-sm">{{ organization.title }}</p>
+                                <p class="font-dmsans text-xs leading-relaxed text-black opacity-60 sm:text-sm">{{ organization.description }}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <p class="font-dmsans text-xs leading-relaxed text-black opacity-70 sm:text-sm">
-                    PEMIRA atau Pemilu Raya Mahasiswa adalah pemilihan umum tingkat kampus yang diselenggarakan DPM Primakara University untuk
-                    memilih pemimpin organisasi mahasiswa pada periode kepengurusan berikutnya.
-                </p>
-                <p class="font-dmsans text-xs leading-relaxed text-black opacity-70 sm:text-sm">
-                    Lewat PEMIRA, setiap mahasiswa memegang hak yang sama untuk menentukan siapa yang memimpin BEM, DPM, dan HIMA di program
-                    studinya masing-masing — cukup lewat ponsel, tanpa perlu antre di bilik suara.
-                </p>
-
-                <div class="mt-auto pt-2">
-                    <LoginModal>
-                        <template #trigger>
-                            <button
-                                class="flex cursor-pointer items-center justify-center gap-2 bg-gradient-main-26 px-4 py-2.5 font-unbounded text-xs text-white transition-opacity hover:opacity-90 sm:px-5 sm:py-3 md:text-sm"
-                            >
-                                Gunakan Hak Suaramu <img src="/images/arrow-white.svg" alt="" class="w-3" />
-                            </button>
-                        </template>
-                    </LoginModal>
+                <!-- Strip angka biru, menumpuk di bawah kartu putih -->
+                <div class="relative z-20 mx-4 -mt-8 grid grid-cols-3 gap-2 rounded-2xl bg-gradient-main-26 p-4 shadow-[0_24px_50px_-28px_rgba(1,0,120,0.55)] sm:mx-6 sm:gap-4 sm:p-5">
+                    <div class="flex flex-col items-center gap-1 text-center">
+                        <p class="font-unbounded text-xl font-bold text-white sm:text-3xl">3</p>
+                        <p class="font-dmsans text-[10px] leading-tight text-white opacity-70 sm:text-xs">Jenis ORMAWA</p>
+                    </div>
+                    <div class="flex flex-col items-center gap-1 border-x border-white/20 text-center">
+                        <p class="font-unbounded text-xl font-bold text-white sm:text-3xl">100%</p>
+                        <p class="font-dmsans text-[10px] leading-tight text-white opacity-70 sm:text-xs">Online</p>
+                    </div>
+                    <div class="flex flex-col items-center gap-1 text-center">
+                        <p class="font-unbounded text-xl font-bold text-white sm:text-3xl">1x</p>
+                        <p class="font-dmsans text-[10px] leading-tight text-white opacity-70 sm:text-xs">Setiap tahun</p>
+                    </div>
                 </div>
             </div>
 
@@ -73,13 +101,13 @@ const steps = [
         </div>
 
         <!-- RIGHT: alur dan angka -->
-        <div class="relative w-full">
-            <div class="relative z-10 flex w-full flex-col gap-6 overflow-hidden rounded-3xl bg-gradient-main-26 p-6 pb-16 sm:p-8 sm:pb-20 md:p-9 md:pb-20">
+        <div class="relative flex w-full flex-col">
+            <div
+                class="relative z-10 flex w-full flex-1 flex-col gap-6 overflow-hidden rounded-3xl bg-gradient-main-26 p-6 pb-16 sm:p-8 sm:pb-20 md:p-9 md:pb-20"
+            >
                 <div class="relative flex flex-col gap-1">
                     <p class="font-unbounded text-base font-bold text-white sm:text-xl">Bagaimana cara memilih?</p>
-                    <p class="font-dmsans text-xs leading-relaxed text-white opacity-70 sm:text-sm">
-                        Tiga langkah, selesai dalam hitungan menit.
-                    </p>
+                    <p class="font-dmsans text-xs leading-relaxed text-white opacity-70 sm:text-sm">Tiga langkah, selesai dalam hitungan menit.</p>
                 </div>
 
                 <div class="relative flex flex-col gap-5">
