@@ -8,21 +8,6 @@ const props = withDefaults(defineProps<{ elections?: ElectionShowcase[] }>(), { 
 const electionCount = computed(() => props.elections.length);
 const candidateCount = computed(() => props.elections.reduce((total, election) => total + election.candidates.length, 0));
 
-const values = [
-    {
-        title: 'Legitimasi',
-        description: 'Pemimpin ORMAWA dipilih langsung lewat suara mahasiswa, bukan lewat penunjukan.',
-    },
-    {
-        title: 'Partisipasi',
-        description: 'Seluruh mahasiswa aktif punya hak yang sama, lintas angkatan dan lintas program studi.',
-    },
-    {
-        title: 'Transparansi',
-        description: 'Rekapitulasi suara dibuka untuk publik sehingga hasilnya bisa diikuti bersama.',
-    },
-];
-
 const steps = [
     {
         title: 'Masuk dengan akun kampus',
@@ -61,18 +46,6 @@ const steps = [
                 masing-masing — cukup lewat ponsel, tanpa perlu antre di bilik suara.
             </p>
 
-            <ul class="mt-2 flex w-full flex-col gap-4">
-                <li v-for="value in values" :key="value.title" class="flex items-start gap-3">
-                    <span class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-main-26">
-                        <img src="/images/arrow-white.svg" alt="" class="w-2.5" />
-                    </span>
-                    <div class="flex flex-col gap-0.5">
-                        <p class="font-unbounded text-xs font-bold text-[#11114E] sm:text-sm">{{ value.title }}</p>
-                        <p class="font-dmsans text-xs leading-relaxed text-black opacity-70 sm:text-sm">{{ value.description }}</p>
-                    </div>
-                </li>
-            </ul>
-
             <LoginModal>
                 <template #trigger>
                     <button
@@ -93,13 +66,6 @@ const steps = [
 
         <!-- RIGHT: alur dan angka -->
         <div class="relative w-full">
-            <img
-                src="/images/star-pink.svg"
-                alt=""
-                class="animate-wiggle pointer-events-none absolute -top-8 -left-6 z-20 w-10 sm:w-12 xl:w-14"
-                aria-hidden="true"
-            />
-
             <div class="relative z-10 flex w-full flex-col gap-6 overflow-hidden rounded-3xl bg-gradient-main-26 p-6 pb-16 sm:p-8 sm:pb-20 md:p-9 md:pb-20">
                 <img
                     src="/images/asset26-2.svg"
@@ -147,13 +113,6 @@ const steps = [
                     <p class="font-dmsans text-[10px] leading-tight text-black opacity-60 sm:text-xs">Suara per mahasiswa</p>
                 </div>
             </div>
-
-            <img
-                src="/images/star.svg"
-                alt=""
-                class="rotate-counter-clock pointer-events-none absolute -right-4 -bottom-10 z-0 w-12 sm:w-14"
-                aria-hidden="true"
-            />
         </div>
     </div>
 </template>
