@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Voters;
 use App\Filament\Resources\Voters\Pages\CreateVoter;
 use App\Filament\Resources\Voters\Pages\EditVoter;
 use App\Filament\Resources\Voters\Pages\ListVoters;
+use App\Models\Period;
 use App\Models\User;
 use BackedEnum;
 use Filament\Forms\Components\Hidden;
@@ -16,9 +17,8 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Support\Str;
-use App\Models\Period;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 
 class VoterResource extends Resource
 {

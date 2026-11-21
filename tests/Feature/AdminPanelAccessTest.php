@@ -2,6 +2,7 @@
 
 use App\Filament\Resources\Classrooms\Pages\ManageClassroomMembers;
 use App\Filament\Resources\Paslons\Pages\CreatePaslon;
+use App\Filament\Resources\Voters\Pages\CreateVoter;
 use App\Models\Candidate;
 use App\Models\Classroom;
 use App\Models\Event;
@@ -103,4 +104,47 @@ it('still demands a photo, vision and mission from a real candidate', function (
         ])
         ->call('create')
         ->assertHasFormErrors(['vision', 'mission', 'image']);
+});
+
+it('enrols an account that already exists instead of failing on a duplicate', function () {
+    $this->actingAs(User::factory()->admin()->create());
+
+    // The state every student is in after signing in through the SSO but
+    // before the admin puts them on the roll.
+    $selfServed = User::factory()->notEnrolled()->create([
+        'name' => 'Nama Lama',
+        'email' => 'rai@primakara.test',
+        'nim' => '2301020007',
+    ]);
+
+    Livewire::test(CreateVoter::class)
+        ->fillForm([
+            'name' => 'Rai Wiradarma',
+            'nim' => '2301020007',
+            'email' => 'rai@primakara.test',
+        ])
+        ->call('create')
+        ->assertHasNoFormErrors();
+
+    expect(User::query()->where('email', 'rai@primakara.test')->count())->toBe(1)
+        ->and($selfServed->fresh()->name)->toBe('Rai Wiradarma')
+        ->and($selfServed->fresh()->belongsToActivePeriod())->toBeTrue();
+});
+
+it('adds a voter who has no account yet', function () {
+    $this->actingAs(User::factory()->admin()->create());
+
+    Livewire::test(CreateVoter::class)
+        ->fillForm([
+            'name' => 'Mahasiswa Baru',
+            'nim' => '2301020008',
+            'email' => 'baru@primakara.test',
+        ])
+        ->call('create')
+        ->assertHasNoFormErrors();
+
+    $voter = User::query()->where('email', 'baru@primakara.test')->sole();
+
+    expect((int) $voter->roles)->toBe(User::ROLE_PARTICIPANT)
+        ->and($voter->belongsToActivePeriod())->toBeTrue();
 });
