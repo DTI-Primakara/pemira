@@ -103,7 +103,7 @@ function scrollTo(id: string) {
                             <a href="#"></a>
                         </div>
 
-                        <ErrorModal v-model:open="showModalError" />
+                        <ErrorModal v-model:open="showModalError" :message="props.flash?.error" />
                     </div>
 
                     <HeroCardShuffle v-reveal.zoom="180" />

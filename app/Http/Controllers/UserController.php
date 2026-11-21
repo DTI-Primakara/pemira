@@ -13,10 +13,16 @@ class UserController extends Controller
         $user = Auth::user();
         $period = Period::active();
 
+        // Anyone with a campus account can sign in, so the dashboard is where
+        // someone who is not on this period's roll finds out. That outranks the
+        // voting window: there is nothing for them to open.
+        $enrolled = $user->belongsToActivePeriod();
+
         return Inertia::render('Dashboard', [
             'user' => $user->only(['id', 'name', 'nim', 'email']),
             'status' => $user->ballot($period)->status,
-            'votingOpen' => (bool) $period?->votingIsOpen() && $user->belongsToActivePeriod(),
+            'enrolled' => $enrolled,
+            'votingOpen' => (bool) $period?->votingIsOpen() && $enrolled,
             'votingEnded' => (bool) $period?->votingHasEnded(),
         ]);
     }

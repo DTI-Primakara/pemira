@@ -62,6 +62,62 @@ class User extends Authenticatable implements FilamentUser
         ];
     }
 
+    /**
+     * The local row behind an SSO account, created the first time its owner
+     * signs in.
+     *
+     * A row is created even for someone who may not vote: they have to reach
+     * the dashboard to be told they are not on the roll. Creating one enrols
+     * nobody — the voter roll for a period is the admin's doing.
+     *
+     * @param  array{name: string, email: string, nim: ?string}  $profile
+     */
+    public static function syncFromSso(array $profile): self
+    {
+        $email = $profile['email'];
+        $nim = $profile['nim'];
+
+        // E-mail first, then student number: a voter the admin imported under a
+        // stale e-mail still reaches their own ballot instead of landing on a
+        // second, empty account.
+        $user = static::query()->where('email', $email)->first()
+            ?: ($nim !== null ? static::query()->where('nim', $nim)->first() : null);
+
+        if (! $user) {
+            return static::create([
+                'name' => $profile['name'] !== '' ? $profile['name'] : $email,
+                'email' => $email,
+                'nim' => $nim,
+                'roles' => self::ROLE_PARTICIPANT,
+            ]);
+        }
+
+        $changes = [];
+
+        if ($profile['name'] !== '' && $user->name !== $profile['name']) {
+            $changes['name'] = $profile['name'];
+        }
+
+        // The SSO owns identity, but never at the cost of trampling another
+        // row: both columns are unique, so a value already taken is left as it
+        // is rather than failing the login outright.
+        if ($user->email !== $email && ! static::query()->where('email', $email)->whereKeyNot($user->getKey())->exists()) {
+            $changes['email'] = $email;
+        }
+
+        if ($nim !== null && $user->nim !== $nim && ! static::query()->where('nim', $nim)->whereKeyNot($user->getKey())->exists()) {
+            $changes['nim'] = $nim;
+        }
+
+        // Roles and class are never synced: an admin or korti appointment made
+        // here must survive its owner signing in again.
+        if ($changes !== []) {
+            $user->forceFill($changes)->save();
+        }
+
+        return $user;
+    }
+
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class, 'roles', 'id_roles');

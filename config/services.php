@@ -34,10 +34,25 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
-    'google' => [
-        'client_id' => env('GOOGLE_CLIENT_ID'),
-        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => env('GOOGLE_REDIRECT_URI'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Campus Single Sign-On
+    |--------------------------------------------------------------------------
+    |
+    | sso.primakara.ac.id, a Laravel Passport authorisation-code server. This
+    | is how every student signs in; PEMIRA keeps no student passwords of its
+    | own. The redirect URI must match the one registered for this client on
+    | the SSO side exactly, or the exchange is refused.
+    |
+    */
+
+    'sso' => [
+        'host' => env('SSO_URI', 'https://sso.primakara.ac.id'),
+        'client_id' => env('SSO_CLIENT_ID'),
+        'client_secret' => env('SSO_CLIENT_SECRET'),
+        'redirect' => env('SSO_REDIRECT_URI'),
+        'timeout' => env('SSO_TIMEOUT', 15),
     ],
 
 ];

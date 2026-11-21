@@ -2,6 +2,7 @@
 import ConfirmVoting from '@/components/sections/dashboard/ConfirmVoting.vue';
 import VotingCta from '@/components/sections/dashboard/VotingCta.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
+import { CONTACT_ADMIN_VOTER_URL } from '@/lib/contact';
 import { dashboard } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
 import { Head, usePage } from '@inertiajs/vue3';
@@ -14,11 +15,12 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-// untuk testing awal
 interface StatusVoting {
     open: boolean;
     status: 'voted' | 'not voted' | 'passed';
     ended: boolean;
+    /** Whether this student is on the active period's voter roll. */
+    enrolled: boolean;
 }
 
 interface User {
@@ -32,6 +34,7 @@ const statusVoting = computed<StatusVoting>(() => ({
     open: page.props.votingOpen as boolean,
     status: page.props.status as 'voted' | 'not voted' | 'passed',
     ended: page.props.votingEnded as boolean,
+    enrolled: page.props.enrolled as boolean,
 }));
 </script>
 
@@ -84,7 +87,22 @@ const statusVoting = computed<StatusVoting>(() => ({
 
             <h1 class="scroll-m-20 font-unbounded text-base font-semibold tracking-tight sm:text-lg md:text-xl lg:text-2xl">Dashboard</h1>
 
-            <template v-if="statusVoting.open && statusVoting.status === 'not voted'">
+            <!-- Signing in only proves who you are. Being allowed to vote is a
+                 separate, per-period decision the admin makes, so someone who is
+                 not on the roll is told here rather than at the SSO. -->
+            <template v-if="!statusVoting.enrolled">
+                <VotingCta
+                    variant="disabled"
+                    title="Belum Terdaftar Memilih"
+                    desc="Anda belum termasuk dalam daftar pemilih PEMIRA 2026. Silakan hubungi admin untuk didaftarkan."
+                    icon="/images/not-open.svg"
+                    icon-alt="belum-terdaftar"
+                    action-label="Hubungi Admin"
+                    :action-href="CONTACT_ADMIN_VOTER_URL"
+                />
+            </template>
+
+            <template v-else-if="statusVoting.open && statusVoting.status === 'not voted'">
                 <ConfirmVoting>
                     <template #trigger>
                         <VotingCta

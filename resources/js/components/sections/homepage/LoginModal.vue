@@ -19,10 +19,8 @@ import {
         </DialogTrigger>
         <DialogContent class="space-y-2 sm:max-w-md">
             <DialogHeader>
-                <DialogTitle class="font-unbounded">Login dengan Akun Siska</DialogTitle>
-                <DialogDescription class="mt-2">
-                    Proses login akan menggunakan email google yang terhubung dengan akun Siska kamu.
-                </DialogDescription>
+                <DialogTitle class="font-unbounded">Login dengan SSO Primakara</DialogTitle>
+                <DialogDescription class="mt-2"> Kamu akan diarahkan ke halaman SSO Primakara untuk masuk dengan akun kampusmu. </DialogDescription>
             </DialogHeader>
             <DialogFooter class="sm:justify-start">
                 <DialogClose as-child>
