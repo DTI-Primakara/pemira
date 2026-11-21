@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Config;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -29,10 +28,12 @@ return new class extends Migration
         });
 
         // The voting window used to be hardcoded in two separate PHP files.
+        // Literal keys on purpose: a migration is a snapshot and must not break
+        // when the model that once owned these constants changes.
         DB::table('config')->insertOrIgnore([
-            ['title' => Config::VOTING_STARTS_AT, 'value' => '2025-12-15 10:00:00', 'created_at' => now(), 'updated_at' => now()],
-            ['title' => Config::VOTING_ENDS_AT, 'value' => '2025-12-16 16:59:59', 'created_at' => now(), 'updated_at' => now()],
-            ['title' => Config::VOTE_COUNT_VISIBLE, 'value' => 'false', 'created_at' => now(), 'updated_at' => now()],
+            ['title' => 'voting_starts_at', 'value' => '2025-12-15 10:00:00', 'created_at' => now(), 'updated_at' => now()],
+            ['title' => 'voting_ends_at', 'value' => '2025-12-16 16:59:59', 'created_at' => now(), 'updated_at' => now()],
+            ['title' => 'is_vote_count_visible', 'value' => 'false', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 

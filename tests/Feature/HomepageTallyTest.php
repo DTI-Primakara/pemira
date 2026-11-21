@@ -1,13 +1,13 @@
 <?php
 
+use App\Models\Period;
 use App\Models\Candidate;
-use App\Models\Config;
 use App\Models\Event;
 use App\Models\Prodi;
 use App\Models\Vote;
 
 it('hides the tally entirely while the admin toggle is off', function () {
-    Config::set(Config::VOTE_COUNT_VISIBLE, 'false');
+    Period::active()->update(['is_vote_count_visible' => false]);
 
     $event = Event::factory()->universityWide()->create();
     $candidate = Candidate::factory()->create(['event_id' => $event->id]);
@@ -33,7 +33,7 @@ it('hides the tally entirely while the admin toggle is off', function () {
 });
 
 it('publishes aggregate counts but never individual vote rows', function () {
-    Config::set(Config::VOTE_COUNT_VISIBLE, 'true');
+    Period::active()->update(['is_vote_count_visible' => true]);
 
     $event = Event::factory()->universityWide()->create(['title' => 'Presiden Mahasiswa']);
     $candidate = Candidate::factory()->create(['event_id' => $event->id, 'number' => 1]);
@@ -58,7 +58,7 @@ it('publishes aggregate counts but never individual vote rows', function () {
 });
 
 it('includes newly created elections without any code change', function () {
-    Config::set(Config::VOTE_COUNT_VISIBLE, 'true');
+    Period::active()->update(['is_vote_count_visible' => true]);
 
     Prodi::factory()->create([
         'id_prodi' => '0301',
@@ -80,7 +80,7 @@ it('includes newly created elections without any code change', function () {
 });
 
 it('leaves out elections that have no candidates yet', function () {
-    Config::set(Config::VOTE_COUNT_VISIBLE, 'true');
+    Period::active()->update(['is_vote_count_visible' => true]);
 
     Event::factory()->universityWide()->create(['title' => 'Belum Ada Paslon']);
 
@@ -151,7 +151,7 @@ it('still lists an election whose candidate has no photo yet', function () {
 });
 
 it('keeps the showcase visible even while the tally is hidden', function () {
-    Config::set(Config::VOTE_COUNT_VISIBLE, 'false');
+    Period::active()->update(['is_vote_count_visible' => false]);
 
     $event = Event::factory()->universityWide()->create();
     Candidate::factory()->create(['event_id' => $event->id]);

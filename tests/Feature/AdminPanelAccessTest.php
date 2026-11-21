@@ -16,7 +16,7 @@ $adminPages = [
     '/admin/classrooms',
     '/admin/prodis',
     '/admin/timelines',
-    '/admin/manage-voting-settings',
+    '/admin/periods',
 ];
 
 it('serves every admin page to an admin', function (string $path) {

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Period;
 use App\Models\Candidate;
 use App\Models\Config;
 use App\Models\Event;
@@ -37,14 +38,18 @@ function ballotScenario(string $prodiCode = '0101', string $otherProdiCode = '02
 
 function openVotingWindow(): void
 {
-    Config::set(Config::VOTING_STARTS_AT, now()->subDay()->format('Y-m-d H:i:s'));
-    Config::set(Config::VOTING_ENDS_AT, now()->addDay()->format('Y-m-d H:i:s'));
+    Period::active()->update([
+        'starts_at' => Config::now()->subDay(),
+        'ends_at' => Config::now()->addDay(),
+    ]);
 }
 
 function closeVotingWindow(): void
 {
-    Config::set(Config::VOTING_STARTS_AT, now()->subDays(5)->format('Y-m-d H:i:s'));
-    Config::set(Config::VOTING_ENDS_AT, now()->subDays(4)->format('Y-m-d H:i:s'));
+    Period::active()->update([
+        'starts_at' => Config::now()->subDays(5),
+        'ends_at' => Config::now()->subDays(4),
+    ]);
 }
 
 /** A valid, complete ballot for the scenario's voter. */

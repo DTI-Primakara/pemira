@@ -17,8 +17,21 @@ class UserVote extends Model
 
     protected $fillable = [
         'user_id',
+        'period_id',
         'status',
     ];
+
+    protected static function booted(): void
+    {
+        static::creating(function (UserVote $ballot) {
+            $ballot->period_id ??= Period::activeId();
+        });
+    }
+
+    public function period(): BelongsTo
+    {
+        return $this->belongsTo(Period::class);
+    }
 
     public function user(): BelongsTo
     {

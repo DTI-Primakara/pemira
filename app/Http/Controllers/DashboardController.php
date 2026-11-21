@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Candidate;
-use App\Models\Config;
 use App\Models\Event;
+use App\Models\Period;
 use App\Models\Timeline;
 use Illuminate\Database\Eloquent\Collection;
 use Inertia\Inertia;
@@ -13,9 +13,10 @@ class DashboardController extends Controller
 {
     public function showHomepage()
     {
-        $tallyVisible = Config::voteCountVisible();
+        $period = Period::active();
+        $tallyVisible = (bool) $period?->is_vote_count_visible;
 
-        $events = $this->electionsWithCandidates($tallyVisible);
+        $events = $period ? $this->electionsWithCandidates($tallyVisible) : new Collection;
 
         return Inertia::render('Homepage', [
             'elections' => $this->presentElections($events),
@@ -37,6 +38,7 @@ class DashboardController extends Controller
     private function agenda(): array
     {
         return Timeline::query()
+            ->forActivePeriod()
             ->ordered()
             ->get()
             ->map(fn (Timeline $entry) => [
@@ -56,6 +58,7 @@ class DashboardController extends Controller
     private function electionsWithCandidates(bool $withVoteCounts): Collection
     {
         return Event::query()
+            ->forActivePeriod()
             ->with([
                 'prodi',
                 'candidates' => function ($query) use ($withVoteCounts) {

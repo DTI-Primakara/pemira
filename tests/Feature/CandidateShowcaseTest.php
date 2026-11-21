@@ -1,7 +1,7 @@
 <?php
 
+use App\Models\Period;
 use App\Models\Candidate;
-use App\Models\Config;
 use App\Models\Event;
 use App\Models\Vote;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -23,7 +23,7 @@ it('keeps a blank box out of the homepage showcase', function () {
 });
 
 it('still counts votes cast for a blank box in the tally', function () {
-    Config::set(Config::VOTE_COUNT_VISIBLE, 'true');
+    Period::active()->update(['is_vote_count_visible' => true]);
 
     $event = Event::factory()->universityWide()->create();
     Candidate::factory()->create(['event_id' => $event->id, 'number' => 1]);

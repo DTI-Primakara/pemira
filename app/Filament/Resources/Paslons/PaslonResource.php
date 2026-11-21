@@ -23,6 +23,8 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use App\Models\Period;
+use Illuminate\Database\Eloquent\Builder;
 
 class PaslonResource extends Resource
 {
@@ -44,7 +46,7 @@ class PaslonResource extends Resource
                     ->schema([
                         Select::make('event_id')
                             ->label('Pemilihan')
-                            ->relationship('event', 'title')
+                            ->relationship('event', 'title', fn (Builder $query) => $query->where('period_id', Period::activeId()))
                             ->required()
                             ->searchable()
                             ->preload()
@@ -154,7 +156,7 @@ class PaslonResource extends Resource
             ->filters([
                 SelectFilter::make('event_id')
                     ->label('Pemilihan')
-                    ->relationship('event', 'title')
+                    ->relationship('event', 'title', fn (Builder $query) => $query->where('period_id', Period::activeId()))
                     ->preload()
                     ->searchable(),
             ])
@@ -178,6 +180,13 @@ class PaslonResource extends Resource
     public static function getRelations(): array
     {
         return [];
+    }
+
+    /** Admins only ever see and edit the period being run now. */
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->whereHas('event', fn (Builder $query) => $query->where('period_id', Period::activeId()));
     }
 
     public static function getPages(): array

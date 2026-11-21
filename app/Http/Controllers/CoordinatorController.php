@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classroom;
+use App\Models\Period;
 use App\Models\User;
 use App\Models\UserVote;
 use Illuminate\Support\Facades\Auth;
@@ -15,8 +16,13 @@ class CoordinatorController extends Controller
         /** @var Classroom $classroom */
         $classroom = Auth::user()->coordinatedClass()->firstOrFail();
 
+        $periodId = Period::activeId();
+
+        // Only classmates on this period's roll, and only this period's ballot
+        // status: last year's "voted" must not show up as done this year.
         $members = $classroom->members()
-            ->with('userVote:id,user_id,status')
+            ->when($periodId, fn ($query) => $query->whereHas('periods', fn ($roll) => $roll->whereKey($periodId)))
+            ->with(['userVote' => fn ($query) => $query->where('period_id', $periodId)])
             ->orderBy('name')
             ->get()
             ->map(fn (User $member) => [

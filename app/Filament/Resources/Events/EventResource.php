@@ -17,6 +17,8 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use App\Models\Period;
+use Illuminate\Database\Eloquent\Builder;
 
 class EventResource extends Resource
 {
@@ -97,6 +99,12 @@ class EventResource extends Resource
     public static function getRelations(): array
     {
         return [];
+    }
+
+    /** Admins only ever see and edit the period being run now. */
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->where('period_id', Period::activeId());
     }
 
     public static function getPages(): array

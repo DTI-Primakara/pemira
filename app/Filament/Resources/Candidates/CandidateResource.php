@@ -17,6 +17,7 @@ use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
+use App\Models\Period;
 
 class CandidateResource extends Resource
 {
@@ -58,7 +59,7 @@ class CandidateResource extends Resource
             ->filters([
                 SelectFilter::make('event_id')
                     ->label('Filter Kategori')
-                    ->relationship('event', 'title')
+                    ->relationship('event', 'title', fn (Builder $query) => $query->where('period_id', Period::activeId()))
                     ->preload()
                     ->searchable(),
             ])
@@ -76,6 +77,13 @@ class CandidateResource extends Resource
         return [
 
         ];
+    }
+
+    /** Admins only ever see and edit the period being run now. */
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->whereHas('event', fn (Builder $query) => $query->where('period_id', Period::activeId()));
     }
 
     public static function getPages(): array

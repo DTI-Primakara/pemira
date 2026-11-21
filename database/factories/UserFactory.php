@@ -36,6 +36,28 @@ class UserFactory extends Factory
         ];
     }
 
+    /**
+     * Voters are enrolled in the period being run now, the way the admin panel
+     * and the Excel import do it. Admins are not voters, so they stay off the
+     * roll.
+     */
+    public function configure(): static
+    {
+        return $this->afterCreating(function (\App\Models\User $user) {
+            $periodId = \App\Models\Period::activeId();
+
+            if ($periodId && in_array((int) $user->roles, [\App\Models\User::ROLE_PARTICIPANT, \App\Models\User::ROLE_KORTI], true)) {
+                $user->periods()->syncWithoutDetaching([$periodId]);
+            }
+        });
+    }
+
+    /** A voter who is not on the active period's roll. */
+    public function notEnrolled(): static
+    {
+        return $this->afterCreating(fn (\App\Models\User $user) => $user->periods()->detach());
+    }
+
     public function admin(): static
     {
         return $this->state(fn (array $attributes) => [

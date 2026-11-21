@@ -17,6 +17,8 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
+use App\Models\Period;
+use Illuminate\Database\Eloquent\Builder;
 
 class VoterResource extends Resource
 {
@@ -57,8 +59,14 @@ class VoterResource extends Resource
     {
         return $table
             ->modifyQueryUsing(function ($query) {
+                $periodId = Period::activeId();
+
                 return $query
-                    ->leftJoin('user_vote', 'user_vote.user_id', '=', 'users.id')
+                    // The ballot shown is the one for the period being run now.
+                    ->leftJoin('user_vote', function ($join) use ($periodId) {
+                        $join->on('user_vote.user_id', '=', 'users.id')
+                            ->where('user_vote.period_id', '=', $periodId);
+                    })
                     // Coordinators are voters too, so they must not drop off this list.
                     ->whereIn('users.roles', [User::ROLE_PARTICIPANT, User::ROLE_KORTI])
                     ->select([
@@ -111,6 +119,13 @@ class VoterResource extends Resource
         return [
 
         ];
+    }
+
+    /** Only the people on the roll of the period being run now. */
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->whereHas('periods', fn (Builder $query) => $query->whereKey(Period::activeId()));
     }
 
     public static function getPages(): array

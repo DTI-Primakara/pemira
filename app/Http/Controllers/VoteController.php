@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Vote\SubmitVoteRequest;
 use App\Models\Config;
+use App\Models\Period;
 use App\Models\UserVote;
 use App\Models\Vote;
 use Illuminate\Support\Facades\Auth;
@@ -22,12 +23,14 @@ class VoteController extends Controller
     public function submitVote(SubmitVoteRequest $request)
     {
         $userId = Auth::id();
+        $periodId = Period::activeId();
 
-        $accepted = DB::transaction(function () use ($request, $userId) {
+        $accepted = DB::transaction(function () use ($request, $userId, $periodId) {
             // Serialise concurrent submissions from the same voter so a double
             // submit cannot slip past the status check.
             $ballot = UserVote::query()
                 ->where('user_id', $userId)
+                ->where('period_id', $periodId)
                 ->lockForUpdate()
                 ->first();
 

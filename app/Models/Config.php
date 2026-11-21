@@ -19,12 +19,7 @@ class Config extends Model
 
     public const CACHE_KEY = 'pemira.config';
 
-    public const VOTE_COUNT_VISIBLE = 'is_vote_count_visible';
-
-    public const VOTING_STARTS_AT = 'voting_starts_at';
-
-    public const VOTING_ENDS_AT = 'voting_ends_at';
-
+    /** Campus timezone; the voting window is kept as wall-clock time here. */
     public const TIMEZONE = 'Asia/Makassar';
 
     protected static function booted(): void
@@ -53,58 +48,8 @@ class Config extends Model
         static::updateOrCreate(['title' => $title], ['value' => (string) $value]);
     }
 
-    public static function voteCountVisible(): bool
-    {
-        return static::get(self::VOTE_COUNT_VISIBLE, 'false') === 'true';
-    }
-
-    public static function votingStartsAt(): ?Carbon
-    {
-        return static::parseDate(static::get(self::VOTING_STARTS_AT));
-    }
-
-    public static function votingEndsAt(): ?Carbon
-    {
-        return static::parseDate(static::get(self::VOTING_ENDS_AT));
-    }
-
-    /**
-     * Voting is open only when both bounds are configured and "now" sits between them.
-     */
-    public static function votingIsOpen(): bool
-    {
-        $start = static::votingStartsAt();
-        $end = static::votingEndsAt();
-
-        if (! $start || ! $end) {
-            return false;
-        }
-
-        return static::now()->between($start, $end);
-    }
-
-    public static function votingHasEnded(): bool
-    {
-        $end = static::votingEndsAt();
-
-        return $end !== null && static::now()->greaterThan($end);
-    }
-
     public static function now(): Carbon
     {
         return Carbon::now(self::TIMEZONE);
-    }
-
-    private static function parseDate(?string $value): ?Carbon
-    {
-        if (blank($value)) {
-            return null;
-        }
-
-        try {
-            return Carbon::parse($value, self::TIMEZONE);
-        } catch (\Throwable) {
-            return null;
-        }
     }
 }
