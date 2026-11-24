@@ -105,6 +105,9 @@ class DashboardController extends Controller
                     'number' => $candidate->number,
                     'position' => $candidate->position,
                     'image_url' => $candidate->showcaseImageUrl(),
+                    // Only set when real homepage artwork exists; the hero
+                    // shows designed cards or nothing at all.
+                    'showcase_image_url' => $candidate->showcaseArtworkUrl(),
                 ])->values(),
             ];
         })->filter()->values()->all();

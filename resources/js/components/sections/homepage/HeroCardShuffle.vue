@@ -9,12 +9,15 @@ const props = withDefaults(defineProps<{ candidates?: ShowcaseCandidate[] }>(), 
 const DURATION = 600; // ms, samakan dengan duration-[600ms] di template
 const INTERVAL = 3000;
 
+/** The designed card shown while no paslon artwork has been uploaded. */
+const PLACEHOLDER = '/candidates/candidate-anonym.png';
+
 /*
  * Two different animations on purpose. The stacked shuffle reads well in the
  * wide half-column it gets on desktop, but on a phone the cards sit nearly on
  * top of one another and the motion turns into a flicker. Narrow screens get a
  * reel instead: one paslon centred, its neighbours peeking, sliding right to
- * left.
+ * left, edge to edge so the screen itself does the cropping.
  *
  * Both are rendered and CSS picks between them, so the correct one is already
  * in place at first paint and server rendering stays truthful. Only the timer
@@ -28,9 +31,9 @@ const prefersReducedMotion = ref(false);
 /* ---------------------------------------------------------------- desktop */
 
 const placeholders = [
-    { id: 1, img: '/candidates/candidate-anonym.png' },
-    { id: 2, img: '/candidates/candidate-anonym.png' },
-    { id: 3, img: '/candidates/candidate-anonym.png' },
+    { id: 1, img: PLACEHOLDER },
+    { id: 2, img: PLACEHOLDER },
+    { id: 3, img: PLACEHOLDER },
 ];
 
 const current = ref(0);
@@ -75,20 +78,42 @@ const overlayClass = (i: number) => (posOf(i) === 0 ? 'opacity-0' : 'opacity-60'
 
 /* ----------------------------------------------------------------- mobile */
 
-/** Width of one card as a share of the reel, leaving both neighbours peeking. */
-const CARD = 72;
+/** Width of one card as a share of the screen, leaving both neighbours peeking. */
+const CARD = 70;
 const SIDE = (100 - CARD) / 2;
 
-const withArtwork = computed(() => props.candidates.filter((candidate) => candidate.image_url));
+interface ReelCard {
+    key: string;
+    src: string;
+    alt: string;
+}
 
-const reel = ref<ShowcaseCandidate[]>([]);
+/**
+ * The reel's cards: the real paslon artwork when it has been uploaded, and the
+ * same designed placeholder desktop uses when it has not. A ballot portrait is
+ * never shown here — it is a cut-out on white and looks like a broken image
+ * among designed cards.
+ */
+const source = computed<ReelCard[]>(() => {
+    if (props.candidates.length === 0) {
+        return placeholders.map((card) => ({ key: `placeholder-${card.id}`, src: card.img, alt: '' }));
+    }
+
+    return props.candidates.map((candidate) => ({
+        key: `paslon-${candidate.id}`,
+        src: candidate.showcase_image_url as string,
+        alt: `${candidate.position || 'Calon'} nomor urut ${candidate.number} — ${candidate.name_candidates}`,
+    }));
+});
+
+const reel = ref<ReelCard[]>([]);
 const slide = ref(0);
 const sliding = ref(true);
 
 let rewind: ReturnType<typeof setTimeout> | undefined;
 
 /**
- * The reel is the paslon list three times over, and it starts on the middle
+ * The reel is the card list three times over, and it starts on the middle
  * copy. That is what guarantees a card on both sides from the very first
  * frame — a single copy leaves the opening shot lopsided, with nothing to the
  * left of the centred paslon.
@@ -143,7 +168,7 @@ onMounted(() => {
 
     // Shuffled here rather than in setup: the server has no business picking an
     // order the client would then disagree with mid-hydration.
-    reel.value = shuffle(withArtwork.value);
+    reel.value = shuffle(source.value);
     slide.value = reel.value.length;
 
     // Motion that moves on its own is exactly what a reduced-motion preference
@@ -161,7 +186,7 @@ onBeforeUnmount(() => {
 });
 
 /** Fisher–Yates, on a copy. */
-function shuffle(items: ShowcaseCandidate[]): ShowcaseCandidate[] {
+function shuffle(items: ReelCard[]): ReelCard[] {
     const copy = [...items];
 
     for (let i = copy.length - 1; i > 0; i--) {
@@ -174,21 +199,25 @@ function shuffle(items: ShowcaseCandidate[]): ShowcaseCandidate[] {
 </script>
 
 <template>
-    <div class="w-full">
-        <!-- MOBILE: reel paslon, bergantian dari kanan ke kiri -->
-        <div v-if="reel.length > 0" class="relative w-full overflow-hidden md:hidden">
+    <!--
+        The root keeps the desktop box exactly as it was: aspect ratio and
+        max-width apply from md up only, so the hero column is untouched there
+        while the phone reel is free to run edge to edge.
+    -->
+    <div class="relative w-full md:aspect-[3/4] md:max-w-sm">
+        <!--
+            MOBILE: reel paslon, bergantian dari kanan ke kiri.
+            -mx-6 membatalkan padding hero supaya kartu dipotong tepi layar,
+            bukan oleh ruang kosong di kiri dan kanan.
+        -->
+        <div class="relative -mx-6 w-screen overflow-hidden md:hidden">
             <div class="flex aspect-[3/4] w-full ease-in-out" :class="sliding ? 'transition-transform duration-[600ms]' : ''" :style="trackStyle">
-                <div v-for="(candidate, index) in loop" :key="`${candidate.id}-${index}`" class="h-full shrink-0 px-1" :style="{ width: `${CARD}%` }">
+                <div v-for="(card, index) in loop" :key="`${card.key}-${index}`" class="h-full shrink-0" :style="{ width: `${CARD}%` }">
                     <div
                         class="relative h-full w-full overflow-hidden rounded-2xl transition-transform duration-[600ms] ease-in-out"
                         :class="isCentre(index) ? 'scale-100' : 'scale-[0.88]'"
                     >
-                        <img
-                            :src="candidate.image_url!"
-                            :alt="`${candidate.position || 'Calon'} nomor urut ${candidate.number} — ${candidate.name_candidates}`"
-                            loading="lazy"
-                            class="h-full w-full object-cover"
-                        />
+                        <img :src="card.src" :alt="card.alt" loading="lazy" class="h-full w-full object-cover" />
                         <div
                             class="pointer-events-none absolute inset-0 bg-[#0F0F0F] transition-opacity duration-[600ms] ease-in-out"
                             :class="isCentre(index) ? 'opacity-0' : 'opacity-60'"
@@ -198,38 +227,17 @@ function shuffle(items: ShowcaseCandidate[]): ShowcaseCandidate[] {
             </div>
         </div>
 
-        <!-- MOBILE tanpa paslon: jatuh kembali ke tumpukan supaya hero tidak kosong -->
-        <div v-else class="relative aspect-[3/4] w-full max-w-sm md:hidden">
-            <div
-                v-for="(c, i) in placeholders"
-                :key="c.id"
-                class="absolute inset-0 overflow-hidden rounded-2xl transition-all duration-[600ms] ease-in-out"
-                :class="posClass(i)"
-            >
-                <img :src="c.img" class="h-full w-full object-cover" alt="" />
-                <div
-                    class="pointer-events-none absolute inset-0 bg-[#0F0F0F] transition-opacity duration-[600ms] ease-in-out"
-                    :class="overlayClass(i)"
-                />
-            </div>
-        </div>
-
         <!-- DESKTOP: tumpukan kartu, tidak diubah -->
-        <div class="relative hidden aspect-[3/4] w-full max-w-sm md:block">
-            <div
-                v-for="(c, i) in placeholders"
-                :key="c.id"
-                class="absolute inset-0 overflow-hidden rounded-2xl transition-all duration-[600ms] ease-in-out"
-                :class="posClass(i)"
-            >
-                <img :src="c.img" class="h-full w-full object-cover" alt="" />
+        <div
+            v-for="(c, i) in placeholders"
+            :key="c.id"
+            class="absolute inset-0 hidden overflow-hidden rounded-2xl transition-all duration-[600ms] ease-in-out md:block"
+            :class="posClass(i)"
+        >
+            <img :src="c.img" class="h-full w-full object-cover" alt="" />
 
-                <!-- overlay #0F0F0F 60% -->
-                <div
-                    class="pointer-events-none absolute inset-0 bg-[#0F0F0F] transition-opacity duration-[600ms] ease-in-out"
-                    :class="overlayClass(i)"
-                />
-            </div>
+            <!-- overlay #0F0F0F 60% -->
+            <div class="pointer-events-none absolute inset-0 bg-[#0F0F0F] transition-opacity duration-[600ms] ease-in-out" :class="overlayClass(i)" />
         </div>
     </div>
 </template>

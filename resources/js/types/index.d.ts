@@ -72,6 +72,8 @@ export interface ShowcaseCandidate {
     position: string;
     /** Homepage artwork, falling back to the ballot photo when none exists. */
     image_url: string | null;
+    /** The designed homepage card only, null when none was uploaded. */
+    showcase_image_url: string | null;
 }
 
 /** An election plus its candidates, built from the admin panel. */

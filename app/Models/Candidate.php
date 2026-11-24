@@ -49,6 +49,18 @@ class Candidate extends Model
     }
 
     /**
+     * The homepage artwork and nothing else — null when none was uploaded.
+     *
+     * Separate from showcaseImageUrl() because its fallback to the ballot
+     * photo is right for the candidate list but wrong for the hero, where a
+     * bare portrait among designed cards reads as a mistake.
+     */
+    public function showcaseArtworkUrl(): ?string
+    {
+        return $this->resolveImageUrl($this->showcase_image);
+    }
+
+    /**
      * Three conventions coexist in these columns: absolute URLs, paths already
      * rooted in public/ (written by the seeders), and paths relative to the
      * "public" storage disk (written by uploads from the admin panel).

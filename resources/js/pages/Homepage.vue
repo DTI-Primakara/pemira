@@ -18,8 +18,15 @@ const { props } = usePage<HomepageProps>();
 
 const elections = computed(() => props.elections ?? []);
 
-/** Every paslon with homepage artwork, flattened for the hero reel. */
-const heroCandidates = computed(() => elections.value.flatMap((election) => election.candidates).filter((candidate) => candidate.image_url));
+/**
+ * Paslon whose designed homepage card was actually uploaded, flattened for the
+ * hero reel. The ballot photo is deliberately not accepted here: a cut-out
+ * portrait next to designed cards looks broken, so the hero falls back to the
+ * placeholder card instead.
+ */
+const heroCandidates = computed(() =>
+    elections.value.flatMap((election) => election.candidates).filter((candidate) => candidate.showcase_image_url),
+);
 const timelines = computed(() => props.timelines ?? []);
 
 const expanded = ref(false);
