@@ -17,6 +17,9 @@ import { computed, onMounted, ref } from 'vue';
 const { props } = usePage<HomepageProps>();
 
 const elections = computed(() => props.elections ?? []);
+
+/** Every paslon with homepage artwork, flattened for the hero reel. */
+const heroCandidates = computed(() => elections.value.flatMap((election) => election.candidates).filter((candidate) => candidate.image_url));
 const timelines = computed(() => props.timelines ?? []);
 
 const expanded = ref(false);
@@ -106,7 +109,7 @@ function scrollTo(id: string) {
                         <ErrorModal v-model:open="showModalError" :message="props.flash?.error" />
                     </div>
 
-                    <HeroCardShuffle v-reveal.zoom="180" />
+                    <HeroCardShuffle v-reveal.zoom="180" :candidates="heroCandidates" />
                 </div>
             </div>
         </section>
