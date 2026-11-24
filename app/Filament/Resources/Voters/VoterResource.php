@@ -28,6 +28,13 @@ class VoterResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'voter';
 
+    // Without these the menu reads "Users", derived from the User model — the
+    // only English entry in an otherwise Indonesian panel, and ambiguous next
+    // to the Roles resource that sits in a navigation group of the same name.
+    protected static ?string $modelLabel = 'Pemilih';
+
+    protected static ?string $pluralModelLabel = 'Pemilih';
+
     public static function form(Schema $schema): Schema
     {
         return $schema
