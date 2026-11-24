@@ -19,7 +19,9 @@ class UserController extends Controller
         $enrolled = $user->belongsToActivePeriod();
 
         return Inertia::render('Dashboard', [
-            'user' => $user->only(['id', 'name', 'nim', 'email']),
+            // The signed-in user is already shared on every response as
+            // `auth.user`; sending a second copy here is what let the sidebar
+            // come to depend on a prop only this one page provided.
             'status' => $user->ballot($period)->status,
             'enrolled' => $enrolled,
             'votingOpen' => (bool) $period?->votingIsOpen() && $enrolled,

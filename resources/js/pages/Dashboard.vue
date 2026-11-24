@@ -28,7 +28,7 @@ interface User {
 }
 
 const page = usePage();
-const user = computed(() => page.props.user as User);
+const user = computed(() => page.props.auth.user as User);
 
 const statusVoting = computed<StatusVoting>(() => ({
     open: page.props.votingOpen as boolean,

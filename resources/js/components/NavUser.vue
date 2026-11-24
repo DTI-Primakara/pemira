@@ -9,12 +9,23 @@ import { computed } from 'vue';
 import UserMenuContent from './UserMenuContent.vue';
 
 const page = usePage();
-const user = computed(() => page.props.user as User).value;
+
+/*
+ * The signed-in user comes from the shared `auth` prop, which every response
+ * carries. Reading a page-level `user` prop instead meant the sidebar only
+ * worked on the one page that happened to send one, and crashed the whole app
+ * everywhere else — a blank white screen, because a render error in the layout
+ * takes the entire Vue tree down with it.
+ *
+ * Kept as a computed rather than unwrapped here: `.value` at setup time freezes
+ * the value, so the name would go stale after a profile update.
+ */
+const user = computed(() => page.props.auth?.user as User | undefined);
 const { isMobile, state } = useSidebar();
 </script>
 
 <template>
-    <SidebarMenu>
+    <SidebarMenu v-if="user">
         <SidebarMenuItem>
             <DropdownMenu>
                 <DropdownMenuTrigger as-child>
