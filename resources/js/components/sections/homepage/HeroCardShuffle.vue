@@ -128,7 +128,20 @@ const trackStyle = computed(() => ({
     transform: `translateX(calc(${SIDE}% - ${slide.value * CARD}%))`,
 }));
 
-const isCentre = (index: number) => reel.value.length > 0 && index % reel.value.length === slide.value % reel.value.length;
+const isCentre = (index: number) => index === slide.value;
+
+/**
+ * How each card sits. The two neighbours fan out six degrees and are pulled
+ * back towards the middle so they tuck under the centred card instead of
+ * standing beside it in a row.
+ */
+const cardClass = (index: number) => {
+    if (isCentre(index)) return 'z-20 rotate-0 scale-100';
+    if (index === slide.value - 1) return 'z-10 translate-x-[14%] -rotate-6 scale-[0.88]';
+    if (index === slide.value + 1) return 'z-10 -translate-x-[14%] rotate-6 scale-[0.88]';
+
+    return 'z-0 scale-[0.88]';
+};
 
 const nextSlide = () => {
     if (reel.value.length < 2) return;
@@ -168,8 +181,15 @@ onMounted(() => {
 
     // Shuffled here rather than in setup: the server has no business picking an
     // order the client would then disagree with mid-hydration.
+    //
+    // Placed without a transition: moving to the middle copy is bookkeeping,
+    // not motion, and animating it makes the reel visibly scoot across the
+    // screen the moment the page loads.
+    sliding.value = false;
     reel.value = shuffle(source.value);
     slide.value = reel.value.length;
+
+    requestAnimationFrame(() => requestAnimationFrame(() => (sliding.value = true)));
 
     // Motion that moves on its own is exactly what a reduced-motion preference
     // asks us not to do; the first card simply stays put.
@@ -211,13 +231,15 @@ function shuffle(items: ReelCard[]): ReelCard[] {
             bukan oleh ruang kosong di kiri dan kanan.
         -->
         <div class="relative -mx-6 w-screen overflow-hidden md:hidden">
-            <div class="flex aspect-[3/4] w-full ease-in-out" :class="sliding ? 'transition-transform duration-[600ms]' : ''" :style="trackStyle">
-                <div v-for="(card, index) in loop" :key="`${card.key}-${index}`" class="h-full shrink-0" :style="{ width: `${CARD}%` }">
-                    <div
-                        class="relative h-full w-full overflow-hidden rounded-2xl transition-transform duration-[600ms] ease-in-out"
-                        :class="isCentre(index) ? 'scale-100' : 'scale-[0.88]'"
-                    >
-                        <img :src="card.src" :alt="card.alt" loading="lazy" class="h-full w-full object-cover" />
+            <div class="flex w-full items-center ease-in-out" :class="sliding ? 'transition-transform duration-[600ms]' : ''" :style="trackStyle">
+                <div v-for="(card, index) in loop" :key="`${card.key}-${index}`" class="shrink-0" :style="{ width: `${CARD}%` }">
+                    <!--
+                        No fixed ratio and no object-cover: the card box follows
+                        the artwork's own proportions. Forcing a ratio here was
+                        shaving the number and the name off the sides.
+                    -->
+                    <div class="relative overflow-hidden rounded-2xl transition-transform duration-[600ms] ease-in-out" :class="cardClass(index)">
+                        <img :src="card.src" :alt="card.alt" loading="lazy" class="block h-auto w-full" />
                         <div
                             class="pointer-events-none absolute inset-0 bg-[#0F0F0F] transition-opacity duration-[600ms] ease-in-out"
                             :class="isCentre(index) ? 'opacity-0' : 'opacity-60'"
