@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import OrnamentFlower from '@/components/OrnamentFlower.vue';
 import ConfirmVoting from '@/components/sections/dashboard/ConfirmVoting.vue';
 import VotingCta from '@/components/sections/dashboard/VotingCta.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
@@ -59,9 +60,27 @@ const statusVoting = computed<StatusVoting>(() => ({
                         Selamat datang kembali di website resmi PEMIRA 2026
                     </p>
                 </div>
-                <div
-                    class="relative col-span-3 mb-4 flex items-center overflow-hidden rounded-lg border border-slate-200/70 bg-gradient-main-26 dark:border-slate-800/70"
-                >
+                <div class="relative col-span-3 mb-4 flex items-center overflow-hidden rounded-2xl bg-gradient-main-26">
+                    <!--
+                        Ornaments are positioned against the card, not laid out
+                        beside the text. The old decoration was a flex sibling
+                        that app.css hides below 880px, so every phone and most
+                        tablets saw a bare gradient.
+                    -->
+                    <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
+                        <div class="absolute -top-24 -right-20 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
+                        <div class="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent"></div>
+
+                        <OrnamentFlower class="rotate-counter-clock absolute -top-7 right-5 h-20 w-20 text-white/25 sm:h-28 sm:w-28 md:right-16" />
+                        <OrnamentFlower class="absolute -right-10 -bottom-12 h-32 w-32 animate-wiggle text-white/15 sm:h-44 sm:w-44 md:right-2" />
+                        <!--
+                            Pinned to the right edge, never inset: the heading runs the
+                            full width of a narrow card and anything further in lands
+                            on top of the words.
+                        -->
+                        <OrnamentFlower class="absolute right-4 bottom-5 h-6 w-6 rotate-12 text-[#DFFF00] sm:h-7 sm:w-7 md:right-24 md:h-9 md:w-9" />
+                    </div>
+
                     <div class="c-box-header flex w-full flex-row items-stretch justify-between gap-4">
                         <!-- text content -->
                         <div
@@ -75,11 +94,6 @@ const statusVoting = computed<StatusVoting>(() => ({
                             <p class="mt-2 font-dmsans text-xs text-white/90 sm:text-base md:mt-6 md:min-w-[440px] md:text-lg lg:min-w-[656px]">
                                 Tentukan pilihanmu secara langsung, terenkripsi dan aman tanpa keraguan
                             </p>
-                        </div>
-
-                        <!-- image -->
-                        <div class="c-box-header-image relative flex w-80 min-w-80 items-center justify-end object-cover">
-                            <img src="/images/dashboard-bg.svg" alt="" class="absolute bottom-0 h-[120%]" />
                         </div>
                     </div>
                 </div>

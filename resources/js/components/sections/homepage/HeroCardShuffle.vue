@@ -34,6 +34,8 @@ const placeholders = [
     { id: 1, img: PLACEHOLDER },
     { id: 2, img: PLACEHOLDER },
     { id: 3, img: PLACEHOLDER },
+    { id: 4, img: PLACEHOLDER },
+    { id: 5, img: PLACEHOLDER },
 ];
 
 const current = ref(0);

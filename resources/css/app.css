@@ -285,9 +285,6 @@ body {
     .c-box-header .c-box-header-content p {
         min-width: 100% !important;
     }
-    .c-box-header .c-box-header-image {
-        display: none;
-    }
 }
 
 /* CUSTOM COLOR FOR 2026 */
