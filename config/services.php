@@ -55,4 +55,29 @@ return [
         'timeout' => env('SSO_TIMEOUT', 15),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | SISKA (Academic Information System)
+    |--------------------------------------------------------------------------
+    |
+    | Source of truth for who is an active student, read through its public
+    | student API. The key belongs to PUBLIC_API_KEYS on the SISKA side, not to
+    | its service token — that one is the SSO credential and is not ours to
+    | hold.
+    |
+    | status_aktif_id is the id of the "Aktif" lifecycle status in SISKA's
+    | reference table. It is sent as a filter, and the status code on every row
+    | that comes back is checked again on our side, so a wrong id here empties
+    | the run instead of quietly enrolling alumni.
+    |
+    */
+
+    'siska' => [
+        'host' => env('SISKA_URI'),
+        'api_key' => env('SISKA_API_KEY'),
+        'status_aktif_id' => env('SISKA_STATUS_AKTIF_ID', 1),
+        'per_page' => env('SISKA_PER_PAGE', 100),
+        'timeout' => env('SISKA_TIMEOUT', 30),
+    ],
+
 ];

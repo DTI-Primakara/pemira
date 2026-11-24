@@ -4,12 +4,16 @@ namespace App\Filament\Resources\Voters\Pages;
 
 use App\Filament\Resources\Voters\VoterResource;
 use App\Imports\VoterImport;
+use App\Jobs\ImportSiskaStudentPage;
 use App\Models\Period;
+use App\Models\VoterSyncRun;
+use App\Services\SiskaService;
 use EightyNine\ExcelImport\ExcelImportAction;
 use Filament\Actions;
 use Filament\Forms\Components\Select;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Support\Facades\Auth;
 
 class ListVoters extends ListRecords
 {
@@ -18,6 +22,8 @@ class ListVoters extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
+            $this->siskaSyncAction(),
+
             ExcelImportAction::make()
                 ->slideOver()
                 ->color('success')
@@ -64,5 +70,56 @@ class ListVoters extends ListRecords
 
             Actions\CreateAction::make(),
         ];
+    }
+
+    /**
+     * Pull SISKA's active-student list and make the roll match it.
+     *
+     * Queued, one page at a time, so the button returns immediately and the
+     * work survives a closed browser tab. Progress and results are on the
+     * Sinkronisasi SISKA page.
+     */
+    private function siskaSyncAction(): Actions\Action
+    {
+        return Actions\Action::make('syncFromSiska')
+            ->label('Tarik Data SISKA')
+            ->icon('heroicon-o-arrow-down-tray')
+            ->color('primary')
+            ->visible(fn () => Period::activeId() !== null && app(SiskaService::class)->isConfigured())
+            ->requiresConfirmation()
+            ->modalHeading('Tarik data mahasiswa aktif dari SISKA')
+            ->modalDescription(
+                'Seluruh mahasiswa aktif di SISKA akan didaftarkan sebagai pemilih periode ini. '.
+                'Setelah selesai, daftar pemilih akan sama dengan daftar mahasiswa aktif SISKA: '.
+                'siapa pun yang tidak ada di daftar itu akan dikeluarkan, kecuali yang sudah mencoblos. '.
+                'Suara dan data periode lama tidak tersentuh.'
+            )
+            ->modalSubmitActionLabel('Mulai Tarik Data')
+            ->action(function () {
+                if (VoterSyncRun::isRunning()) {
+                    Notification::make()
+                        ->title('Masih ada tarikan yang berjalan')
+                        ->body('Tunggu sampai selesai, lihat progresnya di halaman Sinkronisasi SISKA.')
+                        ->warning()
+                        ->send();
+
+                    return;
+                }
+
+                $run = VoterSyncRun::create([
+                    'period_id' => Period::activeId(),
+                    'started_by' => Auth::id(),
+                    'status' => VoterSyncRun::STATUS_RUNNING,
+                    'started_at' => now(),
+                ]);
+
+                ImportSiskaStudentPage::dispatch($run->id);
+
+                Notification::make()
+                    ->title('Tarikan dimulai')
+                    ->body('Berjalan di latar belakang. Progres dan hasilnya ada di halaman Sinkronisasi SISKA.')
+                    ->success()
+                    ->send();
+            });
     }
 }

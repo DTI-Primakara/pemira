@@ -7,6 +7,7 @@ use App\Filament\Resources\Candidates\Pages\EditCandidate;
 use App\Filament\Resources\Candidates\Pages\ListCandidates;
 use App\Filament\Resources\Candidates\Schemas\CandidateForm;
 use App\Models\Candidate;
+use App\Models\Period;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -17,7 +18,6 @@ use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
-use App\Models\Period;
 
 class CandidateResource extends Resource
 {

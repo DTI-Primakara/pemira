@@ -6,6 +6,7 @@ use App\Filament\Resources\Events\Pages\CreateEvent;
 use App\Filament\Resources\Events\Pages\EditEvent;
 use App\Filament\Resources\Events\Pages\ListEvents;
 use App\Models\Event;
+use App\Models\Period;
 use App\Models\Prodi;
 use BackedEnum;
 use Filament\Forms\Components\Select;
@@ -17,7 +18,6 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use App\Models\Period;
 use Illuminate\Database\Eloquent\Builder;
 
 class EventResource extends Resource
