@@ -85,7 +85,14 @@ class ListVoters extends ListRecords
             ->label('Tarik Data SISKA')
             ->icon('heroicon-o-arrow-down-tray')
             ->color('primary')
-            ->visible(fn () => Period::activeId() !== null && app(SiskaService::class)->isConfigured())
+            ->visible(fn () => Period::activeId() !== null)
+            // Shown but dead when the server has no SISKA key, rather than
+            // hidden: a button that simply is not there leaves an admin
+            // hunting for a feature instead of reading why it is unavailable.
+            ->disabled(fn () => ! app(SiskaService::class)->isConfigured())
+            ->tooltip(fn () => app(SiskaService::class)->isConfigured()
+                ? null
+                : 'SISKA_API_KEY belum diisi di .env server ini.')
             ->requiresConfirmation()
             ->modalHeading('Tarik data mahasiswa aktif dari SISKA')
             ->modalDescription(

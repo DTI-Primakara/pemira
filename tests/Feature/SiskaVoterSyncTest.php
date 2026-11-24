@@ -369,3 +369,21 @@ it('starts a run from the voters page and refuses to start a second one', functi
     expect(VoterSyncRun::query()->count())->toBe(1);
     Queue::assertPushed(ImportSiskaStudentPage::class, 1);
 });
+
+it('shows the button disabled rather than hiding it when SISKA is not configured', function () {
+    config()->set('services.siska.api_key', '');
+
+    $this->actingAs(User::factory()->admin()->create());
+
+    Livewire::test(ListVoters::class)
+        ->assertActionVisible('syncFromSiska')
+        ->assertActionDisabled('syncFromSiska');
+});
+
+it('enables the button once SISKA is configured', function () {
+    $this->actingAs(User::factory()->admin()->create());
+
+    Livewire::test(ListVoters::class)
+        ->assertActionVisible('syncFromSiska')
+        ->assertActionEnabled('syncFromSiska');
+});
