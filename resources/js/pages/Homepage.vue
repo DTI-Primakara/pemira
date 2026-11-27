@@ -201,7 +201,7 @@ function scrollTo(id: string) {
         <!-- DECORATION HERO -->
 
         <!-- RIBBON -->
-        <RibbonMarquee data-anim="zoom" />
+        <RibbonMarquee />
         <!-- RIBBON -->
 
         <!-- START ABOUT -->

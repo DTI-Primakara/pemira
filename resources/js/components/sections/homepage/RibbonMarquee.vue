@@ -16,7 +16,14 @@ const groups = 2;
 </script>
 
 <template>
-    <div class="pointer-events-none relative z-20 w-full overflow-hidden py-14 select-none sm:py-16 md:-mt-24 md:py-20 lg:-mt-28" aria-hidden="true">
+    <!--
+        overflow-x-clip, not overflow-hidden. A band 140% wide tilted four
+        degrees reaches well above and below its own height — roughly 125px of
+        it at desktop width — and a box that clips both axes sliced those
+        edges flat. Only the horizontal spill needs cutting; the vertical is
+        the point of a ribbon crossing the page.
+    -->
+    <div class="pointer-events-none relative z-20 w-full overflow-x-clip py-16 select-none sm:py-20 md:-mt-24 md:py-24 lg:-mt-28" aria-hidden="true">
         <!-- BACK RIBBON: tilted the other way and dimmed by an overlay -->
         <div
             class="absolute top-1/2 left-1/2 w-[140%] -translate-x-1/2 -translate-y-1/2 rotate-[4deg] overflow-hidden bg-gradient-main-26 py-3.5 sm:py-4 md:py-5"
