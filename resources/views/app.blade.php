@@ -2,6 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" @class(['dark'=> ($appearance ?? 'system') == 'dark'])>
 
 <head>
+    <script>document.documentElement.classList.add('has-js');</script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -12,7 +13,7 @@
         }
     </style>
 
-    <title inertia>PEMIRA 2025</title>
+    <title inertia>PEMIRA 2026</title>
 
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">

@@ -46,7 +46,7 @@ const guideItems = ref([
                 MINI TOUR <span class="text-primary">GUIDE</span>
             </h1>
             <p class="mt-3 text-sm text-slate-600 md:text-base dark:text-slate-400">
-                Berikut merupakan panduan tata cara melakukan e-voting pada PEMIRA 2025
+                Berikut merupakan panduan tata cara melakukan e-voting pada PEMIRA 2026
             </p>
         </div>
 

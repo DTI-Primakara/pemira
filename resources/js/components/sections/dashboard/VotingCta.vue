@@ -1,13 +1,19 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-const props = defineProps<{
-    title: string;
-    desc: string;
-    icon: string;
-    iconAlt: string;
-    variant: 'default' | 'success' | 'error' | 'disabled';
-}>();
+const props = withDefaults(
+    defineProps<{
+        title: string;
+        desc: string;
+        icon: string;
+        iconAlt: string;
+        variant: 'default' | 'success' | 'error' | 'disabled';
+        /** Optional link button, e.g. reaching the admin when not on the roll. */
+        actionLabel?: string;
+        actionHref?: string;
+    }>(),
+    { actionLabel: undefined, actionHref: undefined },
+);
 
 const variantColors = computed(() => {
     switch (props.variant) {
@@ -72,5 +78,15 @@ const variantColors = computed(() => {
         >
             Mulai Voting
         </button>
+
+        <a
+            v-else-if="actionLabel && actionHref"
+            :href="actionHref"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="relative mt-4 rounded-md bg-[#0047FF] px-6 py-2 font-unbounded text-xs font-semibold text-white md:px-8 md:py-3 md:text-base"
+        >
+            {{ actionLabel }}
+        </a>
     </div>
 </template>

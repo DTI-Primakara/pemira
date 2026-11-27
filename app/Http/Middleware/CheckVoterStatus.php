@@ -2,9 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\EligibleUser;
-use App\Models\User;
-use Carbon\Carbon;
+use App\Models\Period;
+use App\Models\UserVote;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,25 +11,24 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CheckVoterStatus
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
     public function handle(Request $request, Closure $next): Response
     {
-        $now = Carbon::now('Asia/Makassar');
+        $period = Period::active();
 
-        $start = Carbon::create(2025, 12, 15, 10, 0, 0, 'Asia/Makassar');
-        $end   = Carbon::create(2025, 12, 16, 16, 59, 59, 'Asia/Makassar');
-
-        if ($now->lt($start) || $now->gt($end)) {
+        if (! $period || ! $period->votingIsOpen()) {
             return redirect()->route('dashboard');
         }
 
-        $userVote = Auth::user()->userVote;
+        $user = Auth::user();
 
-        if ($userVote->status !== 'not voted') {
+        // Only the people on this period's roll hold a ballot in it.
+        if (! $user->belongsToActivePeriod()) {
+            return redirect()->route('dashboard');
+        }
+
+        // Created on demand so reaching this route without passing through the
+        // dashboard first cannot fail on a missing ballot row.
+        if ($user->ballot($period)->status !== UserVote::STATUS_NOT_VOTED) {
             return redirect()->route('dashboard');
         }
 

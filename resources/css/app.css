@@ -285,7 +285,183 @@ body {
     .c-box-header .c-box-header-content p {
         min-width: 100% !important;
     }
-    .c-box-header .c-box-header-image {
-        display: none;
+}
+
+/* CUSTOM COLOR FOR 2026 */
+@utility text-gradient-main-26 {
+    background-image: linear-gradient(to bottom, #4342ff, #0100d6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+
+@utility text-gradient-secondary-26 {
+    background-image: linear-gradient(to bottom, #23e2ff, #0788df);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+
+@utility bg-gradient-main-26 {
+    background-image: linear-gradient(to bottom, #4342ff, #0100d6);
+}
+
+@utility bg-gradient-secondary-26 {
+    background-image: linear-gradient(to bottom, #23e2ff, #0788df);
+}
+
+@theme {
+    --animate-wiggle: wiggle 3s ease-in-out infinite;
+
+    @keyframes wiggle {
+        0%,
+        100% {
+            transform: rotate(-0.8deg);
+        }
+        50% {
+            transform: rotate(0.8deg);
+        }
+    }
+}
+
+@utility max-w-8xl {
+    max-width: 96rem;
+}
+
+@utility bg-gradient-white-26 {
+    background-image: linear-gradient(to top, #ffffff00 0%, #ffffff 100%);
+}
+@utility layer-blur {
+    filter: blur(200px);
+}
+
+/* RIBBON MARQUEE 2026 */
+@keyframes marquee-26 {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+    to {
+        transform: translate3d(-50%, 0, 0);
+    }
+}
+
+.marquee-26 {
+    display: flex;
+    width: max-content;
+    flex-shrink: 0;
+    align-items: center;
+    animation: marquee-26 var(--marquee-26-duration, 32s) linear infinite;
+    will-change: transform;
+}
+
+.marquee-26-reverse {
+    animation-direction: reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .marquee-26 {
+        animation: none;
+    }
+}
+
+/* HOMEPAGE INTRO + GSAP 2026 */
+/*
+ * The opening panel and the scroll animations are hidden by default and only
+ * armed once JS has announced itself (`has-js`, set by an inline script before
+ * first paint) and only for readers who have not asked for reduced motion.
+ *
+ * Without either condition the panel never appears and every section renders
+ * at full opacity, so a failed bundle costs the animation, never the content.
+ */
+.homepage-intro {
+    display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .has-js .homepage-intro {
+        display: flex;
+    }
+
+    .has-js [data-anim],
+    .has-js [data-hero] {
+        opacity: 0;
+    }
+}
+
+/* SCROLL REVEAL 2026 */
+/*
+ * The hidden state only applies once JS has announced itself (`has-js` is set
+ * by an inline script in the layout, before first paint) and only for readers
+ * who have not asked for reduced motion. Without either, every element simply
+ * renders as usual.
+ */
+@media (prefers-reduced-motion: no-preference) {
+    .has-js .reveal {
+        opacity: 0;
+        /* 2D on purpose: a 3D transform would promote every hidden element to
+         * its own compositor layer, which costs real memory on cheap phones.
+         * The browser promotes them by itself while the transition runs. */
+        transform: translate(var(--reveal-x, 0), var(--reveal-y, 28px)) scale(var(--reveal-scale, 1));
+        transition:
+            opacity 700ms cubic-bezier(0.22, 0.61, 0.36, 1),
+            transform 800ms cubic-bezier(0.22, 0.61, 0.36, 1),
+            clip-path 900ms cubic-bezier(0.22, 0.61, 0.36, 1);
+        transition-delay: var(--reveal-delay, 0ms);
+    }
+
+    .has-js .reveal-left {
+        --reveal-x: -40px;
+        --reveal-y: 0px;
+    }
+
+    .has-js .reveal-right {
+        --reveal-x: 40px;
+        --reveal-y: 0px;
+    }
+
+    .has-js .reveal-zoom {
+        --reveal-y: 14px;
+        --reveal-scale: 0.94;
+    }
+
+    /* Wipe open from the left. */
+    .has-js .reveal-clip {
+        --reveal-y: 0px;
+        clip-path: inset(0 100% 0 0);
+    }
+
+    /* Wipe open from the bottom up. */
+    .has-js .reveal-clip-up {
+        --reveal-y: 0px;
+        clip-path: inset(100% 0 0 0);
+    }
+
+    .has-js .reveal.is-revealed {
+        opacity: 1;
+        transform: none;
+    }
+
+    .has-js .reveal-clip.is-revealed,
+    .has-js .reveal-clip-up.is-revealed {
+        clip-path: inset(0 0 0 0);
+    }
+
+    /* Phones get shorter travel so nothing drifts under a thumb mid-scroll. */
+    @media (max-width: 639px) {
+        .has-js .reveal {
+            --reveal-y: 20px;
+        }
+
+        .has-js .reveal-left,
+        .has-js .reveal-right {
+            --reveal-x: 24px;
+            --reveal-y: 0px;
+        }
+
+        .has-js .reveal-left {
+            --reveal-x: -24px;
+        }
     }
 }

@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,11 +20,23 @@ class DatabaseSeeder extends Seeder
         $this->call(CandidatesSeeder::class);
         $this->call(ConfigSeeder::class);
 
-        User::factory()->create([
-            'name' => 'admin',
-            'email' => 'admin@pemira.com',
-            'password' => Hash::make('IniPasswordAdmin123'),
-            'roles' => 2,
-        ]);
+        // Credentials come from the environment so they are never committed.
+        $adminEmail = env('ADMIN_EMAIL');
+        $adminPassword = env('ADMIN_PASSWORD');
+
+        if (blank($adminEmail) || blank($adminPassword)) {
+            $this->command?->warn('Skipping admin user: set ADMIN_EMAIL and ADMIN_PASSWORD first.');
+
+            return;
+        }
+
+        User::updateOrCreate(
+            ['email' => $adminEmail],
+            [
+                'name' => env('ADMIN_NAME', 'Administrator'),
+                'password' => $adminPassword,
+                'roles' => User::ROLE_ADMIN,
+            ]
+        );
     }
 }

@@ -20,7 +20,7 @@ onMounted(() => {
     </div>
 
     <div class="mx-auto max-w-7xl px-4 py-8">
-        <img src="/logo.svg" alt="logo-pemira" loading="lazy" class="h-8 md:h-12" />
+        <img src="/images/logo-color-2026.svg" alt="logo-pemira" loading="lazy" class="h-8 md:h-12" />
     </div>
 
     <div class="mx-auto max-w-7xl px-4">

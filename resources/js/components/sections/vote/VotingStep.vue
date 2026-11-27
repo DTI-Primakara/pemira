@@ -1,31 +1,12 @@
 <script setup lang="ts">
-import type { PropType } from 'vue';
+import type { Candidate } from '@/types';
 import CandidateCard from './CandidateCard.vue';
 
-interface Candidate {
-    id: number;
-    number: string;
-    name_candidates: string;
-    position: string;
-    image: string;
-    vision: string;
-    mission: string;
-}
-
-defineProps({
-    candidates: {
-        type: Array as PropType<Candidate[]>,
-        required: true,
-    },
-    stepTitle: {
-        type: String,
-        required: true,
-    },
-    selectedCandidate: {
-        type: Number,
-        required: false, // optional
-    },
-});
+defineProps<{
+    candidates: Candidate[];
+    stepTitle: string;
+    selectedCandidate?: number;
+}>();
 
 // define emit
 const emit = defineEmits<{
@@ -45,9 +26,10 @@ const selectCandidate = (candidateId: number) => {
             :number="candidate.number"
             :name="candidate.name_candidates"
             :position="candidate.position"
-            :image-url="candidate.image"
-            :vision="candidate.vision"
-            :mission="candidate.mission"
+            :image-url="candidate.image ?? undefined"
+            :is-blank-box="candidate.is_blank_box ?? false"
+            :vision="candidate.vision ?? undefined"
+            :mission="candidate.mission ?? undefined"
             :is-selected="selectedCandidate === candidate.id"
             @click="selectCandidate(candidate.id)"
         />

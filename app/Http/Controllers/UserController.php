@@ -2,42 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\EligibleUser;
-use App\Models\UserVote;
-use Carbon\Carbon;
+use App\Models\Period;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class UserController extends Controller
 {
-    public function getEligibleUser(string $nim)
-    {
-        return EligibleUser::where('nim', $nim)->first();
-    }
-
     public function dashboard()
     {
-
         $user = Auth::user();
+        $period = Period::active();
 
-        $status = UserVote::firstOrCreate(
-            ['user_id' => $user->id],
-            ['status' => 'not voted']
-        )->status;
-
-        $now = Carbon::now('Asia/Makassar');
-
-        $start = Carbon::create(2025, 12, 15, 10, 0, 0, 'Asia/Makassar');
-        $end   = Carbon::create(2025, 12, 16, 16, 59, 59, 'Asia/Makassar');
-
-        $votingOpen = $now->between($start, $end);
-        $votingEnded = $now->gt($end);
+        // Anyone with a campus account can sign in, so the dashboard is where
+        // someone who is not on this period's roll finds out. That outranks the
+        // voting window: there is nothing for them to open.
+        $enrolled = $user->belongsToActivePeriod();
 
         return Inertia::render('Dashboard', [
-            'user' => $user,
-            'status' => $status,
-            'votingOpen' => $votingOpen,
-            'votingEnded' => $votingEnded,
+            // The signed-in user is already shared on every response as
+            // `auth.user`; sending a second copy here is what let the sidebar
+            // come to depend on a prop only this one page provided.
+            'status' => $user->ballot($period)->status,
+            'enrolled' => $enrolled,
+            'votingOpen' => (bool) $period?->votingIsOpen() && $enrolled,
+            'votingEnded' => (bool) $period?->votingHasEnded(),
         ]);
     }
 }

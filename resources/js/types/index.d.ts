@@ -3,6 +3,7 @@ import type { LucideIcon } from 'lucide-vue-next';
 
 export interface Auth {
     user: User;
+    isKorti: boolean;
 }
 
 export interface BreadcrumbItem {
@@ -18,16 +19,10 @@ export interface NavItem {
     iconUrl?: string;
 }
 
-export interface ConfigItem {
-    title: string;
-    value: string;
-}
-
 export type AppPageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
     name: string;
     quote: { message: string; author: string };
     auth: Auth;
-    config: ConfigItem[];
     sidebarOpen: boolean;
 };
 
@@ -46,39 +41,87 @@ export type BreadcrumbItemType = BreadcrumbItem;
 
 export interface Event {
     id: number;
-    id_prodi?: number;
+    id_prodi?: string | null;
     title: string;
     type: string;
-}
-
-export interface Vote {
-    id: number;
-    candidate_id: number;
-    event_id: number;
 }
 
 export interface Candidate {
     id: number;
     name_candidates: string;
     number: number;
-    image: string;
-    mision: string;
-    vision: string;
+    /** Null for a blank box, which has no photo to show. */
+    image: string | null;
+    mission: string | null;
+    vision: string | null;
     position: string;
-    event: Event;
-    votes: [Vote];
+    is_blank_box?: boolean;
+    event?: Event;
 }
 
-export interface CandidateProps {
-    datas: {
-        bem: [Candidate];
-        dpm: [Candidate];
-        hima_if: [Candidate];
-        hima_si: [Candidate];
-        hima_sia: [Candidate];
-        hima_dkv: [Candidate];
-        hima_manajemen: [Candidate];
-        hima_akuntansi: [Candidate];
-        hima_bd: [Candidate];
-    };
+/** A ballot step as served to the voting wizard. */
+export interface BallotEvent extends Event {
+    candidates: Candidate[];
 }
+
+/** A candidate as shown in the public showcase on the homepage. */
+export interface ShowcaseCandidate {
+    id: number;
+    name_candidates: string;
+    number: number;
+    position: string;
+    /** Homepage artwork, falling back to the ballot photo when none exists. */
+    image_url: string | null;
+    /** The designed homepage card only, null when none was uploaded. */
+    showcase_image_url: string | null;
+}
+
+/** An election plus its candidates, built from the admin panel. */
+export interface ElectionShowcase {
+    id: number;
+    title: string;
+    shortLabel: string;
+    type: string;
+    /** Human-readable summary of who may vote in this election. */
+    eligibility: string;
+    candidates: ShowcaseCandidate[];
+}
+
+/** Public tally: aggregate counts only, never individual vote rows. */
+export interface TallyCandidate {
+    id: number;
+    name_candidates: string;
+    number: number;
+    votes_count: number;
+}
+
+export interface TallyEvent {
+    id: number;
+    title: string;
+    type: string;
+    candidates: TallyCandidate[];
+}
+
+export interface TallyGroup {
+    key: string;
+    title: string | null;
+    subtitle: string | null;
+    events: TallyEvent[];
+}
+
+/** One agenda entry on the public timeline, managed from the admin panel. */
+export interface TimelineEntry {
+    id: number;
+    title: string;
+    /** Plain day, YYYY-MM-DD. */
+    starts_on: string;
+    /** Plain day, or null when the agenda lasts a single day. */
+    ends_on: string | null;
+}
+
+export type HomepageProps = AppPageProps<{
+    elections: ElectionShowcase[];
+    groups: TallyGroup[];
+    voteCountVisible: boolean;
+    timelines: TimelineEntry[];
+}>;
