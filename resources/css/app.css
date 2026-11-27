@@ -366,6 +366,30 @@ body {
     }
 }
 
+/* HOMEPAGE INTRO + GSAP 2026 */
+/*
+ * The opening panel and the scroll animations are hidden by default and only
+ * armed once JS has announced itself (`has-js`, set by an inline script before
+ * first paint) and only for readers who have not asked for reduced motion.
+ *
+ * Without either condition the panel never appears and every section renders
+ * at full opacity, so a failed bundle costs the animation, never the content.
+ */
+.homepage-intro {
+    display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .has-js .homepage-intro {
+        display: flex;
+    }
+
+    .has-js [data-anim],
+    .has-js [data-hero] {
+        opacity: 0;
+    }
+}
+
 /* SCROLL REVEAL 2026 */
 /*
  * The hidden state only applies once JS has announced itself (`has-js` is set

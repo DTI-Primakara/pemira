@@ -4,40 +4,103 @@ import AboutPemira from '@/components/sections/homepage/AboutPemira.vue';
 import CandidateShowcase from '@/components/sections/homepage/CandidateShowcase.vue';
 import ErrorModal from '@/components/sections/homepage/ErrorModal.vue';
 import HeroCardShuffle from '@/components/sections/homepage/HeroCardShuffle.vue';
+import HeroIntro from '@/components/sections/homepage/HeroIntro.vue';
 import LoginModal from '@/components/sections/homepage/LoginModal.vue';
 import RibbonMarquee from '@/components/sections/homepage/RibbonMarquee.vue';
 import Timeline from '@/components/sections/homepage/Timeline.vue';
 import VoteCountContainer from '@/components/VoteCountContainer.vue';
+import { bindSmoothScroll, playIntro, prefersReducedMotion, revealHero, setupScrollAnimations, showEverything } from '@/lib/homepage-motion';
 import { initLenis } from '@/lib/lenis';
 import type { HomepageProps } from '@/types';
 import { usePage } from '@inertiajs/vue3';
 import { Instagram } from 'lucide-vue-next';
-import { computed, onMounted, ref } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 
 const { props } = usePage<HomepageProps>();
 
 const elections = computed(() => props.elections ?? []);
 
 /**
- * Paslon whose designed homepage card was actually uploaded, flattened for the
- * hero reel. The ballot photo is deliberately not accepted here: a cut-out
- * portrait next to designed cards looks broken, so the hero falls back to the
- * placeholder card instead.
+ * Every paslon on the ballot, flattened for the hero reel. `image_url` is the
+ * designed homepage card when one was uploaded and the ballot photo otherwise;
+ * a paslon with neither gets a plain placeholder card in the hero itself.
  */
-const heroCandidates = computed(() =>
-    elections.value.flatMap((election) => election.candidates).filter((candidate) => candidate.showcase_image_url),
-);
+const heroCandidates = computed(() => elections.value.flatMap((election) => election.candidates));
 const timelines = computed(() => props.timelines ?? []);
 
 const expanded = ref(false);
 const showModalError = ref(false);
 
+const introDone = ref(false);
+
+let intro: gsap.core.Timeline | undefined;
+let heroTimeline: gsap.core.Timeline | undefined;
+let teardownScroll: (() => void) | undefined;
+let safety: ReturnType<typeof setTimeout> | undefined;
+
 onMounted(() => {
-    initLenis();
+    const lenis = initLenis();
 
     if (props.flash?.error) {
         showModalError.value = true;
     }
+
+    const root = document.querySelector('[data-homepage]');
+
+    if (!root) return;
+
+    if (prefersReducedMotion()) {
+        introDone.value = true;
+        showEverything(root);
+
+        return;
+    }
+
+    bindSmoothScroll(lenis);
+
+    // Nothing to scroll to while the panel is up, and a reader who scrolls
+    // during it lands halfway down a page they have not seen yet.
+    lenis.stop();
+
+    const overlay = root.querySelector<HTMLElement>('.homepage-intro');
+
+    let revealed = false;
+
+    // Split in two: the hero starts arriving while the panel is still lifting,
+    // and the panel element itself is only dropped once it has finished.
+    const reveal = () => {
+        if (revealed) return;
+
+        revealed = true;
+        heroTimeline = revealHero(root);
+        teardownScroll = setupScrollAnimations(root);
+    };
+
+    const finish = () => {
+        if (introDone.value) return;
+
+        clearTimeout(safety);
+        reveal();
+        introDone.value = true;
+        lenis.start();
+    };
+
+    // A stuck animation must never cost the reader the page. If the intro has
+    // not finished by now, something went wrong and the panel goes anyway.
+    safety = setTimeout(finish, 6000);
+
+    if (overlay) {
+        intro = playIntro(overlay, reveal, finish);
+    } else {
+        finish();
+    }
+});
+
+onBeforeUnmount(() => {
+    clearTimeout(safety);
+    intro?.kill();
+    heroTimeline?.kill();
+    teardownScroll?.();
 });
 
 function scrollTo(id: string) {
@@ -50,7 +113,9 @@ function scrollTo(id: string) {
 </script>
 
 <template>
-    <div class="flex min-h-screen w-full flex-col items-center justify-start overflow-x-clip bg-white">
+    <div data-homepage class="flex min-h-screen w-full flex-col items-center justify-start overflow-x-clip bg-white">
+        <HeroIntro v-if="!introDone" />
+
         <Navbar />
 
         <!-- START HERO -->
@@ -62,7 +127,7 @@ function scrollTo(id: string) {
                 <div class="relative z-10 flex w-full max-w-7xl flex-col items-center justify-center gap-12 lg:flex-row">
                     <div class="mb-8 flex w-full flex-col items-start justify-start gap-2">
                         <h1
-                            v-reveal
+                            data-hero="heading"
                             class="relative text-gradient-main-26 font-unbounded text-[17.5vw] leading-[15.5vw] font-bold sm:text-[16.5vw] sm:leading-[14vw] lg:text-[144px] lg:leading-32"
                         >
                             PEMIRA
@@ -74,7 +139,7 @@ function scrollTo(id: string) {
                             />
                             <span class="text-gradient-secondary-26">2026</span>
                         </h1>
-                        <div v-reveal="140" class="w-full max-w-[764px]">
+                        <div data-hero="item" class="w-full max-w-[764px]">
                             <p
                                 ref="textRef"
                                 :class="[
@@ -94,7 +159,7 @@ function scrollTo(id: string) {
                                 {{ expanded ? 'Tutup' : 'Baca selengkapnya' }}
                             </span>
                         </div>
-                        <div v-reveal="240" class="flex flex-row gap-4">
+                        <div data-hero="item" class="flex flex-row gap-4">
                             <LoginModal>
                                 <template #trigger>
                                     <button
@@ -116,7 +181,7 @@ function scrollTo(id: string) {
                         <ErrorModal v-model:open="showModalError" :message="props.flash?.error" />
                     </div>
 
-                    <HeroCardShuffle v-reveal.zoom="180" :candidates="heroCandidates" />
+                    <HeroCardShuffle data-hero="card" :candidates="heroCandidates" />
                 </div>
             </div>
         </section>
@@ -136,7 +201,7 @@ function scrollTo(id: string) {
         <!-- DECORATION HERO -->
 
         <!-- RIBBON -->
-        <RibbonMarquee v-reveal.zoom />
+        <RibbonMarquee data-anim="zoom" />
         <!-- RIBBON -->
 
         <!-- START ABOUT -->
@@ -146,7 +211,7 @@ function scrollTo(id: string) {
                 <div class="flex w-full flex-col items-center justify-center gap-3 px-6 sm:px-0 md:items-center md:gap-12">
                     <div class="flex w-full flex-1 flex-col items-center justify-center gap-3">
                         <h2
-                            v-reveal
+                            data-anim="heading"
                             class="relative text-gradient-main-26 text-center font-unbounded text-[6.1vw] leading-[8.4vw] font-bold text-black md:text-[52px] md:leading-[72px]"
                         >
                             Satu Langkah Menuju
@@ -163,7 +228,11 @@ function scrollTo(id: string) {
                                 class="absolute -bottom-5 -left-5 w-[10vw] md:-bottom-[8px] md:w-[64px]"
                             />
                         </h2>
-                        <p v-reveal="140" class="w-full text-center font-dmsans text-sm leading-relaxed text-black opacity-80 sm:text-lg md:max-w-xl">
+                        <p
+                            data-anim="up"
+                            data-anim-delay="140"
+                            class="w-full text-center font-dmsans text-sm leading-relaxed text-black opacity-80 sm:text-lg md:max-w-xl"
+                        >
                             Pemira adalah wujud nyata demokrasi mahasiswa, di mana setiap suara memiliki makna dan kekuatan untuk menentukan arah
                             kepemimpinan.
                         </p>
@@ -190,7 +259,7 @@ function scrollTo(id: string) {
             <div class="relative flex w-full flex-col items-center justify-center gap-10">
                 <!-- HEAD CONTENT -->
                 <div class="flex w-full max-w-7xl flex-col items-center justify-between gap-3 px-6 sm:px-10 md:flex-row md:items-start md:gap-12">
-                    <div v-reveal.left class="flex max-w-2xl flex-1 flex-col items-start justify-start">
+                    <div data-anim="left" class="flex max-w-2xl flex-1 flex-col items-start justify-start">
                         <h2
                             class="relative text-gradient-main-26 text-center font-unbounded text-[6.1vw] leading-[8.4vw] font-bold text-black md:text-left md:text-[40px] md:leading-[56px]"
                         >
@@ -203,7 +272,11 @@ function scrollTo(id: string) {
                             />
                         </h2>
                     </div>
-                    <div v-reveal.right="120" class="flex w-full max-w-xl flex-1 flex-col items-center justify-center md:items-end md:justify-start">
+                    <div
+                        data-anim="right"
+                        data-anim-delay="120"
+                        class="flex w-full max-w-xl flex-1 flex-col items-center justify-center md:items-end md:justify-start"
+                    >
                         <p class="w-full max-w-sm text-center font-dmsans text-xs leading-relaxed text-black opacity-80 sm:text-base md:text-right">
                             Penasaran dengan para kandidat yang akan maju pada PEMIRA 2026? Yuk simak dan dukung mereka pada ajang kali ini!
                         </p>
@@ -224,7 +297,7 @@ function scrollTo(id: string) {
                 <!-- CONTENT -->
                 <div class="relative z-10 flex max-w-7xl flex-col items-center justify-center gap-2 pt-10 sm:gap-4">
                     <h2
-                        v-reveal
+                        data-anim="heading"
                         class="relative max-w-xl text-center font-unbounded text-2xl leading-[1.5em] font-bold text-white md:text-3xl lg:text-4xl xl:text-5xl"
                     >
                         Let’s Move to The New
@@ -236,7 +309,11 @@ function scrollTo(id: string) {
                             class="rotate-counter-clock absolute -top-14 -right-4 h-12 w-12 rotate-24 opacity-90 invert sm:-right-8 sm:h-14 sm:w-14 lg:h-16 lg:w-16"
                         />
                     </h2>
-                    <p v-reveal="140" class="w-full max-w-lg text-center font-dmsans text-sm leading-relaxed text-white opacity-60 sm:text-base">
+                    <p
+                        data-anim="up"
+                        data-anim-delay="140"
+                        class="w-full max-w-lg text-center font-dmsans text-sm leading-relaxed text-white opacity-60 sm:text-base"
+                    >
                         Penasaran dengan para kandidat yang akan maju pada PEMIRA 2026? Yuk simak dan dukung mereka pada ajang kali ini!
                     </p>
                     <LoginModal>

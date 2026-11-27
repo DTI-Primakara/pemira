@@ -9,9 +9,6 @@ const props = withDefaults(defineProps<{ candidates?: ShowcaseCandidate[] }>(), 
 const DURATION = 600; // ms, samakan dengan duration-[600ms] di template
 const INTERVAL = 3000;
 
-/** The designed card shown while no paslon artwork has been uploaded. */
-const PLACEHOLDER = '/candidates/candidate-anonym.png';
-
 /*
  * Two different animations on purpose. The stacked shuffle reads well in the
  * wide half-column it gets on desktop, but on a phone the cards sit nearly on
@@ -28,15 +25,37 @@ const MOBILE_QUERY = '(max-width: 767px)';
 const isMobile = ref(false);
 const prefersReducedMotion = ref(false);
 
-/* ---------------------------------------------------------------- desktop */
+interface DeckCard {
+    key: string;
+    /** Null when the paslon has no artwork at all; a placeholder stands in. */
+    src: string | null;
+    alt: string;
+}
 
-const placeholders = [
-    { id: 1, img: PLACEHOLDER },
-    { id: 2, img: PLACEHOLDER },
-    { id: 3, img: PLACEHOLDER },
-    { id: 4, img: PLACEHOLDER },
-    { id: 5, img: PLACEHOLDER },
-];
+/**
+ * The deck, straight from the ballot.
+ *
+ * `image_url` is the designed homepage card when one was uploaded and the
+ * ballot photo otherwise, so a paslon shows whatever picture exists. One with
+ * neither gets a plain placeholder, and an empty database gets three of them,
+ * rather than a hero with a hole in it.
+ */
+const source = computed<DeckCard[]>(() => {
+    if (props.candidates.length === 0) {
+        return [1, 2, 3].map((n) => ({ key: `kosong-${n}`, src: null, alt: '' }));
+    }
+
+    return props.candidates.map((candidate) => ({
+        key: `paslon-${candidate.id}`,
+        src: candidate.image_url,
+        alt: `${candidate.position || 'Calon'} nomor urut ${candidate.number} — ${candidate.name_candidates}`,
+    }));
+});
+
+/** Shuffled on mount; both layouts draw from this one list. */
+const deck = ref<DeckCard[]>([]);
+
+/* ---------------------------------------------------------------- desktop */
 
 const current = ref(0);
 const leaving = ref(false); // true = fase 1 (kartu depan keluar ke kiri)
@@ -44,20 +63,21 @@ const leaving = ref(false); // true = fase 1 (kartu depan keluar ke kiri)
 let swapTimeout: ReturnType<typeof setTimeout> | undefined;
 
 const nextStacked = () => {
-    if (leaving.value) return;
+    if (leaving.value || deck.value.length < 2) return;
 
     // Fase 1: kartu depan geser ke kiri + miring, kartu lain geser ke kanan
     leaving.value = true;
 
-    // Fase 2: ganti urutan (kartu no. 2 jadi depan, kartu lama pindah ke belakang tengah)
+    // Fase 2: ganti urutan (kartu no. 2 jadi depan, kartu lama pindah ke belakang)
     swapTimeout = setTimeout(() => {
-        current.value = (current.value + 1) % placeholders.length;
+        current.value = (current.value + 1) % deck.value.length;
         leaving.value = false;
     }, DURATION);
 };
 
 const posOf = (i: number) => {
-    const n = placeholders.length;
+    const n = deck.value.length || 1;
+
     return (i - current.value + n) % n;
 };
 
@@ -67,12 +87,17 @@ const posClass = (i: number) => {
     if (leaving.value) {
         if (pos === 0) return 'z-40 -translate-x-[70%] -rotate-12'; // keluar ke kiri
         if (pos === 1) return 'z-20 translate-x-8 -translate-y-2 rotate-6'; // geser ke kanan
-        return 'z-10 translate-x-4 -translate-y-1 rotate-3 scale-95';
+        if (pos === 2) return 'z-10 translate-x-4 -translate-y-1 rotate-3 scale-95';
+    } else {
+        if (pos === 0) return 'z-30 translate-x-0 translate-y-0 rotate-0 scale-100'; // depan
+        if (pos === 1) return 'z-20 translate-x-4 -translate-y-2 rotate-3'; // belakang (kanan)
+        if (pos === 2) return 'z-10 translate-x-0 translate-y-0 rotate-0 scale-95'; // paling belakang
     }
 
-    if (pos === 0) return 'z-30 translate-x-0 translate-y-0 rotate-0 scale-100'; // depan
-    if (pos === 1) return 'z-20 translate-x-4 -translate-y-2 rotate-3'; // belakang (kanan)
-    return 'z-10 translate-x-0 translate-y-0 rotate-0 scale-95'; // paling belakang (tengah)
+    // Past the third card: parked behind the deck, out of sight. The stack
+    // still shows three at a time, but it now works through every paslon
+    // instead of a fixed trio.
+    return 'z-0 scale-90 opacity-0';
 };
 
 // Overlay hitam hanya hilang di kartu paling depan
@@ -84,47 +109,22 @@ const overlayClass = (i: number) => (posOf(i) === 0 ? 'opacity-0' : 'opacity-60'
 const CARD = 70;
 const SIDE = (100 - CARD) / 2;
 
-interface ReelCard {
-    key: string;
-    src: string;
-    alt: string;
-}
-
-/**
- * The reel's cards: the real paslon artwork when it has been uploaded, and the
- * same designed placeholder desktop uses when it has not. A ballot portrait is
- * never shown here — it is a cut-out on white and looks like a broken image
- * among designed cards.
- */
-const source = computed<ReelCard[]>(() => {
-    if (props.candidates.length === 0) {
-        return placeholders.map((card) => ({ key: `placeholder-${card.id}`, src: card.img, alt: '' }));
-    }
-
-    return props.candidates.map((candidate) => ({
-        key: `paslon-${candidate.id}`,
-        src: candidate.showcase_image_url as string,
-        alt: `${candidate.position || 'Calon'} nomor urut ${candidate.number} — ${candidate.name_candidates}`,
-    }));
-});
-
-const reel = ref<ReelCard[]>([]);
 const slide = ref(0);
 const sliding = ref(true);
 
 let rewind: ReturnType<typeof setTimeout> | undefined;
 
 /**
- * The reel is the card list three times over, and it starts on the middle
- * copy. That is what guarantees a card on both sides from the very first
- * frame — a single copy leaves the opening shot lopsided, with nothing to the
- * left of the centred paslon.
+ * The reel is the deck three times over, starting on the middle copy. That is
+ * what guarantees a card on both sides from the very first frame — a single
+ * copy leaves the opening shot lopsided, with nothing to the left of the
+ * centred paslon.
  *
  * Reaching the last copy means the same card is centred again, so the position
- * can be reset to the middle without a transition and the loop never visibly
+ * resets to the middle without a transition and the loop never visibly
  * rewinds.
  */
-const loop = computed(() => [...reel.value, ...reel.value, ...reel.value]);
+const loop = computed(() => [...deck.value, ...deck.value, ...deck.value]);
 
 const trackStyle = computed(() => ({
     transform: `translateX(calc(${SIDE}% - ${slide.value * CARD}%))`,
@@ -146,16 +146,15 @@ const cardClass = (index: number) => {
 };
 
 const nextSlide = () => {
-    if (reel.value.length < 2) return;
+    if (deck.value.length < 2) return;
 
     slide.value += 1;
 
-    if (slide.value < reel.value.length * 2) return;
+    if (slide.value < deck.value.length * 2) return;
 
-    // Back to the middle copy the moment its first card is centred again.
     rewind = setTimeout(() => {
         sliding.value = false;
-        slide.value = reel.value.length;
+        slide.value = deck.value.length;
 
         // Two frames: one for the browser to apply the jump, one before the
         // transition is allowed back, or it animates the jump itself.
@@ -184,12 +183,12 @@ onMounted(() => {
     // Shuffled here rather than in setup: the server has no business picking an
     // order the client would then disagree with mid-hydration.
     //
-    // Placed without a transition: moving to the middle copy is bookkeeping,
-    // not motion, and animating it makes the reel visibly scoot across the
-    // screen the moment the page loads.
+    // Placed without a transition, because moving to the middle copy is
+    // bookkeeping, not motion, and animating it makes the reel visibly scoot
+    // across the screen the moment the page loads.
     sliding.value = false;
-    reel.value = shuffle(source.value);
-    slide.value = reel.value.length;
+    deck.value = shuffle(source.value);
+    slide.value = deck.value.length;
 
     requestAnimationFrame(() => requestAnimationFrame(() => (sliding.value = true)));
 
@@ -208,7 +207,7 @@ onBeforeUnmount(() => {
 });
 
 /** Fisher–Yates, on a copy. */
-function shuffle(items: ReelCard[]): ReelCard[] {
+function shuffle(items: DeckCard[]): DeckCard[] {
     const copy = [...items];
 
     for (let i = copy.length - 1; i > 0; i--) {
@@ -241,7 +240,9 @@ function shuffle(items: ReelCard[]): ReelCard[] {
                         shaving the number and the name off the sides.
                     -->
                     <div class="relative overflow-hidden rounded-2xl transition-transform duration-[600ms] ease-in-out" :class="cardClass(index)">
-                        <img :src="card.src" :alt="card.alt" loading="lazy" class="block h-auto w-full" />
+                        <img v-if="card.src" :src="card.src" :alt="card.alt" loading="lazy" class="block h-auto w-full" />
+                        <div v-else class="aspect-[3/4] w-full bg-gradient-to-br from-[#E4E4EA] to-[#C3C3CE]"></div>
+
                         <div
                             class="pointer-events-none absolute inset-0 bg-[#0F0F0F] transition-opacity duration-[600ms] ease-in-out"
                             :class="isCentre(index) ? 'opacity-0' : 'opacity-60'"
@@ -251,14 +252,15 @@ function shuffle(items: ReelCard[]): ReelCard[] {
             </div>
         </div>
 
-        <!-- DESKTOP: tumpukan kartu, tidak diubah -->
+        <!-- DESKTOP: tumpukan kartu -->
         <div
-            v-for="(c, i) in placeholders"
-            :key="c.id"
+            v-for="(card, i) in deck"
+            :key="card.key"
             class="absolute inset-0 hidden overflow-hidden rounded-2xl transition-all duration-[600ms] ease-in-out md:block"
             :class="posClass(i)"
         >
-            <img :src="c.img" class="h-full w-full object-cover" alt="" />
+            <img v-if="card.src" :src="card.src" :alt="card.alt" class="h-full w-full object-cover" />
+            <div v-else class="h-full w-full bg-gradient-to-br from-[#E4E4EA] to-[#C3C3CE]"></div>
 
             <!-- overlay #0F0F0F 60% -->
             <div class="pointer-events-none absolute inset-0 bg-[#0F0F0F] transition-opacity duration-[600ms] ease-in-out" :class="overlayClass(i)" />

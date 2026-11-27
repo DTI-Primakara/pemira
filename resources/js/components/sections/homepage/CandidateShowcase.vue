@@ -13,7 +13,7 @@ defineProps<{
         </p>
 
         <div v-for="election in elections" :key="election.id" class="flex w-full flex-col items-center justify-center gap-5 md:gap-8">
-            <div v-reveal class="flex flex-col items-center justify-center">
+            <div data-anim="up" class="flex flex-col items-center justify-center">
                 <h3 class="relative font-unbounded text-2xl leading-[1.5em] font-bold text-black sm:text-3xl md:text-4xl lg:text-5xl">
                     {{ election.shortLabel }}
                 </h3>
@@ -22,11 +22,10 @@ defineProps<{
                 </h4>
             </div>
 
-            <div class="md:flex-unwrap flex flex-row flex-wrap items-center justify-center gap-2 px-12 sm:gap-3 md:gap-6">
+            <div data-anim="stagger" class="md:flex-unwrap flex flex-row flex-wrap items-center justify-center gap-2 px-12 sm:gap-3 md:gap-6">
                 <template v-for="(candidate, index) in election.candidates" :key="candidate.id">
                     <img
                         v-if="candidate.image_url"
-                        v-reveal.zoom="120 + index * 110"
                         :src="candidate.image_url"
                         :alt="`${candidate.position || election.title} nomor urut ${candidate.number} — ${candidate.name_candidates}`"
                         loading="lazy"
@@ -35,7 +34,6 @@ defineProps<{
                     <!-- Keeps the row readable when a photo has not been uploaded yet. -->
                     <div
                         v-else
-                        v-reveal.zoom="120 + index * 110"
                         class="flex aspect-[3/4] w-[20vw] max-w-72 min-w-48 flex-col items-center justify-center gap-1 bg-slate-100 sm:min-w-36"
                     >
                         <span class="font-unbounded text-3xl font-bold text-slate-400">
